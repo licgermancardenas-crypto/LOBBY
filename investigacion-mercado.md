@@ -193,6 +193,97 @@ necesitar **métodos de pago locales** o la conversión se muere. Localización
 
 ---
 
+## 9. La punta de lanza (decisión)
+
+El error que mató a los competidores fue querer ser "para todos los gamers". La
+red gana clavando **un** caso de uso. Acá está el análisis y la decisión.
+
+### Los tres candidatos
+
+| Beachhead | Dolor real | Pagador cercano | Distribución | Dependencia |
+|---|---|---|---|---|
+| **A. Jugadores competitivos** (Valorant AR/MX) | Ser scouteado/fichado | **Débil** — orgs de esports pocas y recortando | Media | **Alta** (API Riot; Riot ya da el ladder Open Series/Game Changers) |
+| **B. Devs / creadores de juegos** (LATAM) | Portfolio para ser contratado (nearshore US/EU) | **Fuerte** — estudios/empresas pagan en USD (modelo Hitmarker) | Media | Baja |
+| **C. Streamers / creadores emergentes** (LATAM) | Ser descubierto + media kit para marcas | Medio — marcas pagan por audiencia segmentada, pero a escala | **Muy alta** — comparten su propio perfil = loop viral + SEO | Media (multi-plataforma, más resiliente que Riot solo) |
+
+**Datos que soportan el análisis:**
+- **Jugadores:** Riot ya opera el embudo amateur→pro en LATAM (Open Series,
+  Swift Cups, Game Changers, VCL). Pasión altísima, pero el pagador es flaco y
+  **el foso depende de una API revocable** (§7). Riot compite en tu terreno.
+- **Devs:** Brasil solo tiene +500k devs y ~227k graduados STEM/año; LATAM es
+  región emergente de gaming. La demanda **paga en USD** (nearshore, estudios).
+  Pero el perfil es **sustituible** por GitHub/LinkedIn y el dev no auto-difunde.
+- **Creadores:** LATAM = **28% de las horas vistas en Twitch, +40% interanual**.
+  El descubrimiento orgánico "es casi inexistente" para el chico → dolor ardiente.
+  Y **auto-difunden su perfil** (link-in-bio), lo que resuelve el cold-start solo.
+
+### Decisión: **Creadores/streamers emergentes de gaming, en Argentina**
+
+> **Persona:** creador de gaming emergente/medio (≈1k–50k seguidores),
+> multi-plataforma (Twitch/YouTube/TikTok), que **empieza a recibir interés de
+> marcas pero no tiene forma profesional de mostrarse**.
+>
+> **País semilla:** Argentina (home-field del fundador → community-building
+> concéntrico, cultura creadora fuerte, costo de adquisición bajo). México es el
+> mercado de **escala** posterior (más volumen y plata de marcas).
+>
+> **Dolor ardiente:** el descubrimiento está roto y no tienen **media kit**: no
+> pueden probarle a una marca quién los sigue ni por qué valen.
+>
+> **Producto-cuña:** el **perfil verificado, indexable (SEO) y público en
+> `/[handle]`** que funciona como su **link-in-bio + media kit vivo** —
+> agregando sus stats de audiencia de varias plataformas.
+>
+> **"Aha moment":** un perfil que **les consigue algo** — que los descubran,
+> que una marca los contacte, que reemplacen su Linktree por algo que sí prueba
+> su audiencia.
+>
+> **Pagador (fase 2):** marcas/agencias que quieren **audiencias de creadores
+> LATAM segmentadas** (encaja con tu analítica nivel 2). Creadores gratis.
+
+### Por qué NO los otros primero
+
+- **Jugadores no primero:** pagador débil + **dependencia crítica de la API de
+  Riot** + Riot ya provee el ladder. Alta pasión, bajo negocio y alto riesgo de
+  plataforma. Es Fase 3, cuando la infra de stats se justifique.
+- **Devs no primero:** es el **mejor pagador**, pero el perfil compite de frente
+  con LinkedIn/GitHub (sustituible) y el dev **no auto-difunde** → no aprovecha
+  la ventaja estructural de LOBBY (perfiles SEO que se comparten). Es la **Fase 2
+  natural**: el motor de monetización.
+
+### Por qué creadores encaja con LOBBY específicamente
+
+LOBBY ya está arquitecturado con **perfiles SSR indexables en `/[handle]`** —
+eso es adquisición orgánica por SEO **y** un loop viral cuando cada creador
+comparte su perfil. Ese activo rinde al máximo con la persona que **más
+auto-difunde**: el creador. Es la única punta de lanza que resuelve el
+cold-start (§2, problema #2) por diseño, no a fuerza de marketing.
+
+### Secuencia (de la cuña a la plataforma)
+
+1. **Fase 1 — Creadores AR.** Perfil-media-kit + stats de audiencia + SEO.
+   Métrica de éxito: **% de perfiles "vivos"** (completos y compartidos) y
+   **perfiles que generan un contacto de marca**. Aha antes de monetizar.
+2. **Fase 2 — Devs LATAM + marcas pagando.** Se enciende el pagador fuerte
+   (estudios contratan, marcas compran segmentación).
+3. **Fase 3 — Jugadores competitivos + stats verificadas (Riot/Steam).** El foso
+   duro, cuando el volumen lo justifique y con dependencia diversificada.
+
+### GTM — primeros 100 usuarios
+
+- Sembrar **1 comunidad/país concreto** (Discord de creadores AR, eventos
+  locales, alianzas con GGTech / programas de creadores de TikTok).
+- **Concierge:** armarles el perfil a mano a los primeros 20–50 creadores.
+- Que cada uno **reemplace su link-in-bio** por su `/[handle]` → distribución
+  gratis a su propia audiencia.
+
+### La única variable a tu criterio
+
+**País semilla: Argentina (recomendado, home-field) vs. México (más escala y
+plata de marcas).** El resto de la definición se sostiene igual.
+
+---
+
 ## Fuentes
 
 - [Forbes — 'LinkedIn For Gamers' (eFuse) $6M](https://www.forbes.com/sites/mattgardner1/2021/02/18/linkedin-for-gamers-secures-6-million-investment-from-nfl-and-nba-stars/)
@@ -214,3 +305,7 @@ necesitar **métodos de pago locales** o la conversión se muere. Localización
 - [Riot Games Developer Policies](https://developer.riotgames.com/policies/general)
 - [Antom — Brazil's gaming boom: payments opportunities](https://knowledge.antom.com/brazils-gaming-boom-unlocking-the-new-frontier-of-opportunities)
 - [EBANX/EPAG — Gaming payment processing in LATAM](https://www.epag.com/en/blog/gaming-payment-processing-latam-risk-perspective/)
+- [Twitch Blog — Supporting Streamers in Latin America (28% horas, +40%)](https://blog.twitch.tv/en/2025/05/19/supporting-streamers-in-latin-america/)
+- [Streams Charts — Twitch para nuevos streamers: el problema de descubrimiento](https://streamscharts.com/news/twitch-still-good-new-streamers-data-based-answer-2026)
+- [VCT Game Changers LATAM — Open Series (ladder amateur de Riot)](https://opengc.arenagg.com/en)
+- [Combine — 2025 Global Gaming Employment Outlook (talento LATAM)](https://combinegr.com/2025-global-gaming-employment-outlook-trends-talent-strategy/)
