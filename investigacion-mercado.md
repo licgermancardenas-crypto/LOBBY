@@ -364,6 +364,81 @@ para el pagador de Fase 2.
 
 ---
 
+## 11. MVP recortado — Fase 1 (creadores)
+
+Regla: **todo lo que no sirva para que un creador arme su media kit y lo comparta
+se difiere.** El schema actual tiene 11 tablas; la mayoría son para jugadores/devs
+(fases 2-3). Recorte:
+
+### Tablas del schema actual
+
+| Tabla | Decisión | Por qué |
+|---|---|---|
+| `profiles` | ✅ **Keep** | La identidad base. Para el MVP, `profile_type` default = `streamer`. |
+| `links` | ✅ **Keep (protagonista)** | Es el link-in-bio. El corazón de la cuña. |
+| `games` | ✅ Keep (light) | "De qué juegos hago contenido". Sin rank. |
+| `profile_games` | ✅ Keep (simplificado) | Solo el juego, sin `rank`/`role` competitivo. |
+| `media` | 🟡 Keep mínimo | 1–3 clips/highlights. Nada de portfolios pesados. |
+| `events` | ✅ **Keep** | Analítica desde el día uno (regla de oro). |
+| `experiences` | ❌ **Diferir** | Torneos/trabajos = jugadores/devs (fase 2-3). |
+| `teams` / `team_members` | ❌ **Diferir** | Esports (fase 3). |
+| `follows` | ❌ **Diferir** | Grafo social sin masa = ruido. No con 100 users. |
+
+### Lo que hay que AGREGAR (la diferencia real)
+
+**`channel_stats`** — el núcleo del media kit, hoy no existe en el schema.
+
+```
+channel_stats
+├── profile_id   FK
+├── platform     (twitch | youtube | tiktok | kick | instagram)
+├── handle
+├── followers
+├── avg_views    (opcional)
+├── verified     boolean  -- false = auto-reportado; true = vía API (fase 2/3)
+└── updated_at
+```
+
+Arranca **auto-reportado + link al canal** (checkeable a ojo, como cualquier
+media kit real). La **verificación por API** (Riot/Steam/Twitch) es Fase 2/3 —
+recordá que el foso es frágil (§7), no lo pongas en el camino crítico del MVP.
+
+### Rutas (app/)
+
+| Ruta | Estado | Nota |
+|---|---|---|
+| `/[handle]` | ✅ existe | **La pieza #1**: el media kit público e indexable. Sumar bloque de `channel_stats`. |
+| `/` , `/login` , `/registro` , `/panel` | ✅ existen | OK para MVP. |
+| `/onboarding` | 🟡 ampliar | Capturar handle, avatar, bio, **links + stats de audiencia** (no solo perfil base). |
+| `/editar-perfil` | ❌ **construir** | Hoy la carpeta está vacía. **Bloqueante**: sin esto el creador no puede mantener su media kit. |
+| `/buscar` | 🟡 secundario | Sirve para descubrimiento, pero no es el foco del MVP. |
+
+### Definición de "listo" (creador MVP)
+
+Un creador puede, en **< 10 minutos**:
+1. Registrarse (email/Google/Discord — ya funciona).
+2. Armar su perfil: handle, avatar, bio, **sus links** y **sus números de
+   audiencia por plataforma**.
+3. Tener una **URL pública** (`lobby/[handle]`) que se ve profesional, carga
+   rápido (SSR) y **la puede pegar como link-in-bio**.
+4. Editarla cuando quiera.
+
+Eso es todo. Si algo no sirve a esos 4 pasos, no va en Fase 1.
+
+### Trabajo de dev concreto
+
+1. **Migración nueva:** tabla `channel_stats` + su RLS (lectura pública,
+   escritura del dueño).
+2. **Construir `/editar-perfil`** (gestión de links + stats + avatar).
+3. **Ampliar onboarding** para capturar links y stats.
+4. **Sumar bloque de audiencia** al perfil público `/[handle]`.
+5. **Instrumentar eventos** (`signup_completed`, `profile_completed`,
+   `profile_viewed`, `external_link_clicked`).
+6. Diferir (borrar del camino crítico): `experiences`, `teams`, `follows`, y toda
+   verificación por API externa.
+
+---
+
 ## Fuentes
 
 - [Forbes — 'LinkedIn For Gamers' (eFuse) $6M](https://www.forbes.com/sites/mattgardner1/2021/02/18/linkedin-for-gamers-secures-6-million-investment-from-nfl-and-nba-stars/)
