@@ -277,10 +277,90 @@ cold-start (§2, problema #2) por diseño, no a fuerza de marketing.
 - Que cada uno **reemplace su link-in-bio** por su `/[handle]` → distribución
   gratis a su propia audiencia.
 
-### La única variable a tu criterio
+### País semilla: **Argentina (fijado)**
 
-**País semilla: Argentina (recomendado, home-field) vs. México (más escala y
-plata de marcas).** El resto de la definición se sostiene igual.
+Argentina es la semilla: home-field del fundador, cultura creadora fortísima
+(Coscu Army, Spreen, Momo, Davoo) y ecosistema concentrado (Argentina Game Show,
+EVA, comunidades en Discord). **México queda como mercado de escala** para
+después. Decisión tomada — no se reabre.
+
+---
+
+## 10. GTM — los primeros 100 creadores (Argentina)
+
+**Objetivo:** 100 creadores emergentes argentinos con **perfil vivo** (completo,
+con stats de audiencia, y usado como link-in-bio real) en ~90 días. No es
+"registrar 100": es 100 que **usan** el perfil y lo comparten.
+
+### Perfil objetivo (a quién sí)
+
+- **≈1k–50k seguidores** multi-plataforma (Twitch/YouTube/TikTok/Kick).
+- Afiliado de Twitch o creciendo hacia ahí; **ya recibe (o busca) canjes/marcas**.
+- Activo y con identidad propia (streamea con horario, tiene comunidad chica).
+- **NO** los top (Coscu/Spreen ya tienen equipo y media kit) — apuntamos al
+  **emergente que tiene el dolor sin resolver**.
+
+### El pitch (una frase)
+
+> *"Tu media kit verificado en una sola URL. Reemplazá tu Linktree por un perfil
+> que le prueba a las marcas quién te sigue — y que Google indexa."*
+
+El gancho es el **dolor concreto**: cuando una marca les escribe, hoy mandan un
+PDF armado a mano o capturas sueltas. LOBBY es el artefacto profesional que no
+tienen.
+
+### Dónde encontrarlos (canales concretos AR)
+
+1. **Discords de comunidades.** Argentina Game Show (10k+ miembros: creadores,
+   orgs, marcas), comunidades de streamers medianos, servidores de "casas" y
+   colectivos emergentes. Entrar, aportar, identificar a los del rango objetivo.
+2. **Búsqueda directa.** Listar creadores AR por rango de seguidores en Twitch/
+   TikTok/Kick y hacer outreach 1-a-1 (DM).
+3. **Eventos presenciales.** **Argentina Game Show (oct, Tecnópolis)**, EVA,
+   meetups. Concierge en vivo: armales el perfil ahí mismo.
+4. **Referidos.** Cada creador conoce otros creadores de su nivel → invitación.
+
+### Las 3 olas (0 → 100)
+
+| Ola | Rango | Táctica | Meta |
+|---|---|---|---|
+| **1. Red directa** | 0–15 | Fundador arma a mano el perfil de creadores que ya conoce/alcanza. Feedback crudo. | Validar el "aha" |
+| **2. Una comunidad a fondo** | 15–50 | Elegir **1 Discord/colectivo** y volverse parte. Concierge: "te lo armo en 10 min con tus stats". | Densidad en un nicho |
+| **3. Loop + evento + SEO** | 50–100 | Referidos + presencia en AGS/EVA + los primeros perfiles empiezan a rankear en Google. | Que crezca sin empujar cada uno |
+
+### El motor: concierge + loop viral
+
+- **Done-for-you los primeros ~50.** No los mandes a un formulario: armales el
+  perfil vos (avatar, bio, links, stats). Elimina la fricción y garantiza
+  perfiles "vivos".
+- **La condición de valor:** que **reemplacen su link-in-bio** por su `/[handle]`.
+  Ahí se dispara la distribución: su audiencia (donde hay más creadores chicos)
+  ve el perfil → algunos se suman. **Loop viral que resuelve el cold-start.**
+- **Badge de "creador verificado"** + destaque en `/buscar` para los early
+  adopters. Estatus > features.
+
+### Plantilla de outreach (DM)
+
+> *"Hola [nombre], sigo lo que hacés en [plataforma]. Estoy armando LOBBY: un
+> perfil profesional para creadores de gaming en Argentina — tu media kit y tu
+> link-in-bio en una URL que Google indexa, con tus stats de audiencia. Te lo
+> armo yo en 10 minutos, gratis, y lo usás desde hoy. ¿Te tiro una mano?"*
+
+### Qué medir (y qué NO)
+
+- ✅ **% de perfiles vivos** (completos + link-in-bio reemplazado).
+- ✅ **Perfiles compartidos** por el propio creador (distribución real).
+- ✅ **Contactos de marca generados** vía el perfil (el aha que retiene).
+- ✅ **Referidos** (creador que trae creador).
+- ❌ **No** mirar "registros totales" (la métrica vanidosa que engañó a Zengaming
+  con sus 3M).
+
+### Regla de oro del GTM
+
+Instrumentá los **eventos de analítica desde el primer día** (`profile_completed`,
+`profile_viewed`, `external_link_clicked`, `signup_completed`). Con 100 creadores
+ya querés saber **qué perfiles atraen marcas** — es la materia prima del producto
+para el pagador de Fase 2.
 
 ---
 
@@ -309,3 +389,7 @@ plata de marcas).** El resto de la definición se sostiene igual.
 - [Streams Charts — Twitch para nuevos streamers: el problema de descubrimiento](https://streamscharts.com/news/twitch-still-good-new-streamers-data-based-answer-2026)
 - [VCT Game Changers LATAM — Open Series (ladder amateur de Riot)](https://opengc.arenagg.com/en)
 - [Combine — 2025 Global Gaming Employment Outlook (talento LATAM)](https://combinegr.com/2025-global-gaming-employment-outlook-trends-talent-strategy/)
+- [iProfesional — Argentina Game Show, el evento gamer más grande de la región](https://www.iprofesional.com/tecnologia/439034-el-evento-gamer-mas-grande-de-la-region-celebra-su-undecima-edicion-en-tecnopolis)
+- [Argentina Game Show — Discord (10k+ miembros)](https://discord.com/invite/agsx-1078383073974026250)
+- [Rosario3 — Influencers argentinos de gaming y streaming](https://www.rosario3.com/informaciongeneral/Gaming-streaming-y-redes-sociales-quienes-son-los-influencers-argentinos-que-conquistan-el-mundo-digital-20241209-0043.html)
+- [Forbes Argentina — plataformas invierten millones en streamers argentinos](https://www.forbesargentina.com/money/cuales-son-plataformas-batallan-e-invierten-millones-streamers-argentinos-n12471)
