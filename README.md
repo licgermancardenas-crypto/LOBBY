@@ -8,6 +8,9 @@ gamers, esports, creadores y streamers de LATAM.
 > ⚠️ Esta versión de Next.js tiene *breaking changes*. Antes de escribir código
 > nuevo, consultá las guías en `node_modules/next/dist/docs/` (ver `AGENTS.md`).
 
+📐 **Arquitectura completa:** ver [`ARQUITECTURA.md`](./ARQUITECTURA.md) — stack,
+modelo de datos, RLS, analítica, recomendaciones y fases del producto.
+
 ## Setup
 
 ### 1. Clonar e instalar
