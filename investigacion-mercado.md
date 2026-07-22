@@ -117,6 +117,82 @@ perfil" en vez de resolver un dolor**.
 
 ---
 
+## 5. Más post-mortems: la plata no salva (caso PlayVS)
+
+**PlayVS** levantó **US$96M** para infraestructura de esports en secundarias
+—un nicho real y acotado— y aun así se complicó. Sirve como caso de estudio:
+
+- **Fraude de identidad.** Permitió (2020+) que jugadores **no estudiantes**
+  entraran a ligas escolares; de ~1.700–2.000 inscriptos a una liga de Fortnite,
+  flageó 300–400 por falsear edad/estatus, y **no le avisó a Epic**. Dañó la
+  confianza con el publisher.
+- **Estrategia de exclusividad.** Usó deals de exclusividad para bloquear
+  competidores → escándalo público (Washington Post), acusaciones de
+  "strong-arming" a docentes.
+- **Despidos del 25%** (marzo 2023) y **el fundador dejó el cargo**.
+
+**Lecciones para LOBBY:**
+1. **El fraude de identidad es un riesgo central** de cualquier plataforma de
+   perfiles/stats. La **verificación** no es un lujo: es integridad del producto.
+   Perfiles falsos = confianza cero = las marcas no pagan.
+2. **No se gana por lock-in/exclusividad, se gana por producto.** Intentar
+   controlar el ecosistema genera backlash.
+3. **US$96M + nicho claro no garantizan nada** si la ejecución y la confianza
+   fallan. Tu ventaja no será el capital: será el foco y la integridad del dato.
+
+## 6. El lado de la demanda: ¿quién paga realmente?
+
+La monetización es B2B, pero **la demanda está fragmentada y hay que elegir bien
+a quién le vendés**:
+
+- **Equipos/orgs de esports** — manejan su propio presupuesto de reclutamiento,
+  pero están **recortando** (funding winter) y son pocos. Pagadores flacos.
+- **Estudios y empresas de gaming** — son los clientes que sostienen a
+  **Hitmarker** (contratación de roles de industria: marketing, dev, diseño,
+  broadcasting). Mercado más grande y estable que las orgs de esports.
+- **Marcas/sponsors** — pagan por **acceso a audiencia y segmentación**, no por
+  reclutar. Encaja con tu nivel 2 de analítica (segmentos para marcas).
+
+> Implicación: el pagador más sólido no es "el equipo de esports que ficha
+> jugadores", sino **empresas de gaming que contratan** y **marcas que buscan
+> talento/creadores segmentados**. Diseñá el lado de demanda para ellos.
+
+## 7. El foso frágil: la letra chica de la API de Riot
+
+Las **stats verificadas** son tu foso, pero apoyarlo en la API de Riot tiene
+condiciones duras que hay que asumir desde el diseño:
+
+- Licencia **revocable, no transferible**; **un solo producto por production key**
+  (no podés correr varios proyectos con la misma).
+- Hay que **registrar el producto** y obtener **estado "approved"**.
+- **Obligatorio un tier gratuito para jugadores**; si cobrás, el contenido debe
+  ser **"transformativo"** (no revender el dato crudo).
+- **Rate limits por región**.
+- Violar políticas → **suspensión, cancelación o acción legal**.
+
+**Implicación:** el foso **depende de un tercero que puede cortarlo**. Mitigá:
+(a) no dependas de una sola API — diversificá (Steam, Twitch/YouTube, Faceit);
+(b) agregá valor **por encima** del dato (contexto, historial, reputación,
+portfolio) para que el producto sobreviva aunque cambie una API; (c) cumplí las
+políticas al pie (tier gratis, uso transformativo) desde el día uno.
+
+## 8. Amenaza geográfica: monetizar en LATAM es difícil
+
+Tu ventaja (LATAM sin capa de identidad) viene con un costo:
+
+- **ARPU bajo** — por debajo del promedio global; ingreso disponible menor.
+- **Fricción de pagos** — estrategia "solo tarjeta" es incompleta: hace falta
+  **Pix, tarjetas locales, e-wallets y efectivo/prepago**. Población sub-bancada.
+- **El mercado crece** (+13% en mobile 2024, US$1.5B) pero la conversión a pago
+  exige **stack de pagos local**, no Stripe global y listo.
+
+**Implicación:** reforzá que **el que paga es B2B en USD** (empresas/marcas), no
+el gamer LATAM. Si en algún momento cobrás a usuarios (perfil premium), vas a
+necesitar **métodos de pago locales** o la conversión se muere. Localización
+(idioma + pagos) no es opcional en la región.
+
+---
+
 ## Fuentes
 
 - [Forbes — 'LinkedIn For Gamers' (eFuse) $6M](https://www.forbes.com/sites/mattgardner1/2021/02/18/linkedin-for-gamers-secures-6-million-investment-from-nfl-and-nba-stars/)
@@ -130,3 +206,11 @@ perfil" en vez de resolver un dolor**.
 - [Statista — video gaming in Latin America](https://www.statista.com/topics/13859/video-gaming-in-latin-america/)
 - [Think with Google — industria gamer en Latinoamérica](https://www.thinkwithgoogle.com/intl/es-419/insights/tendencias-de-consumo/industria-gamer-latinoamerica/)
 - [Nivel Gamer — plataforma esports creada en LATAM](https://nivelgamer.com/la-primera-plataforma-internacional-de-esports-creada-en-america-latina-ya-abierta/)
+- [Jacob Wolf Report — PlayVS and Player Fraud: An Epic Fiasco](https://www.jacobwolf.report/p/playvs-player-fraud-epic-fiasco)
+- [Washington Post — PlayVS strong-arms teachers](https://www.washingtonpost.com/video-games/esports/2022/04/11/playvs-high-school-esports/)
+- [The Esports Advocate — Layoffs hit PlayVS (marzo 2023)](https://esportsadvocate.net/2023/03/playvs-layoffs-march2023/)
+- [TechCrunch — PlayVS $50M Series C ($96M total)](https://techcrunch.com/2019/09/18/playvs-picks-up-50-million-series-c-to-build-out-high-school-esports)
+- [Riot Developer Portal — API Terms and Conditions](https://developer.riotgames.com/terms)
+- [Riot Games Developer Policies](https://developer.riotgames.com/policies/general)
+- [Antom — Brazil's gaming boom: payments opportunities](https://knowledge.antom.com/brazils-gaming-boom-unlocking-the-new-frontier-of-opportunities)
+- [EBANX/EPAG — Gaming payment processing in LATAM](https://www.epag.com/en/blog/gaming-payment-processing-latam-risk-perspective/)
