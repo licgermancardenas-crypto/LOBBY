@@ -144,6 +144,90 @@ Diseño en dos niveles: una **tabla núcleo** común a todas las personas, y
 **tablas de detalle** que se especializan según el tipo de perfil. Así no hay
 que rehacer la base cuando se elija la punta de lanza.
 
+### Diagrama entidad-relación
+
+```mermaid
+erDiagram
+    PROFILES ||--o{ PROFILE_GAMES : juega
+    PROFILES ||--o{ LINKS : tiene
+    PROFILES ||--o{ EXPERIENCES : registra
+    PROFILES ||--o{ MEDIA : sube
+    PROFILES ||--o{ TEAM_MEMBERS : integra
+    PROFILES ||--o{ EVENTS : genera
+    PROFILES ||--o{ FOLLOWS : "sigue (follower)"
+    PROFILES ||--o{ FOLLOWS : "es seguido (followed)"
+    GAMES    ||--o{ PROFILE_GAMES : aparece
+    TEAMS    ||--o{ TEAM_MEMBERS : agrupa
+
+    PROFILES {
+        uuid      id PK "→ auth.users"
+        text      handle UK
+        text      display_name
+        text      profile_type "player|dev|streamer|org"
+        text      country
+        text      bio
+        text      avatar_url
+        timestamptz created_at
+    }
+    GAMES {
+        uuid id PK
+        text name
+        text slug UK
+    }
+    PROFILE_GAMES {
+        uuid   id PK
+        uuid   profile_id FK
+        uuid   game_id FK
+        text   role
+        text   rank
+    }
+    LINKS {
+        uuid id PK
+        uuid profile_id FK
+        text platform
+        text url
+    }
+    EXPERIENCES {
+        uuid id PK
+        uuid profile_id FK
+        text type "job|tournament|project|education"
+        text title
+        text org
+        date start_date
+        date end_date
+    }
+    MEDIA {
+        uuid id PK
+        uuid profile_id FK
+        text type "clip|screenshot|portfolio"
+        text storage_path
+        text caption
+    }
+    TEAMS {
+        uuid id PK
+        text name
+        text country
+    }
+    TEAM_MEMBERS {
+        uuid id PK
+        uuid team_id FK
+        uuid profile_id FK
+        text role
+    }
+    FOLLOWS {
+        uuid follower_id FK
+        uuid followed_id FK
+    }
+    EVENTS {
+        bigint id PK
+        uuid   profile_id FK "null si anónimo"
+        text   session_id
+        text   name
+        jsonb  properties
+        timestamptz created_at
+    }
+```
+
 ### Tablas
 
 - **`profiles`** — La identidad base. `handle` único (la URL pública),
