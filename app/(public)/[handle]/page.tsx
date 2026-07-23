@@ -1,11 +1,28 @@
 import { createClient } from "@/lib/supabase/server"
 import { notFound } from "next/navigation"
 import type { Metadata } from "next"
-import type { Profile, ProfileGame, Game, Link as ProfileLink } from "@/types/database"
+import type { Profile, ProfileGame, Game, Link as ProfileLink, ChannelStat } from "@/types/database"
 
 type ProfileWithRelations = Profile & {
   profile_games: (ProfileGame & { games: Game | null })[]
   links: ProfileLink[]
+  channel_stats: ChannelStat[]
+}
+
+const PLATFORM_LABELS: Record<string, string> = {
+  twitch: "Twitch",
+  youtube: "YouTube",
+  tiktok: "TikTok",
+  kick: "Kick",
+  instagram: "Instagram",
+  x: "X",
+}
+
+function formatCount(n: number | null): string {
+  if (n === null) return "—"
+  if (n >= 1_000_000) return `${(n / 1_000_000).toFixed(1).replace(/\.0$/, "")}M`
+  if (n >= 1_000) return `${(n / 1_000).toFixed(1).replace(/\.0$/, "")}K`
+  return n.toString()
 }
 
 type Props = { params: Promise<{ handle: string }> }
@@ -34,7 +51,7 @@ export default async function ProfilePage({ params }: Props) {
 
   const { data } = await supabase
     .from("profiles")
-    .select(`*, profile_games (*, games (name, slug)), links (*)`)
+    .select(`*, profile_games (*, games (name, slug)), links (*), channel_stats (*)`)
     .eq("handle", handle)
     .single()
 
@@ -68,6 +85,31 @@ export default async function ProfilePage({ params }: Props) {
       {/* Bio */}
       {profile.bio && (
         <p className="leading-relaxed">{profile.bio}</p>
+      )}
+
+      {/* Audiencia (media kit) */}
+      {profile.channel_stats?.length > 0 && (
+        <section className="space-y-2">
+          <h2 className="text-sm font-semibold uppercase tracking-wider text-[var(--muted-foreground)]">
+            Audiencia
+          </h2>
+          <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+            {profile.channel_stats.map((stat) => (
+              <div
+                key={stat.id}
+                className="p-4 bg-[var(--card)] border border-[var(--border)] rounded-xl"
+              >
+                <p className="text-[var(--muted-foreground)] text-xs uppercase tracking-wider">
+                  {PLATFORM_LABELS[stat.platform] ?? stat.platform}
+                </p>
+                <p className="text-2xl font-bold mt-1">{formatCount(stat.followers)}</p>
+                <p className="text-xs text-[var(--muted-foreground)]">
+                  seguidores{stat.handle ? ` · ${stat.handle}` : ""}
+                </p>
+              </div>
+            ))}
+          </div>
+        </section>
       )}
 
       {/* Juegos */}

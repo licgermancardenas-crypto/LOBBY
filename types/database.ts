@@ -3,6 +3,8 @@
 
 export type ProfileType = "player" | "dev" | "streamer" | "org"
 
+export type Platform = "twitch" | "youtube" | "tiktok" | "kick" | "instagram" | "x"
+
 export type Profile = {
   id: string
   handle: string
@@ -53,6 +55,17 @@ export type Media = {
   caption: string | null
 }
 
+export type ChannelStat = {
+  id: string
+  profile_id: string
+  platform: Platform
+  handle: string | null
+  followers: number | null
+  avg_views: number | null
+  verified: boolean
+  updated_at: string
+}
+
 export type TeamMember = {
   id: string
   team_id: string
@@ -96,6 +109,15 @@ export type Database = {
         Row: Link
         Insert: Link
         Update: Partial<Link>
+      }
+      channel_stats: {
+        Row: ChannelStat
+        Insert: Omit<ChannelStat, "id" | "verified" | "updated_at"> & {
+          id?: string
+          verified?: boolean
+          updated_at?: string
+        }
+        Update: Partial<Omit<ChannelStat, "id" | "profile_id">>
       }
       experiences: {
         Row: Experience
