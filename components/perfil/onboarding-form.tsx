@@ -4,6 +4,13 @@ import { useState } from "react"
 import { createClient } from "@/lib/supabase/client"
 import { useRouter } from "next/navigation"
 import type { ProfileType } from "@/types/database"
+import {
+  AudienceEditor,
+  LinksEditor,
+  toInt,
+  type LinkRow,
+  type StatRow,
+} from "@/components/perfil/media-inputs"
 
 const PROFILE_TYPES: { value: ProfileType; label: string; desc: string }[] = [
   { value: "player", label: "Jugador", desc: "Esports, competitivo, torneos" },
@@ -18,6 +25,8 @@ export function OnboardingForm({ userId }: { userId: string }) {
   const [profileType, setProfileType] = useState<ProfileType>("player")
   const [country, setCountry] = useState("")
   const [bio, setBio] = useState("")
+  const [links, setLinks] = useState<LinkRow[]>([])
+  const [stats, setStats] = useState<StatRow[]>([])
   const [error, setError] = useState<string | null>(null)
   const [loading, setLoading] = useState(false)
   const router = useRouter()
@@ -47,6 +56,28 @@ export function OnboardingForm({ userId }: { userId: string }) {
       }
       setLoading(false)
       return
+    }
+
+    // Links y stats son opcionales: best-effort, no bloquean el onboarding.
+    // El perfil ya existe; lo que falte se completa después en /editar-perfil.
+    const cleanLinks = links
+      .filter((l) => l.platform.trim() && l.url.trim())
+      .map((l) => ({ profile_id: userId, platform: l.platform.trim(), url: l.url.trim() }))
+    if (cleanLinks.length) {
+      await supabase.from("links").insert(cleanLinks)
+    }
+
+    const cleanStats = stats
+      .filter((s) => s.platform)
+      .map((s) => ({
+        profile_id: userId,
+        platform: s.platform,
+        handle: s.handle.trim() || null,
+        followers: toInt(s.followers),
+        avg_views: toInt(s.avg_views),
+      }))
+    if (cleanStats.length) {
+      await supabase.from("channel_stats").insert(cleanStats)
     }
 
     router.push("/panel")
@@ -129,6 +160,15 @@ export function OnboardingForm({ userId }: { userId: string }) {
           className="w-full px-4 py-3 bg-[var(--muted)] border border-[var(--border)] rounded-lg text-sm focus:outline-none focus:border-[var(--accent)] resize-none"
         />
         <p className="text-xs text-[var(--muted-foreground)] text-right">{bio.length}/300</p>
+      </div>
+
+      {/* Audiencia y links — opcionales, se pueden completar después */}
+      <div className="pt-2 border-t border-[var(--border)] space-y-6">
+        <p className="text-xs text-[var(--muted-foreground)]">
+          Opcional — podés completarlo ahora o más tarde desde tu perfil.
+        </p>
+        <AudienceEditor stats={stats} onChange={setStats} />
+        <LinksEditor links={links} onChange={setLinks} />
       </div>
 
       {error && <p className="text-red-400 text-sm">{error}</p>}
