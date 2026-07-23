@@ -2,7 +2,7 @@
 
 import { useState } from "react"
 import { createClient } from "@/lib/supabase/client"
-import { useRouter } from "next/navigation"
+import { track } from "@/lib/analytics"
 
 export function RegisterForm() {
   const [email, setEmail] = useState("")
@@ -28,6 +28,7 @@ export function RegisterForm() {
       setLoading(false)
       return
     }
+    await track("signup_completed", { properties: { method: "email" } })
     setSuccess(true)
     setLoading(false)
   }

@@ -1,6 +1,8 @@
 import { createClient } from "@/lib/supabase/server"
 import { notFound } from "next/navigation"
 import type { Metadata } from "next"
+import { TrackEvent } from "@/components/analytics/track-event"
+import { TrackedLink } from "@/components/analytics/tracked-link"
 import type { Profile, ProfileGame, Game, Link as ProfileLink, ChannelStat } from "@/types/database"
 
 type ProfileWithRelations = Profile & {
@@ -60,6 +62,8 @@ export default async function ProfilePage({ params }: Props) {
 
   return (
     <main className="max-w-2xl mx-auto px-4 py-12 space-y-8">
+      <TrackEvent name="profile_viewed" profileId={profile.id} properties={{ handle }} />
+
       {/* Header */}
       <div className="flex items-start gap-4">
         {profile.avatar_url ? (
@@ -139,15 +143,15 @@ export default async function ProfilePage({ params }: Props) {
           </h2>
           <div className="flex flex-wrap gap-3">
             {profile.links.map((link) => (
-              <a
+              <TrackedLink
                 key={link.id}
                 href={link.url}
-                target="_blank"
-                rel="noopener noreferrer"
+                profileId={profile.id}
+                properties={{ handle, platform: link.platform, url: link.url }}
                 className="text-[var(--accent)] hover:underline text-sm"
               >
                 {link.platform}
-              </a>
+              </TrackedLink>
             ))}
           </div>
         </section>

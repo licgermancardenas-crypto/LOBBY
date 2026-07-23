@@ -1,6 +1,7 @@
 import { createClient } from "@/lib/supabase/server"
 import Link from "next/link"
 import type { Profile } from "@/types/database"
+import { TrackEvent } from "@/components/analytics/track-event"
 
 type SearchParams = Promise<{ juego?: string; pais?: string; tipo?: string; q?: string }>
 
@@ -20,8 +21,17 @@ export default async function BuscarPage({ searchParams }: { searchParams: Searc
   const { data } = await query
   const profiles = (data ?? []) as Pick<Profile, "handle" | "display_name" | "profile_type" | "country" | "avatar_url" | "bio">[]
 
+  const hasQuery = Boolean(q || tipo || pais)
+
   return (
     <main className="max-w-5xl mx-auto px-4 py-12 space-y-8">
+      {hasQuery && (
+        <TrackEvent
+          name="search_performed"
+          properties={{ q: q ?? null, tipo: tipo ?? null, pais: pais ?? null, results: profiles.length }}
+        />
+      )}
+
       <div className="space-y-1">
         <h1 className="text-3xl font-bold">Explorar perfiles</h1>
         <p className="text-[var(--muted-foreground)]">

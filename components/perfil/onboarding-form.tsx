@@ -11,6 +11,7 @@ import {
   type LinkRow,
   type StatRow,
 } from "@/components/perfil/media-inputs"
+import { track } from "@/lib/analytics"
 
 const PROFILE_TYPES: { value: ProfileType; label: string; desc: string }[] = [
   { value: "player", label: "Jugador", desc: "Esports, competitivo, torneos" },
@@ -79,6 +80,15 @@ export function OnboardingForm({ userId }: { userId: string }) {
     if (cleanStats.length) {
       await supabase.from("channel_stats").insert(cleanStats)
     }
+
+    await track("profile_completed", {
+      profileId: userId,
+      properties: {
+        profile_type: profileType,
+        links: cleanLinks.length,
+        channels: cleanStats.length,
+      },
+    })
 
     router.push("/panel")
     router.refresh()
