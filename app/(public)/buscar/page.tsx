@@ -15,7 +15,7 @@ type ResultRow = Pick<
   Profile,
   "handle" | "display_name" | "profile_type" | "country" | "avatar_url" | "bio" | "created_at"
 > & {
-  channel_stats: { followers: number | null }[]
+  channel_stats: { followers: number | null; verified: boolean }[]
 }
 
 /** Formatea audiencia de forma compacta: 1234 → 1.2K, 2500000 → 2.5M. */
@@ -40,7 +40,7 @@ export default async function BuscarPage({ searchParams }: { searchParams: Searc
   let query = supabase
     .from("profiles")
     .select(
-      "handle, display_name, profile_type, country, avatar_url, bio, created_at, channel_stats(followers)"
+      "handle, display_name, profile_type, country, avatar_url, bio, created_at, channel_stats(followers, verified)"
     )
     .limit(200)
 
@@ -66,6 +66,7 @@ export default async function BuscarPage({ searchParams }: { searchParams: Searc
   const withAudience = rows.map((r) => ({
     ...r,
     audience: r.channel_stats.reduce((sum, c) => sum + (c.followers ?? 0), 0),
+    verified: r.channel_stats.some((c) => c.verified),
   }))
 
   const sortByRecent = orden === "recientes"
@@ -180,7 +181,12 @@ export default async function BuscarPage({ searchParams }: { searchParams: Searc
               )}
               <div className="flex items-center gap-2 pt-1 text-xs">
                 {profile.audience > 0 && (
-                  <span className="px-2 py-0.5 rounded-full bg-[var(--muted)] border border-[var(--border)] font-medium">
+                  <span className="px-2 py-0.5 rounded-full bg-[var(--muted)] border border-[var(--border)] font-medium flex items-center gap-1">
+                    {profile.verified && (
+                      <span className="text-[var(--accent)]" title="Audiencia verificada">
+                        ✓
+                      </span>
+                    )}
                     {formatAudience(profile.audience)} seguidores
                   </span>
                 )}

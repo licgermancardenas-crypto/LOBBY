@@ -145,9 +145,19 @@ export default async function ProfilePage({ params }: Props) {
                 key={stat.id}
                 className="p-4 bg-[var(--card)] border border-[var(--border)] rounded-xl"
               >
-                <p className="text-[var(--muted-foreground)] text-xs uppercase tracking-wider">
-                  {PLATFORM_LABELS[stat.platform] ?? stat.platform}
-                </p>
+                <div className="flex items-center gap-1.5">
+                  <p className="text-[var(--muted-foreground)] text-xs uppercase tracking-wider">
+                    {PLATFORM_LABELS[stat.platform] ?? stat.platform}
+                  </p>
+                  {stat.verified && (
+                    <span
+                      title="Audiencia verificada"
+                      className="text-[var(--accent)] text-xs font-semibold"
+                    >
+                      ✓
+                    </span>
+                  )}
+                </div>
                 <p className="text-2xl font-bold mt-1">{formatCount(stat.followers)}</p>
                 <p className="text-xs text-[var(--muted-foreground)]">
                   seguidores{stat.handle ? ` · ${stat.handle}` : ""}
