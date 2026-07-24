@@ -7,7 +7,14 @@ import type { Profile, Link as ProfileLink, ChannelStat } from "@/types/database
 // Página autenticada que monta un form con el cliente Supabase: no prerenderizar.
 export const dynamic = "force-dynamic"
 
-type Props = { searchParams: Promise<{ twitch?: string; youtube?: string }> }
+type Props = {
+  searchParams: Promise<{
+    twitch?: string
+    youtube?: string
+    tiktok?: string
+    instagram?: string
+  }>
+}
 
 function connectBanner(
   platform: string,
@@ -22,8 +29,12 @@ function connectBanner(
 }
 
 export default async function EditarPerfilPage({ searchParams }: Props) {
-  const { twitch, youtube } = await searchParams
-  const banner = connectBanner("Twitch", twitch) ?? connectBanner("YouTube", youtube)
+  const { twitch, youtube, tiktok, instagram } = await searchParams
+  const banner =
+    connectBanner("Twitch", twitch) ??
+    connectBanner("YouTube", youtube) ??
+    connectBanner("TikTok", tiktok) ??
+    connectBanner("Instagram", instagram)
   const supabase = await createClient()
   const {
     data: { user },
@@ -51,8 +62,11 @@ export default async function EditarPerfilPage({ searchParams }: Props) {
     .eq("profile_id", user.id)
 
   const statByPlatform = stats as ChannelStat[] | null
-  const twitchStat = statByPlatform?.find((s) => s.platform === "twitch")
-  const youtubeStat = statByPlatform?.find((s) => s.platform === "youtube")
+  const findStat = (p: string) => statByPlatform?.find((s) => s.platform === p)
+  const twitchStat = findStat("twitch")
+  const youtubeStat = findStat("youtube")
+  const tiktokStat = findStat("tiktok")
+  const instagramStat = findStat("instagram")
 
   return (
     <main className="max-w-2xl mx-auto px-4 py-12 space-y-8">
@@ -93,6 +107,8 @@ export default async function EditarPerfilPage({ searchParams }: Props) {
         </h2>
         <VerifyRow platform="Twitch" connectPath="/api/twitch/connect" stat={twitchStat} />
         <VerifyRow platform="YouTube" connectPath="/api/youtube/connect" stat={youtubeStat} />
+        <VerifyRow platform="TikTok" connectPath="/api/tiktok/connect" stat={tiktokStat} />
+        <VerifyRow platform="Instagram" connectPath="/api/instagram/connect" stat={instagramStat} />
       </div>
 
       <EditProfileForm
