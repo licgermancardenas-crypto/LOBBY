@@ -7,17 +7,23 @@ import type { Profile, Link as ProfileLink, ChannelStat } from "@/types/database
 // Página autenticada que monta un form con el cliente Supabase: no prerenderizar.
 export const dynamic = "force-dynamic"
 
-type Props = { searchParams: Promise<{ twitch?: string }> }
+type Props = { searchParams: Promise<{ twitch?: string; youtube?: string }> }
 
-const TWITCH_BANNERS: Record<string, { text: string; ok: boolean }> = {
-  ok: { text: "✓ Twitch conectado. Tus seguidores quedaron verificados.", ok: true },
-  error: { text: "No pudimos conectar Twitch. Probá de nuevo.", ok: false },
-  config: { text: "La conexión con Twitch todavía no está configurada.", ok: false },
+function connectBanner(
+  platform: string,
+  result?: string
+): { text: string; ok: boolean } | null {
+  if (!result) return null
+  if (result === "ok")
+    return { text: `✓ ${platform} conectado. Tus seguidores quedaron verificados.`, ok: true }
+  if (result === "config")
+    return { text: `La conexión con ${platform} todavía no está configurada.`, ok: false }
+  return { text: `No pudimos conectar ${platform}. Probá de nuevo.`, ok: false }
 }
 
 export default async function EditarPerfilPage({ searchParams }: Props) {
-  const { twitch } = await searchParams
-  const banner = twitch ? TWITCH_BANNERS[twitch] : null
+  const { twitch, youtube } = await searchParams
+  const banner = connectBanner("Twitch", twitch) ?? connectBanner("YouTube", youtube)
   const supabase = await createClient()
   const {
     data: { user },
@@ -44,7 +50,9 @@ export default async function EditarPerfilPage({ searchParams }: Props) {
     .select("*")
     .eq("profile_id", user.id)
 
-  const twitchStat = (stats as ChannelStat[] | null)?.find((s) => s.platform === "twitch")
+  const statByPlatform = stats as ChannelStat[] | null
+  const twitchStat = statByPlatform?.find((s) => s.platform === "twitch")
+  const youtubeStat = statByPlatform?.find((s) => s.platform === "youtube")
 
   return (
     <main className="max-w-2xl mx-auto px-4 py-12 space-y-8">
@@ -79,22 +87,13 @@ export default async function EditarPerfilPage({ searchParams }: Props) {
       )}
 
       {/* Verificar audiencia */}
-      <section className="p-4 bg-[var(--card)] border border-[var(--border)] rounded-xl flex items-center justify-between gap-4">
-        <div>
-          <h2 className="font-semibold text-sm">Verificar audiencia — Twitch</h2>
-          <p className="text-[var(--muted-foreground)] text-xs mt-1">
-            {twitchStat?.verified
-              ? `Conectado como ${twitchStat.handle ?? "tu canal"} · ${twitchStat.followers?.toLocaleString("es") ?? 0} seguidores verificados`
-              : "Conectá tu canal para mostrar seguidores verificados en tu perfil."}
-          </p>
-        </div>
-        <a
-          href="/api/twitch/connect"
-          className="shrink-0 px-4 py-2 bg-[var(--accent)] text-[var(--accent-foreground)] rounded-lg font-semibold text-sm hover:opacity-90 transition-opacity"
-        >
-          {twitchStat?.verified ? "Actualizar" : "Conectar Twitch"}
-        </a>
-      </section>
+      <div className="space-y-3">
+        <h2 className="text-sm font-semibold uppercase tracking-wider text-[var(--muted-foreground)]">
+          Verificar audiencia
+        </h2>
+        <VerifyRow platform="Twitch" connectPath="/api/twitch/connect" stat={twitchStat} />
+        <VerifyRow platform="YouTube" connectPath="/api/youtube/connect" stat={youtubeStat} />
+      </div>
 
       <EditProfileForm
         profile={profile}
@@ -102,5 +101,35 @@ export default async function EditarPerfilPage({ searchParams }: Props) {
         initialStats={(stats ?? []) as ChannelStat[]}
       />
     </main>
+  )
+}
+
+function VerifyRow({
+  platform,
+  connectPath,
+  stat,
+}: {
+  platform: string
+  connectPath: string
+  stat?: ChannelStat
+}) {
+  const verified = Boolean(stat?.verified)
+  return (
+    <section className="p-4 bg-[var(--card)] border border-[var(--border)] rounded-xl flex items-center justify-between gap-4">
+      <div>
+        <h3 className="font-semibold text-sm">{platform}</h3>
+        <p className="text-[var(--muted-foreground)] text-xs mt-1">
+          {verified
+            ? `Conectado como ${stat?.handle ?? "tu canal"} · ${stat?.followers?.toLocaleString("es") ?? 0} seguidores verificados`
+            : "Conectá tu canal para mostrar seguidores verificados en tu perfil."}
+        </p>
+      </div>
+      <a
+        href={connectPath}
+        className="shrink-0 px-4 py-2 bg-[var(--accent)] text-[var(--accent-foreground)] rounded-lg font-semibold text-sm hover:opacity-90 transition-opacity"
+      >
+        {verified ? "Actualizar" : `Conectar ${platform}`}
+      </a>
+    </section>
   )
 }
