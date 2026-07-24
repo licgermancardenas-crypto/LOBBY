@@ -7,7 +7,17 @@ import type { Profile, Link as ProfileLink, ChannelStat } from "@/types/database
 // Página autenticada que monta un form con el cliente Supabase: no prerenderizar.
 export const dynamic = "force-dynamic"
 
-export default async function EditarPerfilPage() {
+type Props = { searchParams: Promise<{ twitch?: string }> }
+
+const TWITCH_BANNERS: Record<string, { text: string; ok: boolean }> = {
+  ok: { text: "✓ Twitch conectado. Tus seguidores quedaron verificados.", ok: true },
+  error: { text: "No pudimos conectar Twitch. Probá de nuevo.", ok: false },
+  config: { text: "La conexión con Twitch todavía no está configurada.", ok: false },
+}
+
+export default async function EditarPerfilPage({ searchParams }: Props) {
+  const { twitch } = await searchParams
+  const banner = twitch ? TWITCH_BANNERS[twitch] : null
   const supabase = await createClient()
   const {
     data: { user },
@@ -34,6 +44,8 @@ export default async function EditarPerfilPage() {
     .select("*")
     .eq("profile_id", user.id)
 
+  const twitchStat = (stats as ChannelStat[] | null)?.find((s) => s.platform === "twitch")
+
   return (
     <main className="max-w-2xl mx-auto px-4 py-12 space-y-8">
       <div className="flex items-center justify-between">
@@ -53,6 +65,36 @@ export default async function EditarPerfilPage() {
           </Link>
         </div>
       </div>
+
+      {banner && (
+        <div
+          className={`px-4 py-3 rounded-lg text-sm border ${
+            banner.ok
+              ? "bg-[var(--accent)]/10 border-[var(--accent)] text-[var(--accent)]"
+              : "bg-[var(--muted)] border-[var(--border)] text-[var(--muted-foreground)]"
+          }`}
+        >
+          {banner.text}
+        </div>
+      )}
+
+      {/* Verificar audiencia */}
+      <section className="p-4 bg-[var(--card)] border border-[var(--border)] rounded-xl flex items-center justify-between gap-4">
+        <div>
+          <h2 className="font-semibold text-sm">Verificar audiencia — Twitch</h2>
+          <p className="text-[var(--muted-foreground)] text-xs mt-1">
+            {twitchStat?.verified
+              ? `Conectado como ${twitchStat.handle ?? "tu canal"} · ${twitchStat.followers?.toLocaleString("es") ?? 0} seguidores verificados`
+              : "Conectá tu canal para mostrar seguidores verificados en tu perfil."}
+          </p>
+        </div>
+        <a
+          href="/api/twitch/connect"
+          className="shrink-0 px-4 py-2 bg-[var(--accent)] text-[var(--accent-foreground)] rounded-lg font-semibold text-sm hover:opacity-90 transition-opacity"
+        >
+          {twitchStat?.verified ? "Actualizar" : "Conectar Twitch"}
+        </a>
+      </section>
 
       <EditProfileForm
         profile={profile}
