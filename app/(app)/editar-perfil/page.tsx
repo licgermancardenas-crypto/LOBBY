@@ -4,6 +4,9 @@ import Link from "next/link"
 import { EditProfileForm } from "@/components/perfil/edit-profile-form"
 import type { Profile, Link as ProfileLink, ChannelStat } from "@/types/database"
 
+// Página autenticada que monta un form con el cliente Supabase: no prerenderizar.
+export const dynamic = "force-dynamic"
+
 export default async function EditarPerfilPage() {
   const supabase = await createClient()
   const {

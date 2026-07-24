@@ -1,6 +1,10 @@
 import Link from "next/link"
 import { LoginForm } from "@/components/auth/login-form"
 
+// Instancia el cliente Supabase (que necesita env vars en runtime), así que
+// no la prerenderizamos en el build.
+export const dynamic = "force-dynamic"
+
 export default function LoginPage() {
   return (
     <main className="min-h-screen flex items-center justify-center px-4">

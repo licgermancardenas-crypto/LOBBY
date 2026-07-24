@@ -2,6 +2,9 @@ import { createClient } from "@/lib/supabase/server"
 import { redirect } from "next/navigation"
 import { OnboardingForm } from "@/components/perfil/onboarding-form"
 
+// Página autenticada que monta un form con el cliente Supabase: no prerenderizar.
+export const dynamic = "force-dynamic"
+
 export default async function OnboardingPage() {
   const supabase = await createClient()
   const { data: { user } } = await supabase.auth.getUser()
