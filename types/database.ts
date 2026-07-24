@@ -87,6 +87,20 @@ export type Event = {
   created_at: string
 }
 
+export type PlatformConnection = {
+  id: string
+  profile_id: string
+  platform: Platform
+  external_id: string | null
+  external_handle: string | null
+  access_token: string
+  refresh_token: string | null
+  expires_at: string | null
+  scopes: string[] | null
+  created_at: string
+  updated_at: string
+}
+
 export type Database = {
   public: {
     Tables: {
@@ -148,6 +162,15 @@ export type Database = {
         Row: Event
         Insert: Omit<Event, "id" | "created_at">
         Update: never
+      }
+      platform_connections: {
+        Row: PlatformConnection
+        Insert: Omit<PlatformConnection, "id" | "created_at" | "updated_at"> & {
+          id?: string
+          created_at?: string
+          updated_at?: string
+        }
+        Update: Partial<Omit<PlatformConnection, "id" | "profile_id">>
       }
     }
     Views: Record<string, never>

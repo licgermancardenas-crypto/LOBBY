@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server"
 import { cookies } from "next/headers"
 import { createClient } from "@/lib/supabase/server"
+import { createServiceClient } from "@/lib/supabase/admin"
 import { exchangeCode, getUser, getFollowerCount } from "@/lib/twitch"
 
 // Callback OAuth de Twitch: intercambia el code, lee el total de followers
@@ -29,9 +30,9 @@ export async function GET(request: Request) {
   if (!user) return NextResponse.redirect(`${origin}/login`)
 
   try {
-    const accessToken = await exchangeCode(code)
-    const twitchUser = await getUser(accessToken)
-    const followers = await getFollowerCount(accessToken, twitchUser.id)
+    const tokens = await exchangeCode(code)
+    const twitchUser = await getUser(tokens.accessToken)
+    const followers = await getFollowerCount(tokens.accessToken, twitchUser.id)
 
     // Upsert por (profile_id, platform); RLS deja escribir solo al dueño.
     const { error } = await supabase.from("channel_stats").upsert(
@@ -46,6 +47,28 @@ export async function GET(request: Request) {
       { onConflict: "profile_id,platform" }
     )
     if (error) return done("error")
+
+    // Guardar tokens para el refresh automático. Best-effort: si el service
+    // role no está configurado, la conexión igual quedó verificada arriba.
+    try {
+      const admin = createServiceClient()
+      await admin.from("platform_connections").upsert(
+        {
+          profile_id: user.id,
+          platform: "twitch",
+          external_id: twitchUser.id,
+          external_handle: twitchUser.login,
+          access_token: tokens.accessToken,
+          refresh_token: tokens.refreshToken,
+          expires_at: new Date(Date.now() + tokens.expiresInSec * 1000).toISOString(),
+          scopes: tokens.scopes,
+          updated_at: new Date().toISOString(),
+        },
+        { onConflict: "profile_id,platform" }
+      )
+    } catch {
+      // sin refresh automático, pero la verificación puntual funcionó
+    }
   } catch {
     return done("error")
   }

@@ -24,7 +24,28 @@ export function getAuthorizeUrl(state: string): string {
   return `https://id.twitch.tv/oauth2/authorize?${params.toString()}`
 }
 
-export async function exchangeCode(code: string): Promise<string> {
+export type TwitchTokens = {
+  accessToken: string
+  refreshToken: string | null
+  expiresInSec: number
+  scopes: string[]
+}
+
+function parseTokens(json: {
+  access_token: string
+  refresh_token?: string
+  expires_in?: number
+  scope?: string[]
+}): TwitchTokens {
+  return {
+    accessToken: json.access_token,
+    refreshToken: json.refresh_token ?? null,
+    expiresInSec: json.expires_in ?? 0,
+    scopes: json.scope ?? [],
+  }
+}
+
+export async function exchangeCode(code: string): Promise<TwitchTokens> {
   const res = await fetch("https://id.twitch.tv/oauth2/token", {
     method: "POST",
     headers: { "Content-Type": "application/x-www-form-urlencoded" },
@@ -37,8 +58,22 @@ export async function exchangeCode(code: string): Promise<string> {
     }),
   })
   if (!res.ok) throw new Error(`Twitch token exchange failed: ${res.status}`)
-  const json = (await res.json()) as { access_token: string }
-  return json.access_token
+  return parseTokens(await res.json())
+}
+
+export async function refreshTokens(refreshToken: string): Promise<TwitchTokens> {
+  const res = await fetch("https://id.twitch.tv/oauth2/token", {
+    method: "POST",
+    headers: { "Content-Type": "application/x-www-form-urlencoded" },
+    body: new URLSearchParams({
+      client_id: CLIENT_ID ?? "",
+      client_secret: CLIENT_SECRET ?? "",
+      grant_type: "refresh_token",
+      refresh_token: refreshToken,
+    }),
+  })
+  if (!res.ok) throw new Error(`Twitch token refresh failed: ${res.status}`)
+  return parseTokens(await res.json())
 }
 
 function helixHeaders(token: string): HeadersInit {
