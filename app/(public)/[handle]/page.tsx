@@ -3,6 +3,7 @@ import { notFound } from "next/navigation"
 import type { Metadata } from "next"
 import { TrackEvent } from "@/components/analytics/track-event"
 import { TrackedLink } from "@/components/analytics/tracked-link"
+import { siteUrl } from "@/lib/site"
 import type { Profile, ProfileGame, Game, Link as ProfileLink, ChannelStat } from "@/types/database"
 
 type ProfileWithRelations = Profile & {
@@ -39,11 +40,30 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     .single()
 
   const profile = data as Pick<Profile, "display_name" | "bio"> | null
-  if (!profile) return { title: "Perfil no encontrado — LOBBY" }
+  if (!profile) {
+    return { title: "Perfil no encontrado", robots: { index: false, follow: false } }
+  }
+
+  const title = `${profile.display_name} (@${handle})`
+  const description =
+    profile.bio ?? `Perfil profesional de ${profile.display_name} en LOBBY`
+  const url = `/${handle}`
 
   return {
-    title: `${profile.display_name} (@${handle}) — LOBBY`,
-    description: profile.bio ?? `Perfil profesional de ${profile.display_name} en LOBBY`,
+    title,
+    description,
+    alternates: { canonical: url },
+    openGraph: {
+      title,
+      description,
+      url,
+      type: "profile",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
+    },
   }
 }
 
@@ -60,8 +80,30 @@ export default async function ProfilePage({ params }: Props) {
   const profile = data as ProfileWithRelations | null
   if (!profile) notFound()
 
+  // Datos estructurados (schema.org) para SEO / rich results.
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "ProfilePage",
+    dateCreated: profile.created_at,
+    mainEntity: {
+      "@type": "Person",
+      name: profile.display_name,
+      alternateName: `@${handle}`,
+      url: `${siteUrl}/${handle}`,
+      ...(profile.avatar_url ? { image: profile.avatar_url } : {}),
+      ...(profile.bio ? { description: profile.bio } : {}),
+      ...(profile.links?.length
+        ? { sameAs: profile.links.map((l) => l.url) }
+        : {}),
+    },
+  }
+
   return (
     <main className="max-w-2xl mx-auto px-4 py-12 space-y-8">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       <TrackEvent name="profile_viewed" profileId={profile.id} properties={{ handle }} />
 
       {/* Header */}
