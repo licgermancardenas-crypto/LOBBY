@@ -2,6 +2,7 @@
 
 import { useState } from "react"
 import { createClient } from "@/lib/supabase/client"
+import { useRouter } from "next/navigation"
 import { track } from "@/lib/analytics"
 
 export function RegisterForm() {
@@ -10,6 +11,7 @@ export function RegisterForm() {
   const [error, setError] = useState<string | null>(null)
   const [success, setSuccess] = useState(false)
   const [loading, setLoading] = useState(false)
+  const router = useRouter()
   const supabase = createClient()
 
   async function handleSubmit(e: React.FormEvent) {
@@ -17,7 +19,7 @@ export function RegisterForm() {
     setLoading(true)
     setError(null)
 
-    const { error } = await supabase.auth.signUp({
+    const { data, error } = await supabase.auth.signUp({
       email,
       password,
       options: { emailRedirectTo: `${location.origin}/auth/callback?next=/onboarding` },
@@ -29,6 +31,14 @@ export function RegisterForm() {
       return
     }
     await track("signup_completed", { properties: { method: "email" } })
+
+    // Si la confirmación de email está desactivada, signUp ya devuelve sesión:
+    // entramos directo. Si no, mostramos el aviso de "revisá tu email".
+    if (data.session) {
+      router.push("/onboarding")
+      router.refresh()
+      return
+    }
     setSuccess(true)
     setLoading(false)
   }
