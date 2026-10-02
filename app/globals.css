@@ -1,14 +1,28 @@
 @import "tailwindcss";
 
+/* Identidad Lobby — Brand Manual v1 (sept. 2026).
+   Paleta de marca + tokens de UI (los que usa toda la app vía var(--…)). */
 :root {
-  --background: #0a0a0f;
-  --foreground: #f0f0f0;
-  --accent: #f5c542;
-  --accent-foreground: #0a0a0f;
-  --muted: #1a1a2e;
-  --muted-foreground: #8888aa;
-  --border: #2a2a3e;
-  --card: #12121f;
+  /* Paleta de marca */
+  --ink: #1a1023;
+  --purple: #4b2e86;
+  --lilac: #8b6ef2;
+  --pink: #f45fc0; /* acento neón: glow y detalles, usar con moderación */
+  --cream: #fbf3e7;
+  --peach: #ffd9a8;
+  --sky: #93a9f7;
+  --lavender: #b9aded;
+  --yellow: #ffd45a; /* CTA principal (pantallas de producto) */
+
+  /* Tokens de UI */
+  --background: #150c1f;
+  --foreground: var(--cream);
+  --accent: var(--yellow);
+  --accent-foreground: var(--ink);
+  --muted: #2a1b3d;
+  --muted-foreground: var(--lavender);
+  --border: #3b2a57;
+  --card: #20142e;
 }
 
 @theme inline {
@@ -19,10 +33,32 @@
   --color-muted-foreground: var(--muted-foreground);
   --color-border: var(--border);
   --color-card: var(--card);
+  --color-ink: var(--ink);
+  --color-purple: var(--purple);
+  --color-lilac: var(--lilac);
+  --color-pink: var(--pink);
+  --color-cream: var(--cream);
+  --color-peach: var(--peach);
+  --color-sky: var(--sky);
+  --color-lavender: var(--lavender);
+  --font-sans: var(--font-body);
+  --font-display: var(--font-heading);
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: system-ui, -apple-system, sans-serif;
+  font-family: var(--font-body), system-ui, -apple-system, sans-serif;
+}
+
+/* Display redondeada para títulos (manual: "rounded and bold up top"). */
+h1, h2, h3 {
+  font-family: var(--font-heading), var(--font-body), system-ui, sans-serif;
+}
+
+/* Fondo "cielo" de la marca para pantallas de bienvenida. */
+.lobby-sky {
+  background:
+    radial-gradient(circle at 50% 45%, rgba(255, 217, 168, 0.55), transparent 28%),
+    linear-gradient(135deg, #fbf3e7 0%, #d9c9ff 42%, #8b6ef2 100%);
 }

@@ -46,7 +46,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
   const title = `${profile.display_name} (@${handle})`
   const description =
-    profile.bio ?? `Perfil profesional de ${profile.display_name} en LOBBY`
+    profile.bio ?? `Perfil profesional de ${profile.display_name} en Lobby`
   const url = `/${handle}`
 
   return {

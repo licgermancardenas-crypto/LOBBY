@@ -4,7 +4,7 @@ import { LEGAL } from "@/lib/legal"
 
 export const metadata: Metadata = {
   title: "Política de privacidad",
-  description: "Qué datos recolecta LOBBY, para qué los usa y cómo podés controlarlos.",
+  description: "Qué datos recolecta Lobby, para qué los usa y cómo podés controlarlos.",
   alternates: { canonical: "/privacidad" },
 }
 
@@ -18,15 +18,15 @@ export default function PrivacidadPage() {
   return (
     <LegalPage title="Política de privacidad">
       <p>
-        Esta política explica qué datos personales recolecta <strong>LOBBY</strong>{" "}(el
+        Esta política explica qué datos personales recolecta <strong>Lobby</strong>{" "}(el
         &quot;Servicio&quot;), operado por {LEGAL.entity}{" "}(&quot;nosotros&quot;), para qué
         los usamos, con quién los compartimos y cómo podés ejercer tus derechos. Al usar el
         Servicio aceptás esta política.
       </p>
 
-      <h2>1. Qué es LOBBY</h2>
+      <h2>1. Qué es Lobby</h2>
       <p>
-        LOBBY es una red profesional para gamers, creadores de contenido, streamers,
+        Lobby es una red profesional para gamers, creadores de contenido, streamers,
         equipos y organizaciones del gaming y los esports. Los creadores arman un perfil
         público con su audiencia verificada, y las marcas y agencias pueden encontrarlos.
       </p>
@@ -92,7 +92,7 @@ export default function PrivacidadPage() {
         <a href="https://developers.google.com/terms/api-services-user-data-policy" target="_blank" rel="noopener noreferrer">
           Política de datos de usuario de los servicios de API de Google
         </a>
-        , incluidos los requisitos de Uso Limitado. LOBBY usa los Servicios de API de
+        , incluidos los requisitos de Uso Limitado. Lobby usa los Servicios de API de
         YouTube; al conectar tu canal aceptás también las{" "}
         <a href="https://www.youtube.com/t/terms" target="_blank" rel="noopener noreferrer">
           Condiciones del Servicio de YouTube
@@ -124,7 +124,7 @@ export default function PrivacidadPage() {
       </p>
 
       <h2 id="eliminar-datos">8. Cómo desconectar plataformas y eliminar tus datos</h2>
-      <p>Podés revocar el acceso de LOBBY en cualquier momento desde cada plataforma:</p>
+      <p>Podés revocar el acceso de Lobby en cualquier momento desde cada plataforma:</p>
       <ul>
         <li>Google / YouTube: <a href="https://myaccount.google.com/permissions" target="_blank" rel="noopener noreferrer">myaccount.google.com/permissions</a></li>
         <li>Twitch: <a href="https://www.twitch.tv/settings/connections" target="_blank" rel="noopener noreferrer">Configuración → Conexiones</a></li>

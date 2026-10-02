@@ -4,6 +4,7 @@ import { useState } from "react"
 import { createClient } from "@/lib/supabase/client"
 import { useRouter } from "next/navigation"
 import { track } from "@/lib/analytics"
+import { Divider, EmailField, PasswordField, PrimaryButton, SocialButtons } from "@/components/auth/auth-ui"
 
 export function RegisterForm() {
   const [email, setEmail] = useState("")
@@ -59,65 +60,33 @@ export function RegisterForm() {
 
   if (success) {
     return (
-      <div className="text-center space-y-2 p-6 bg-[var(--muted)] rounded-xl">
-        <p className="font-semibold">Revisá tu email</p>
-        <p className="text-sm text-[var(--muted-foreground)]">
-          Te mandamos un link de confirmación a <strong>{email}</strong>
+      <div className="text-center space-y-2 p-6 rounded-2xl border border-[var(--lilac)]/40 bg-[var(--lilac)]/10">
+        <p className="font-semibold text-white">Revisá tu email</p>
+        <p className="text-sm text-[var(--lavender)]">
+          Te mandamos un link de confirmación a <strong className="text-white">{email}</strong>
         </p>
       </div>
     )
   }
 
   return (
-    <div className="space-y-4">
-      <form onSubmit={handleSubmit} className="space-y-3">
-        <input
-          type="email"
-          placeholder="Email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          required
-          className="w-full px-4 py-3 rounded-lg bg-[var(--muted)] border border-[var(--border)] text-sm focus:outline-none focus:border-[var(--accent)]"
-        />
-        <input
-          type="password"
+    <div>
+      <form onSubmit={handleSubmit} className="grid gap-3.5">
+        <EmailField value={email} onChange={(e) => setEmail(e.target.value)} required />
+        <PasswordField
           placeholder="Contraseña (mín. 8 caracteres)"
+          autoComplete="new-password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           required
           minLength={8}
-          className="w-full px-4 py-3 rounded-lg bg-[var(--muted)] border border-[var(--border)] text-sm focus:outline-none focus:border-[var(--accent)]"
         />
-        {error && <p className="text-red-400 text-sm">{error}</p>}
-        <button
-          type="submit"
-          disabled={loading}
-          className="w-full py-3 bg-[var(--accent)] text-[var(--accent-foreground)] font-bold rounded-lg hover:opacity-90 transition-opacity disabled:opacity-50"
-        >
-          {loading ? "Creando cuenta..." : "Crear cuenta"}
-        </button>
+        {error && <p className="text-[var(--pink)] text-sm">{error}</p>}
+        <PrimaryButton disabled={loading}>{loading ? "Creando cuenta..." : "Crear cuenta"}</PrimaryButton>
       </form>
 
-      <div className="flex items-center gap-2">
-        <div className="flex-1 h-px bg-[var(--border)]" />
-        <span className="text-xs text-[var(--muted-foreground)]">o</span>
-        <div className="flex-1 h-px bg-[var(--border)]" />
-      </div>
-
-      <div className="space-y-2">
-        <button
-          onClick={handleGoogle}
-          className="w-full py-3 border border-[var(--border)] rounded-lg text-sm font-medium hover:bg-[var(--muted)] transition-colors"
-        >
-          Registrarse con Google
-        </button>
-        <button
-          onClick={handleDiscord}
-          className="w-full py-3 border border-[var(--border)] rounded-lg text-sm font-medium hover:bg-[var(--muted)] transition-colors"
-        >
-          Registrarse con Discord
-        </button>
-      </div>
+      <Divider />
+      <SocialButtons onGoogle={handleGoogle} onDiscord={handleDiscord} />
     </div>
   )
 }

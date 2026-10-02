@@ -5,7 +5,7 @@ import { LEGAL } from "@/lib/legal"
 
 export const metadata: Metadata = {
   title: "Términos de uso",
-  description: "Condiciones para usar LOBBY.",
+  description: "Condiciones para usar Lobby.",
   alternates: { canonical: "/terminos" },
 }
 
@@ -15,7 +15,7 @@ export default function TerminosPage() {
   return (
     <LegalPage title="Términos de uso">
       <p>
-        Estos términos regulan el uso de <strong>LOBBY</strong>{" "}(el &quot;Servicio&quot;),
+        Estos términos regulan el uso de <strong>Lobby</strong>{" "}(el &quot;Servicio&quot;),
         operado por {LEGAL.entity}. Al crear una cuenta o usar el Servicio aceptás estos
         términos y la <Link href="/privacidad">Política de privacidad</Link>. Si no estás de
         acuerdo, no uses el Servicio.
@@ -23,7 +23,7 @@ export default function TerminosPage() {
 
       <h2>1. El Servicio</h2>
       <p>
-        LOBBY es una red profesional para el ecosistema del gaming y los esports. Permite
+        Lobby es una red profesional para el ecosistema del gaming y los esports. Permite
         crear un perfil público, conectar canales de plataformas como YouTube, Twitch, TikTok
         e Instagram para verificar la audiencia, y que marcas, agencias y otros usuarios
         encuentren perfiles. El Servicio se ofrece &quot;tal cual&quot; y puede cambiar,
@@ -75,9 +75,9 @@ export default function TerminosPage() {
 
       <h2>6. Relación entre usuarios</h2>
       <p>
-        LOBBY facilita que creadores, marcas y organizaciones se encuentren. Los acuerdos que
+        Lobby facilita que creadores, marcas y organizaciones se encuentren. Los acuerdos que
         hagan entre ellos (campañas, sponsoreos, contrataciones) son responsabilidad exclusiva
-        de las partes; LOBBY no es parte de esos acuerdos salvo que se pacte expresamente.
+        de las partes; Lobby no es parte de esos acuerdos salvo que se pacte expresamente.
       </p>
 
       <h2>7. Planes pagos</h2>
@@ -89,7 +89,7 @@ export default function TerminosPage() {
 
       <h2>8. Propiedad intelectual</h2>
       <p>
-        La marca LOBBY, el diseño y el software del Servicio son de {LEGAL.entity}. Las marcas
+        La marca Lobby, el diseño y el software del Servicio son de {LEGAL.entity}. Las marcas
         de terceros (YouTube, Twitch, TikTok, Instagram, juegos, etc.) pertenecen a sus
         titulares y se mencionan solo para identificar sus servicios.
       </p>

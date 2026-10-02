@@ -1,8 +1,9 @@
 import { ImageResponse } from "next/og"
 import { createClient } from "@/lib/supabase/server"
 import type { ProfileType } from "@/types/database"
+import { WORDMARK_PATH, WORDMARK_VIEWBOX } from "@/components/brand/wordmark"
 
-export const alt = "Perfil en LOBBY"
+export const alt = "Perfil en Lobby"
 export const size = { width: 1200, height: 630 }
 export const contentType = "image/png"
 
@@ -51,17 +52,16 @@ export default async function Image({ params }: { params: Promise<{ handle: stri
           display: "flex",
           flexDirection: "column",
           justifyContent: "space-between",
-          background: "#0a0a0f",
-          color: "#f0f0f0",
+          background: "#1a1023",
+          color: "#fbf3e7",
           padding: "72px",
           fontFamily: "sans-serif",
         }}
       >
         {/* Wordmark */}
-        <div style={{ display: "flex", fontSize: 40, fontWeight: 900, letterSpacing: 2 }}>
-          <span>LOB</span>
-          <span style={{ color: "#f5c542" }}>BY</span>
-        </div>
+        <svg viewBox={WORDMARK_VIEWBOX} width={190} height={55}>
+          <path fill="#fbf3e7" fillRule="evenodd" d={WORDMARK_PATH} />
+        </svg>
 
         {/* Identidad */}
         <div style={{ display: "flex", alignItems: "center", gap: 40 }}>
@@ -73,8 +73,8 @@ export default async function Image({ params }: { params: Promise<{ handle: stri
               width: 180,
               height: 180,
               borderRadius: 180,
-              background: "#f5c542",
-              color: "#0a0a0f",
+              background: "#ffd45a",
+              color: "#1a1023",
               fontSize: 96,
               fontWeight: 900,
             }}
@@ -83,7 +83,7 @@ export default async function Image({ params }: { params: Promise<{ handle: stri
           </div>
           <div style={{ display: "flex", flexDirection: "column" }}>
             <div style={{ fontSize: 72, fontWeight: 800, lineHeight: 1.1 }}>{name}</div>
-            <div style={{ fontSize: 36, color: "#8888aa", marginTop: 8 }}>
+            <div style={{ fontSize: 36, color: "#b9aded", marginTop: 8 }}>
               @{profile?.handle ?? handle}
               {profile?.country ? ` · ${profile.country}` : ""}
             </div>
@@ -96,21 +96,21 @@ export default async function Image({ params }: { params: Promise<{ handle: stri
             style={{
               display: "flex",
               fontSize: 32,
-              color: "#f0f0f0",
-              background: "#1a1a2e",
-              border: "1px solid #2a2a3e",
+              color: "#fbf3e7",
+              background: "#2a1b3d",
+              border: "1px solid #3b2a57",
               padding: "12px 28px",
               borderRadius: 999,
             }}
           >
-            {profile ? TYPE_LABELS[profile.profile_type] : "LOBBY"}
+            {profile ? TYPE_LABELS[profile.profile_type] : "Lobby"}
           </div>
           {audience > 0 && (
             <div style={{ display: "flex", alignItems: "baseline", gap: 14 }}>
-              <span style={{ fontSize: 64, fontWeight: 900, color: "#f5c542" }}>
+              <span style={{ fontSize: 64, fontWeight: 900, color: "#ffd45a" }}>
                 {formatCount(audience)}
               </span>
-              <span style={{ fontSize: 32, color: "#8888aa" }}>seguidores</span>
+              <span style={{ fontSize: 32, color: "#b9aded" }}>seguidores</span>
             </div>
           )}
         </div>

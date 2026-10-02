@@ -7,7 +7,7 @@ import { joinBrandWaitlist, type WaitlistState } from "@/app/waitlist-actions"
 const initial: WaitlistState = { ok: false, error: null }
 
 const inputClass =
-  "w-full px-4 py-3 rounded-lg bg-[var(--muted)] border border-[var(--border)] text-sm focus:outline-none focus:border-[var(--accent)]"
+  "w-full px-4 py-3 rounded-2xl bg-[var(--lilac)]/10 border border-[var(--lavender)]/30 text-sm placeholder:text-[var(--lavender)] focus:outline-none focus:border-[var(--lilac)]"
 
 export function BrandWaitlistForm() {
   const [state, action, pending] = useActionState(joinBrandWaitlist, initial)
@@ -38,7 +38,7 @@ export function BrandWaitlistForm() {
       <button
         type="submit"
         disabled={pending}
-        className="w-full py-3 bg-[var(--accent)] text-[var(--accent-foreground)] font-bold rounded-lg hover:opacity-90 transition-opacity disabled:opacity-50"
+        className="w-full py-4 bg-[var(--yellow)] text-[var(--ink)] font-extrabold rounded-2xl hover:opacity-90 transition-opacity disabled:opacity-50"
       >
         {pending ? "Enviando..." : "Quiero acceso anticipado"}
       </button>
