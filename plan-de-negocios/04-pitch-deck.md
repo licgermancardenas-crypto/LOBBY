@@ -4,7 +4,7 @@
 > mensaje central (una idea por slide) + soporte. Diseñar visual aparte (el deck
 > v1 en `pau/LOBBY-presentacion.pdf` sirve de base gráfica).
 >
-> **Pendiente: versión en inglés para presentar en SV/Harvard.**
+> Versión en inglés: `04-pitch-deck-EN.md`.
 
 ---
 
@@ -41,14 +41,14 @@ marca.**
 **El dinero se corre a gaming, LATAM es enorme y no hay capa profesional.**
 - Creator economy ~US$253B · esports sólo ~US$2.9B → la torta es contenido.
 - No-endémicas ya 47% del sponsorship gaming, y suben.
-- LATAM: ~335M jugadores, ~US$25B, cero capa de identidad consolidada.
+- LATAM: 372,3M jugadores, US$8,3B (Newzoo 2025), cero capa de identidad consolidada.
 - Verificación por OAuth recién ahora es barata.
 
 ---
 
 ## Slide 5 — El mercado (TAM/SAM/SOM)
 - **TAM:** influencer marketing global ~US$32.5B.
-- **SAM:** gaming/creadores LATAM ~US$0.8-1.5B/año *(est.)*.
+- **SAM:** gaming/creadores LATAM ~US$189M/año (rango US$150-250M, est.).
 - **SOM:** ~US$10-15M ARR a 5 años vía suscripción + reclutamiento + take-rate.
 
 ---
@@ -87,7 +87,7 @@ marca.**
 
 ## Slide 10 — Números
 - Base: Y3 ~US$1.4M ARR · Y5 ~US$11M ARR.
-- Unit economics B2B: LTV/CAC ~16x · payback ~3.6 meses.
+- Unit economics B2B: LTV/CAC ~18x blended (agencias ~24x) · payback ~3,5 meses.
 - *(Gráfico de ARR por motor.)*
 
 ---

@@ -20,7 +20,7 @@ infraestructura B2B de descubrimiento y verificación, disfrazada de perfil grat
 
 **Por qué ahora.** Creator economy ~US$253B; influencer marketing ~US$32.5B
 (2025), gaming la vertical que más crece; no-endémicas ya son 47% del sponsorship
-gaming. LATAM: ~335M jugadores, ~US$25B, y **ninguna capa de identidad profesional
+gaming. LATAM: 372,3M jugadores, US$8,3B (Newzoo 2025), y **ninguna capa de identidad profesional
 consolidada**. La verificación por OAuth recién ahora es barata y accesible.
 
 **Por qué nosotros.** El "LinkedIn para gamers" social fracasó (eFuse, Zengaming):
@@ -42,7 +42,7 @@ cambio para la marca.
 verificada (4 plataformas), discovery para marcas, analytics, refresh automático.
 
 **Números (base, ilustrativo).** Y3 ~US$1.4M ARR · Y5 ~US$11M ARR. Unit economics
-B2B: LTV/CAC ~16x, payback ~3.6 meses.
+B2B: LTV/CAC ~18x blended (agencias ~24x), payback ~3,5 meses.
 
 **El ask.** US$500K pre-seed (SAFE), 18 meses de runway. Uso: densidad de oferta
 en 3 mercados + primeros pilotos B2B pagos. **Hito para Seed:** US$250-500K de ARR
