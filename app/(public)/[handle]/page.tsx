@@ -1,31 +1,17 @@
 import { createClient } from "@/lib/supabase/server"
 import { notFound } from "next/navigation"
+import Link from "next/link"
 import type { Metadata } from "next"
 import { TrackEvent } from "@/components/analytics/track-event"
 import { TrackedLink } from "@/components/analytics/tracked-link"
 import { siteUrl } from "@/lib/site"
+import { PLATFORM_LABELS, formatCount } from "@/lib/format"
 import type { Profile, ProfileGame, Game, Link as ProfileLink, ChannelStat } from "@/types/database"
 
 type ProfileWithRelations = Profile & {
   profile_games: (ProfileGame & { games: Game | null })[]
   links: ProfileLink[]
   channel_stats: ChannelStat[]
-}
-
-const PLATFORM_LABELS: Record<string, string> = {
-  twitch: "Twitch",
-  youtube: "YouTube",
-  tiktok: "TikTok",
-  kick: "Kick",
-  instagram: "Instagram",
-  x: "X",
-}
-
-function formatCount(n: number | null): string {
-  if (n === null) return "—"
-  if (n >= 1_000_000) return `${(n / 1_000_000).toFixed(1).replace(/\.0$/, "")}M`
-  if (n >= 1_000) return `${(n / 1_000).toFixed(1).replace(/\.0$/, "")}K`
-  return n.toString()
 }
 
 type Props = { params: Promise<{ handle: string }> }
@@ -136,9 +122,14 @@ export default async function ProfilePage({ params }: Props) {
       {/* Audiencia (media kit) */}
       {profile.channel_stats?.length > 0 && (
         <section className="space-y-2">
-          <h2 className="text-sm font-semibold uppercase tracking-wider text-[var(--muted-foreground)]">
-            Audiencia
-          </h2>
+          <div className="flex items-baseline justify-between gap-4">
+            <h2 className="text-sm font-semibold uppercase tracking-wider text-[var(--muted-foreground)]">
+              Audiencia
+            </h2>
+            <Link href={`/${handle}/kit`} className="text-sm text-[var(--lilac)] hover:underline">
+              Ver media kit →
+            </Link>
+          </div>
           <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
             {profile.channel_stats.map((stat) => (
               <div

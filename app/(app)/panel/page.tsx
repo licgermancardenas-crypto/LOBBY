@@ -3,6 +3,9 @@ import { redirect } from "next/navigation"
 import Link from "next/link"
 import type { Profile, Event } from "@/types/database"
 import { summarizeEvents } from "@/lib/metrics"
+import { siteUrl } from "@/lib/site"
+import { displayUrl } from "@/lib/format"
+import { ShareActions } from "@/components/perfil/share-actions"
 
 // Página autenticada (lee la sesión del usuario): no prerenderizar.
 export const dynamic = "force-dynamic"
@@ -28,7 +31,7 @@ export default async function PanelPage() {
     .from("events")
     .select("name, session_id, properties, created_at")
     .eq("profile_id", user.id)
-    .in("name", ["profile_viewed", "external_link_clicked"])
+    .in("name", ["profile_viewed", "external_link_clicked", "media_kit_viewed"])
     .order("created_at", { ascending: false })
     .limit(5000)
 
@@ -36,12 +39,15 @@ export default async function PanelPage() {
     (eventRows ?? []) as Pick<Event, "name" | "session_id" | "properties" | "created_at">[]
   )
 
+  const profileUrl = `${siteUrl}/${profile.handle}`
+  const kitUrl = `${profileUrl}/kit`
+
   return (
     <main className="max-w-3xl mx-auto px-4 py-12 space-y-8">
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-2xl font-bold">Hola, {profile.display_name}</h1>
-          <p className="text-[var(--muted-foreground)]">lobby.app/{profile.handle}</p>
+          <p className="text-[var(--muted-foreground)]">{displayUrl(profileUrl)}</p>
         </div>
         <Link
           href="/editar-perfil"
@@ -71,6 +77,23 @@ export default async function PanelPage() {
         </div>
       </div>
 
+      {/* Media kit — el link para mandarle a las marcas */}
+      <section className="rounded-3xl border border-[var(--lilac)]/40 bg-[var(--lilac)]/[0.07] p-6 space-y-4">
+        <div>
+          <p className="text-[var(--lilac)] text-xs font-semibold tracking-[0.25em] uppercase">Tu media kit</p>
+          <h2 className="mt-1 text-xl font-bold">Mandáselo a cualquier marca</h2>
+          <p className="mt-1 text-sm text-[var(--muted-foreground)]">
+            Tu audiencia en un link que se actualiza solo. Los canales conectados figuran como verificados.
+          </p>
+        </div>
+        <div className="flex flex-col sm:flex-row sm:items-center gap-3">
+          <ShareActions url={kitUrl} profileId={profile.id} />
+          <Link href={`/${profile.handle}/kit`} className="text-sm text-[var(--lilac)] hover:underline">
+            {displayUrl(kitUrl)} →
+          </Link>
+        </div>
+      </section>
+
       {/* Actividad — métricas del perfil */}
       <section className="space-y-4">
         <h2 className="text-lg font-semibold">Tu actividad</h2>
@@ -79,8 +102,8 @@ export default async function PanelPage() {
           <div className="p-6 bg-[var(--card)] border border-[var(--border)] rounded-xl text-center">
             <p className="text-[var(--muted-foreground)] text-sm">
               Todavía no hay datos. Compartí{" "}
-              <Link href={`/${profile.handle}`} className="text-[var(--accent)] hover:underline">
-                lobby.app/{profile.handle}
+              <Link href={`/${profile.handle}/kit`} className="text-[var(--accent)] hover:underline">
+                tu media kit
               </Link>{" "}
               para empezar a ver tus métricas.
             </p>
@@ -94,8 +117,9 @@ export default async function PanelPage() {
                 sub={`+${metrics.viewsLast7d} en 7 días`}
               />
               <MetricCard
-                label="Visitantes únicos"
-                value={metrics.uniqueVisitors}
+                label="Vistas del media kit"
+                value={metrics.kitViews}
+                sub={`${metrics.uniqueVisitors} visitantes únicos al perfil`}
               />
               <MetricCard
                 label="Clicks a tus links"

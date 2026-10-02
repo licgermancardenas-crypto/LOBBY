@@ -95,6 +95,7 @@ lobby/
 | --- | --- | --- | --- |
 | `/` | Pública | Todos | Landing |
 | `/[handle]` | Pública (SSR) | Todos | Perfil público — la pieza indexable |
+| `/[handle]/kit` | Pública (SSR) | Todos | Media kit para marcas: audiencia separada en verificada / auto-reportada, copiar link y PDF (imprimir) |
 | `/buscar` | Pública | Todos | Filtros por país, rol, juego, nivel |
 | `/terminos`, `/privacidad` | Pública (estática) | Todos | Textos legales; requeridos por la revisión OAuth de YouTube/TikTok/Meta. Datos del responsable en `lib/legal.ts` |
 | `/login`, `/registro` | Pública | Anónimos | Autenticación |

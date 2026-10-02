@@ -21,7 +21,7 @@ const PROFILE_TYPES: { value: ProfileType; label: string; desc: string }[] = [
   { value: "org", label: "Org / Marca", desc: "Equipo, empresa, sponsor" },
 ]
 
-export function OnboardingForm({ userId }: { userId: string }) {
+export function OnboardingForm({ userId, siteHost }: { userId: string; siteHost: string }) {
   const [handle, setHandle] = useState("")
   const [displayName, setDisplayName] = useState("")
   const [profileType, setProfileType] = useState<ProfileType>("player")
@@ -107,7 +107,7 @@ export function OnboardingForm({ userId }: { userId: string }) {
       <div className="space-y-1">
         <label className="text-sm font-medium">Tu handle público</label>
         <div className="flex items-center gap-1 px-4 py-3 bg-[var(--muted)] border border-[var(--border)] rounded-lg focus-within:border-[var(--accent)]">
-          <span className="text-[var(--muted-foreground)] text-sm">lobby.app/</span>
+          <span className="text-[var(--muted-foreground)] text-sm">{siteHost}/</span>
           <input
             value={handle}
             onChange={(e) => setHandle(e.target.value.toLowerCase().replace(/[^a-z0-9_]/g, ""))}

@@ -31,8 +31,11 @@ export function EditProfileForm({ profile, initialLinks, initialStats }: Props) 
   const [links, setLinks] = useState<LinkRow[]>(
     initialLinks.map((l) => ({ platform: l.platform, url: l.url }))
   )
+  // Los stats verificados (conectados por OAuth) no se editan a mano: los
+  // escribe el callback/cron. Acá solo se tocan los auto-reportados.
+  const verifiedPlatforms = new Set(initialStats.filter((s) => s.verified).map((s) => s.platform))
   const [stats, setStats] = useState<StatRow[]>(
-    initialStats.map((s) => ({
+    initialStats.filter((s) => !s.verified).map((s) => ({
       platform: s.platform,
       handle: s.handle ?? "",
       followers: s.followers?.toString() ?? "",
@@ -81,10 +84,12 @@ export function EditProfileForm({ profile, initialLinks, initialStats }: Props) 
       }
     }
 
-    // 3. Stats de audiencia — reemplazo completo
-    await supabase.from("channel_stats").delete().eq("profile_id", profile.id)
+    // 3. Stats auto-reportados — reemplazo completo. Los verificados quedan
+    // intactos; una plataforma verificada (o repetida) no se pisa a mano.
+    await supabase.from("channel_stats").delete().eq("profile_id", profile.id).eq("verified", false)
+    const seen = new Set(verifiedPlatforms)
     const cleanStats = stats
-      .filter((s) => s.platform)
+      .filter((s) => s.platform && !seen.has(s.platform) && seen.add(s.platform))
       .map((s) => ({
         profile_id: profile.id,
         platform: s.platform,
@@ -157,7 +162,15 @@ export function EditProfileForm({ profile, initialLinks, initialStats }: Props) 
         </div>
       </section>
 
-      <AudienceEditor stats={stats} onChange={setStats} />
+      <div className="space-y-2">
+        <AudienceEditor stats={stats} onChange={setStats} />
+        {verifiedPlatforms.size > 0 && (
+          <p className="text-xs text-[var(--muted-foreground)]">
+            Los canales conectados arriba se actualizan solos y no se editan a mano. Acá cargá
+            el resto (figuran como auto-reportados).
+          </p>
+        )}
+      </div>
 
       <LinksEditor links={links} onChange={setLinks} />
 

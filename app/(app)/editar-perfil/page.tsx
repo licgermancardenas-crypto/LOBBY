@@ -1,6 +1,8 @@
 import { createClient } from "@/lib/supabase/server"
 import { redirect } from "next/navigation"
 import Link from "next/link"
+import { siteUrl } from "@/lib/site"
+import { displayUrl } from "@/lib/format"
 import { EditProfileForm } from "@/components/perfil/edit-profile-form"
 import type { Profile, Link as ProfileLink, ChannelStat } from "@/types/database"
 
@@ -73,7 +75,7 @@ export default async function EditarPerfilPage({ searchParams }: Props) {
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-2xl font-bold">Editar perfil</h1>
-          <p className="text-[var(--muted-foreground)] text-sm">lobby.app/{profile.handle}</p>
+          <p className="text-[var(--muted-foreground)] text-sm">{displayUrl(`${siteUrl}/${profile.handle}`)}</p>
         </div>
         <div className="flex items-center gap-3 text-sm">
           <Link href={`/${profile.handle}`} className="text-[var(--accent)] hover:underline">

@@ -1,6 +1,8 @@
 import { createClient } from "@/lib/supabase/server"
 import { redirect } from "next/navigation"
 import { OnboardingForm } from "@/components/perfil/onboarding-form"
+import { siteUrl } from "@/lib/site"
+import { displayUrl } from "@/lib/format"
 
 // Página autenticada que monta un form con el cliente Supabase: no prerenderizar.
 export const dynamic = "force-dynamic"
@@ -28,7 +30,7 @@ export default async function OnboardingPage() {
             Esta info va a aparecer en tu página pública
           </p>
         </div>
-        <OnboardingForm userId={user.id} />
+        <OnboardingForm userId={user.id} siteHost={displayUrl(siteUrl)} />
       </div>
     </main>
   )

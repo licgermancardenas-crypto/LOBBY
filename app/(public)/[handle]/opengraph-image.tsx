@@ -83,9 +83,9 @@ export default async function Image({ params }: { params: Promise<{ handle: stri
           </div>
           <div style={{ display: "flex", flexDirection: "column" }}>
             <div style={{ fontSize: 72, fontWeight: 800, lineHeight: 1.1 }}>{name}</div>
+            {/* Satori: un div con varios hijos exige display flex; va como un solo string. */}
             <div style={{ fontSize: 36, color: "#b9aded", marginTop: 8 }}>
-              @{profile?.handle ?? handle}
-              {profile?.country ? ` · ${profile.country}` : ""}
+              {`@${profile?.handle ?? handle}${profile?.country ? ` · ${profile.country}` : ""}`}
             </div>
           </div>
         </div>

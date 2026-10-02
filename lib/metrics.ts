@@ -6,6 +6,7 @@ import type { Event } from "@/types/database"
 
 export type ProfileMetrics = {
   views: number
+  kitViews: number
   viewsLast7d: number
   clicks: number
   clicksLast7d: number
@@ -24,6 +25,7 @@ export function summarizeEvents(events: EventRow[]): ProfileMetrics {
 
   const views = events.filter((e) => e.name === "profile_viewed")
   const clicks = events.filter((e) => e.name === "external_link_clicked")
+  const kitViews = events.filter((e) => e.name === "media_kit_viewed")
 
   const byPlatform = new Map<string, number>()
   for (const c of clicks) {
@@ -38,6 +40,7 @@ export function summarizeEvents(events: EventRow[]): ProfileMetrics {
 
   return {
     views: views.length,
+    kitViews: kitViews.length,
     viewsLast7d: views.filter(isRecent).length,
     clicks: clicks.length,
     clicksLast7d: clicks.filter(isRecent).length,
