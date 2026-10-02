@@ -96,10 +96,15 @@ lobby/
 | `/` | Pública | Todos | Landing |
 | `/[handle]` | Pública (SSR) | Todos | Perfil público — la pieza indexable |
 | `/buscar` | Pública | Todos | Filtros por país, rol, juego, nivel |
+| `/terminos`, `/privacidad` | Pública (estática) | Todos | Textos legales; requeridos por la revisión OAuth de YouTube/TikTok/Meta. Datos del responsable en `lib/legal.ts` |
 | `/login`, `/registro` | Pública | Anónimos | Autenticación |
 | `/onboarding` | Privada | Logueados | Completar perfil tras registro |
 | `/panel` | Privada | Logueados | Vista del propio usuario |
 | `/editar-perfil` | Privada | Dueño | Edición |
+
+Como `/[handle]` comparte el primer segmento con las rutas fijas, los handles que
+coinciden con una ruta están reservados (`lib/reserved-handles.ts` + check en la
+base). Al sumar una ruta de primer nivel, agregarla en los dos lados.
 
 La distinción clave: `/[handle]` se renderiza en el servidor para que sea rápido
 y aparezca en Google. Las rutas privadas verifican la sesión en el servidor

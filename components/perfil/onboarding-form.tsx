@@ -12,6 +12,7 @@ import {
   type StatRow,
 } from "@/components/perfil/media-inputs"
 import { track } from "@/lib/analytics"
+import { RESERVED_HANDLES } from "@/lib/reserved-handles"
 
 const PROFILE_TYPES: { value: ProfileType; label: string; desc: string }[] = [
   { value: "player", label: "Jugador", desc: "Esports, competitivo, torneos" },
@@ -39,6 +40,12 @@ export function OnboardingForm({ userId }: { userId: string }) {
     setError(null)
 
     const cleanHandle = handle.toLowerCase().replace(/[^a-z0-9_]/g, "")
+
+    if (RESERVED_HANDLES.has(cleanHandle)) {
+      setError("Ese handle está reservado, elegí otro")
+      setLoading(false)
+      return
+    }
 
     const { error } = await supabase.from("profiles").insert([{
       id: userId,
