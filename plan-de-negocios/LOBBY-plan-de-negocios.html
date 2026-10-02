@@ -1,0 +1,4512 @@
+<!doctype html><html lang="es"><head><meta charset="utf-8">
+<style>
+* { box-sizing: border-box; }
+html { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+body { font-family: "Noto Sans","DejaVu Sans",Arial,sans-serif; color:#1c2033;
+  font-size:10.5pt; line-height:1.5; margin:0; }
+:root { --navy:#141a34; --navy2:#232b52; --violet:#6d5efc; --violet-soft:#eef0ff;
+  --ink:#1c2033; --muted:#5b6480; --line:#dfe3ee; }
+
+/* ---------- PORTADA (panel enmarcado) ---------- */
+.cover { height:256mm; background:linear-gradient(155deg,#0f1430 0%,#1b2350 55%,#2b2170 100%);
+  color:#fff; padding:24mm 20mm; display:flex; flex-direction:column;
+  page-break-after:always; position:relative; border-radius:10px; overflow:hidden; }
+.cover::after { content:""; position:absolute; right:-60mm; top:-60mm; width:150mm; height:150mm;
+  background:radial-gradient(circle,rgba(109,94,252,.35),transparent 62%); }
+.cover .brand { font-size:15pt; letter-spacing:.42em; font-weight:700; color:#c9c6ff; z-index:1; }
+.cover .rule { width:64px; height:5px; background:var(--violet); margin:22mm 0 8mm; border-radius:3px; z-index:1; }
+.cover h1 { font-size:42pt; line-height:1.06; font-weight:800; margin:0 0 10mm; border:0; color:#fff;
+  z-index:1; page-break-before:avoid; counter-increment:none; padding:0; }
+.cover h1::before { content:none; }
+.cover .sub { font-size:15pt; color:#c3c8ff; font-weight:400; max-width:150mm; z-index:1; }
+.cover .spacer { flex:1; }
+.cover .meta { font-size:10pt; color:#a3aae0; line-height:1.95; border-top:1px solid #3a4488; padding-top:6mm; z-index:1; }
+.cover .meta b { color:#fff; font-weight:600; }
+.cover .conf { position:absolute; top:24mm; right:20mm; font-size:8.5pt; letter-spacing:.22em;
+  color:#c9c6ff; border:1px solid #4a55a0; padding:4px 12px; border-radius:20px; z-index:1; }
+
+/* ---------- TOC ---------- */
+.toc { page-break-after:always; }
+.toc-title { font-size:20pt; font-weight:800; color:var(--navy); margin:4mm 0 6mm; }
+.toc > ul { list-style:none; padding:0; margin:0; counter-reset:toc; }
+.toc > ul > li { counter-increment:toc; font-weight:700; color:var(--navy);
+  padding:7px 0; border-bottom:1px solid var(--line); font-size:11pt; }
+.toc > ul > li::before { content:counter(toc,decimal-leading-zero); color:var(--violet);
+  font-weight:800; margin-right:12px; }
+.toc ul ul { list-style:none; padding:2px 0 2px 34px; margin:0; }
+.toc ul ul li { font-weight:400; color:var(--muted); font-size:9.5pt; padding:1.5px 0; }
+.toc a { color:inherit; text-decoration:none; }
+
+/* ---------- CONTENIDO ---------- */
+.content { padding:0 2mm; counter-reset:chap; }
+h1 { page-break-before:always; counter-increment:chap; color:var(--navy);
+  font-size:23pt; font-weight:800; line-height:1.15; margin:0 0 6mm;
+  padding-bottom:5mm; border-bottom:3px solid var(--violet); }
+h1::before { content:counter(chap,decimal-leading-zero); display:block;
+  font-size:12pt; color:var(--violet); letter-spacing:.2em; margin-bottom:3mm; }
+h2 { color:var(--navy2); font-size:15pt; font-weight:700; margin:9mm 0 3mm;
+  padding-left:10px; border-left:4px solid var(--violet); }
+h3 { color:var(--navy2); font-size:12pt; font-weight:700; margin:6mm 0 2mm; }
+h4 { color:var(--muted); font-size:10.5pt; font-weight:700; margin:4mm 0 1mm; }
+p { margin:2mm 0; }
+a { color:var(--violet); text-decoration:none; }
+strong { color:#111634; }
+hr { border:0; border-top:1px solid var(--line); margin:6mm 0; }
+ul,ol { margin:2mm 0; padding-left:6mm; }
+li { margin:1mm 0; }
+
+blockquote { background:var(--violet-soft); border-left:4px solid var(--violet);
+  margin:3mm 0; padding:3mm 5mm; border-radius:0 6px 6px 0; color:#2a2f52; }
+blockquote p { margin:1mm 0; }
+
+table { border-collapse:collapse; width:100%; margin:3mm 0; font-size:8.6pt;
+  page-break-inside:avoid; }
+th { background:var(--navy); color:#fff; text-align:left; padding:5px 7px; font-weight:600;
+  border:1px solid var(--navy); }
+td { padding:5px 7px; border:1px solid var(--line); vertical-align:top; }
+tr:nth-child(even) td { background:#f6f7fc; }
+
+pre { background:#0f1430; color:#e6e8ff; font-family:"DejaVu Sans Mono",monospace;
+  font-size:7.4pt; line-height:1.35; padding:4mm; border-radius:6px; overflow:hidden;
+  page-break-inside:avoid; white-space:pre; }
+code { font-family:"DejaVu Sans Mono",monospace; background:#eef0ff; color:#3a2f8f;
+  padding:1px 4px; border-radius:3px; font-size:8.6pt; }
+pre code { background:none; color:inherit; padding:0; }
+</style></head><body>
+
+<div class="cover">
+  <div class="conf">CONFIDENCIAL</div>
+  <div class="brand">L O B B Y</div>
+  <div class="rule"></div>
+  <h1>Plan de Negocios</h1>
+  <div class="sub">La capa profesional de la economía del entretenimiento — la red
+  de creadores de gaming verificados de Latinoamérica.</div>
+  <div class="spacer"></div>
+  <div class="meta">
+    <div><b>Documento estratégico integral</b> · Ronda pre-seed (~US$500K)</div>
+    <div>Etapa: pre-lanzamiento · Mercado: LATAM</div>
+    <div>4 de agosto de 2026</div>
+  </div>
+</div>
+
+<div class="toc"><div class="toc-title">Contenido</div>
+<ul>
+<li><a href="#tesis-de-inversion-y-columna-vertebral-estrategica">Tesis de inversión y columna vertebral estratégica</a><ul>
+<li><a href="#1-la-tesis-en-una-frase">1. La tesis en una frase</a></li>
+<li><a href="#2-el-problema-y-por-que-vale-plata">2. El problema (y por qué vale plata)</a></li>
+<li><a href="#3-por-que-ahora-timing">3. Por qué ahora (timing)</a></li>
+<li><a href="#4-el-foso-por-que-no-lo-copian-manana">4. El foso (por qué no lo copian mañana)</a></li>
+<li><a href="#5-lecciones-de-los-que-fallaron-grabadas-en-la-estrategia">5. Lecciones de los que fallaron (grabadas en la estrategia)</a></li>
+<li><a href="#6-la-secuencia-de-monetizacion-el-mezcla-de-todo-bien-hecho">6. La secuencia de monetización — el "mezcla de todo" bien hecho</a></li>
+<li><a href="#7-mercado-objetivo-inicial-donde-encender">7. Mercado objetivo inicial (dónde encender)</a></li>
+<li><a href="#8-el-ask-resumen-detalle-en-modelo-financiero">8. El ask (resumen — detalle en modelo financiero)</a></li>
+<li><a href="#9-riesgos-y-mitigacion-los-honestos">9. Riesgos y mitigación (los honestos)</a></li>
+<li><a href="#10-que-falta-para-cerrar-el-paquete-checklist">10. Qué falta para cerrar el paquete (checklist)</a></li>
+</ul>
+</li>
+<li><a href="#plan-de-negocios">Plan de Negocios</a><ul>
+<li><a href="#1-resumen-ejecutivo">1. Resumen ejecutivo</a></li>
+<li><a href="#2-el-problema">2. El problema</a></li>
+<li><a href="#3-la-solucion">3. La solución</a></li>
+<li><a href="#4-mercado-tam-sam-som">4. Mercado (TAM / SAM / SOM)</a></li>
+<li><a href="#5-panorama-competitivo">5. Panorama competitivo</a></li>
+<li><a href="#6-modelo-de-negocio">6. Modelo de negocio</a></li>
+<li><a href="#7-go-to-market">7. Go-to-market</a></li>
+<li><a href="#8-producto-y-roadmap">8. Producto y roadmap</a></li>
+<li><a href="#9-equipo">9. Equipo</a></li>
+<li><a href="#10-proyecciones-financieras-resumen">10. Proyecciones financieras (resumen)</a></li>
+<li><a href="#11-el-ask-y-uso-de-fondos">11. El ask y uso de fondos</a></li>
+<li><a href="#12-riesgos">12. Riesgos</a></li>
+<li><a href="#13-apendices">13. Apéndices</a></li>
+</ul>
+</li>
+<li><a href="#investigacion-de-mercado-y-dimensionamiento-tam-sam-som">Investigación de mercado y dimensionamiento (TAM / SAM / SOM)</a><ul>
+<li><a href="#1-resumen-para-el-inversor-la-tesis-en-numeros">1. Resumen para el inversor (la tesis en números)</a></li>
+<li><a href="#2-las-tres-tortas-donde-esta-la-plata-corrige-el-foco">2. Las tres tortas — dónde está la plata (corrige el foco)</a></li>
+<li><a href="#3-el-pagador-y-su-dolor-cuantificado">3. El pagador y su dolor — cuantificado</a></li>
+<li><a href="#4-el-sponsorship-se-corre-a-no-endemicas-la-demanda-que-paga-creciendo">4. El sponsorship se corre a no-endémicas (la demanda que paga, creciendo)</a></li>
+<li><a href="#5-latam-el-mercado-de-entrada-con-numeros-reales">5. LATAM — el mercado de entrada, con números reales</a></li>
+<li><a href="#6-dimensionamiento-tam-sam-som-metodologia-transparente">6. Dimensionamiento — TAM / SAM / SOM (metodología transparente)</a></li>
+<li><a href="#7-sensibilidad-del-dimensionamiento-las-palancas">7. Sensibilidad del dimensionamiento (las palancas)</a></li>
+<li><a href="#8-correcciones-al-research-inicial-trazabilidad">8. Correcciones al research inicial (trazabilidad)</a></li>
+<li><a href="#9-fuentes">9. Fuentes</a></li>
+</ul>
+</li>
+<li><a href="#panorama-competitivo-con-numeros">Panorama competitivo con números</a><ul>
+<li><a href="#1-lectura-rapida-el-argumento-en-una-tabla">1. Lectura rápida (el argumento en una tabla)</a></li>
+<li><a href="#2-el-cementerio-los-que-intentaron-el-social-de-consumo-con-numeros">2. El cementerio — los que intentaron el social de consumo (con números)</a></li>
+<li><a href="#3-el-sobreviviente-rentable-hitmarker-el-modelo-que-funciona">3. El sobreviviente rentable — Hitmarker (el modelo que funciona)</a></li>
+<li><a href="#4-las-categorias-adyacentes-son-venture-scale-prueba-de-que-el-espacio-es-grande">4. Las categorías adyacentes son venture-scale (prueba de que el espacio es grande)</a></li>
+<li><a href="#5-mapa-de-posicionamiento-donde-esta-el-hueco">5. Mapa de posicionamiento — dónde está el hueco</a></li>
+<li><a href="#6-matriz-de-features-por-que-lobby-en-concreto">6. Matriz de features (por qué LOBBY, en concreto)</a></li>
+<li><a href="#7-que-significa-para-el-ask-de-lobby-benchmarking-del-pre-seed">7. Qué significa para el ask de LOBBY (benchmarking del pre-seed)</a></li>
+<li><a href="#8-riesgo-competitivo-los-honestos">8. Riesgo competitivo (los honestos)</a></li>
+<li><a href="#9-fuentes_1">9. Fuentes</a></li>
+</ul>
+</li>
+<li><a href="#estrategia-geografica-y-mapas-por-pais">Estrategia geográfica y mapas por país</a><ul>
+<li><a href="#parte-a-por-que-latam-primero-y-por-que-no-el-mundo-entero">PARTE A — Por qué LATAM primero (y por qué no el mundo entero)</a></li>
+<li><a href="#parte-b-mapas-por-pais-5-mercados-de-entrada">PARTE B — Mapas por país (5 mercados de entrada)</a></li>
+<li><a href="#parte-c-secuencia-de-rollout-como-se-enciende">PARTE C — Secuencia de rollout (cómo se enciende)</a></li>
+<li><a href="#apendice-discrepancia-de-cifras-regionales-transparencia">Apéndice — discrepancia de cifras regionales (transparencia)</a></li>
+</ul>
+</li>
+<li><a href="#estrategia-de-marketing">Estrategia de marketing</a><ul>
+<li><a href="#0-principio-rector-marketing-de-un-marketplace-de-dos-lados">0. Principio rector: marketing de un marketplace de dos lados</a></li>
+<li><a href="#1-stp-segmentacion-targeting-posicionamiento-kotler">1. STP — Segmentación, Targeting, Posicionamiento (Kotler)</a></li>
+<li><a href="#2-category-design-no-competir-en-una-categoria-crear-una">2. Category design — no competir en una categoría, crear una</a></li>
+<li><a href="#3-arquitectura-de-marca">3. Arquitectura de marca</a></li>
+<li><a href="#4-propuesta-de-valor-por-lado-value-proposition-canvas">4. Propuesta de valor por lado (Value Proposition Canvas)</a></li>
+<li><a href="#5-arquitectura-de-mensajes-messaging-house">5. Arquitectura de mensajes (messaging house)</a></li>
+<li><a href="#6-el-embudo-pirata-aarrr-por-lado-north-star">6. El embudo pirata (AARRR) por lado + North Star</a></li>
+<li><a href="#7-growth-loops-y-flywheel-crecimiento-compuesto-no-lineal">7. Growth loops y flywheel (crecimiento compuesto, no lineal)</a></li>
+<li><a href="#8-estrategia-de-canales-paid-owned-earned">8. Estrategia de canales (paid / owned / earned)</a></li>
+<li><a href="#9-marketing-de-contenido-y-comunidad-el-motor-de-la-oferta">9. Marketing de contenido y comunidad (el motor de la oferta)</a></li>
+<li><a href="#10-las-4-p-7-p-aplicadas-marketing-mix-de-servicios">10. Las 4 P / 7 P aplicadas (marketing mix de servicios)</a></li>
+<li><a href="#11-kpis-de-marketing-y-asignacion-de-presupuesto">11. KPIs de marketing y asignación de presupuesto</a></li>
+<li><a href="#12-resumen-ejecutivo-de-la-estrategia-de-marketing">12. Resumen ejecutivo de la estrategia de marketing</a></li>
+</ul>
+</li>
+<li><a href="#buyer-personas-y-perfiles-de-usuario">Buyer personas y perfiles de usuario</a><ul>
+<li><a href="#como-usar-este-documento">Cómo usar este documento</a></li>
+<li><a href="#parte-a-personas-de-oferta-creadores-el-usuario-gratis">PARTE A — Personas de OFERTA (creadores, el usuario gratis)</a></li>
+<li><a href="#persona-a1-valentina-la-mid-tier-en-ascenso-target-primario">🎮 Persona A1 — "Valentina, la mid-tier en ascenso" ⭐ (target primario)</a></li>
+<li><a href="#persona-a2-mateo-el-competitivo-que-se-profesionaliza">🕹️ Persona A2 — "Mateo, el competitivo que se profesionaliza"</a></li>
+<li><a href="#persona-a3-bruna-la-creadora-multiplataforma-fase-2-brasil">📱 Persona A3 — "Bruna, la creadora multiplataforma" (Fase 2 · Brasil)</a></li>
+<li><a href="#parte-b-buyer-personas-marcaagencia-quien-paga">PARTE B — BUYER PERSONAS (marca/agencia, quien PAGA)</a></li>
+<li><a href="#persona-b1-carolina-brand-manager-de-fintech-no-endemica-target-de-mayor-crecimiento">💳 Persona B1 — "Carolina, Brand Manager de fintech no-endémica" ⭐ (target de mayor crecimiento)</a></li>
+<li><a href="#persona-b2-diego-accounttalent-manager-de-agencia-comprador-de-mayor-arpa">🧩 Persona B2 — "Diego, Account/Talent Manager de agencia" ⭐ (comprador de mayor ARPA)</a></li>
+<li><a href="#persona-b3-rodrigo-marketing-lead-de-marca-endemica-el-cierre-mas-facil">🎧 Persona B3 — "Rodrigo, Marketing Lead de marca endémica" ⭐ (el cierre más fácil)</a></li>
+<li><a href="#tabla-resumen-a-quien-con-que-por-que-canal">Tabla-resumen: a quién, con qué, por qué canal</a></li>
+<li><a href="#nota-para-el-pitch-due-diligence">Nota para el pitch / due diligence</a></li>
+</ul>
+</li>
+<li><a href="#frameworks-estrategicos-de-marketing">Frameworks estratégicos de marketing</a><ul>
+<li><a href="#1-swot-matriz-foda">1. SWOT (matriz FODA)</a></li>
+<li><a href="#2-porter-5-fuerzas-estructura-de-la-industria">2. Porter — 5 Fuerzas (estructura de la industria)</a></li>
+<li><a href="#3-pestel-entorno-macro-critico-por-la-geografia-latam">3. PESTEL (entorno macro — crítico por la geografía LATAM)</a></li>
+<li><a href="#4-ansoff-vectores-de-crecimiento">4. Ansoff — vectores de crecimiento</a></li>
+<li><a href="#5-blue-ocean-errc-refuerza-el-category-design">5. Blue Ocean / ERRC (refuerza el category design)</a></li>
+<li><a href="#6-customer-journey-map-personas-embudo">6. Customer Journey Map (personas → embudo)</a></li>
+<li><a href="#7-como-se-encadenan-los-frameworks-para-no-verlos-sueltos">7. Cómo se encadenan los frameworks (para no verlos sueltos)</a></li>
+</ul>
+</li>
+<li><a href="#pricing-y-packaging-tiers-b2b-freemium">Pricing y packaging (tiers B2B + freemium)</a><ul>
+<li><a href="#1-filosofia-de-precio-value-based-no-cost-plus">1. Filosofía de precio: value-based, no cost-plus</a></li>
+<li><a href="#2-el-espacio-de-precio-benchmarking-competitivo">2. El espacio de precio (benchmarking competitivo)</a></li>
+<li><a href="#3-los-tiers-b2b-good-better-best-rol">3. Los tiers B2B (good-better-best + rol)</a></li>
+<li><a href="#4-lado-creador-freemium-para-completar-el-mix">4. Lado creador — freemium (para completar el mix)</a></li>
+<li><a href="#5-motores-de-fase-3-pricing">5. Motores de Fase 3 (pricing)</a></li>
+<li><a href="#6-estrategia-comercial-descuentos-contratos-expansion">6. Estrategia comercial (descuentos, contratos, expansión)</a></li>
+<li><a href="#7-anclaje-de-roi-el-argumento-de-venta-del-precio">7. Anclaje de ROI (el argumento de venta del precio)</a></li>
+<li><a href="#8-como-validar-el-pricing-no-asumirlo">8. Cómo validar el pricing (no asumirlo)</a></li>
+<li><a href="#9-riesgos-de-pricing-y-mitigacion">9. Riesgos de pricing y mitigación</a></li>
+<li><a href="#10-resumen">10. Resumen</a></li>
+</ul>
+</li>
+<li><a href="#plan-de-lanzamiento-go-to-market-tactico">Plan de lanzamiento (go-to-market táctico)</a><ul>
+<li><a href="#1-filosofia-de-lanzamiento">1. Filosofía de lanzamiento</a></li>
+<li><a href="#2-pre-lanzamiento-semanas-4-a-0-readiness">2. Pre-lanzamiento (Semanas −4 a 0) — readiness</a></li>
+<li><a href="#3-objetivos-del-lanzamiento-targets-del-dia-90">3. Objetivos del lanzamiento (targets del día 90)</a></li>
+<li><a href="#4-los-primeros-90-dias-3-sprints-de-30">4. Los primeros 90 días (3 sprints de 30)</a></li>
+<li><a href="#5-playbooks-de-canal">5. Playbooks de canal</a></li>
+<li><a href="#6-cadencia-operativa-rituales">6. Cadencia operativa (rituales)</a></li>
+<li><a href="#7-del-dia-90-al-mes-12-arco-hacia-la-serie-seed">7. Del día 90 al mes 12 (arco hacia la Serie Seed)</a></li>
+<li><a href="#8-riesgos-de-lanzamiento-y-mitigacion">8. Riesgos de lanzamiento y mitigación</a></li>
+<li><a href="#9-resumen-en-una-linea">9. Resumen en una línea</a></li>
+</ul>
+</li>
+<li><a href="#modelo-financiero">Modelo financiero</a><ul>
+<li><a href="#1-supuestos-maestros">1. Supuestos maestros</a></li>
+<li><a href="#2-proyeccion-de-ingresos-escenario-base">2. Proyección de ingresos — escenario BASE</a></li>
+<li><a href="#3-escenarios">3. Escenarios</a></li>
+<li><a href="#4-unit-economics">4. Unit economics</a></li>
+<li><a href="#5-costos-y-runway-del-pre-seed-18-meses">5. Costos y runway del pre-seed (18 meses)</a></li>
+<li><a href="#6-camino-a-la-serie-seed">6. Camino a la Serie Seed</a></li>
+<li><a href="#7-advertencia-metodologica-para-el-inversor">7. Advertencia metodológica (para el inversor)</a></li>
+</ul>
+</li>
+<li><a href="#analisis-economico-financiero-profundo">Análisis económico-financiero (profundo)</a><ul>
+<li><a href="#1-metodologia-por-que-este-nivel">1. Metodología (por qué este nivel)</a></li>
+<li><a href="#2-revenue-bottom-up-por-tier-reconcilia-con-el-top-down">2. Revenue bottom-up por tier (reconcilia con el top-down)</a></li>
+<li><a href="#3-pl-direccional-5-anos-ilustrativo">3. P&amp;L direccional 5 años (ilustrativo)</a></li>
+<li><a href="#4-unit-economics-por-segmento-el-corazon">4. Unit economics por segmento (el corazón)</a></li>
+<li><a href="#5-metricas-de-salud-saas-vs-benchmarks-2025">5. Métricas de salud SaaS vs. benchmarks 2025</a></li>
+<li><a href="#6-burn-runway-y-uso-de-fondos-pre-seed">6. Burn, runway y uso de fondos (pre-seed)</a></li>
+<li><a href="#7-cap-table-y-dilucion-safe">7. Cap table y dilución (SAFE)</a></li>
+<li><a href="#8-valuacion-por-comparables">8. Valuación (por comparables)</a></li>
+<li><a href="#9-roadmap-de-fundraising-la-escalera">9. Roadmap de fundraising (la escalera)</a></li>
+<li><a href="#10-retorno-para-el-inversor-del-pre-seed-ilustrativo">10. Retorno para el inversor del pre-seed (ilustrativo)</a></li>
+<li><a href="#11-break-even-y-sensibilidad">11. Break-even y sensibilidad</a></li>
+<li><a href="#12-riesgos-financieros-y-mitigacion">12. Riesgos financieros y mitigación</a></li>
+<li><a href="#13-resumen-para-el-inversor">13. Resumen para el inversor</a></li>
+</ul>
+</li>
+<li><a href="#anexo-one-pager">Anexo · One-Pager</a></li>
+<li><a href="#anexo-pitch-deck-12-slides">Anexo · Pitch Deck (12 slides)</a><ul>
+<li><a href="#slide-1-portada">Slide 1 — Portada</a></li>
+<li><a href="#slide-2-el-problema">Slide 2 — El problema</a></li>
+<li><a href="#slide-3-la-solucion">Slide 3 — La solución</a></li>
+<li><a href="#slide-4-por-que-ahora">Slide 4 — Por qué ahora</a></li>
+<li><a href="#slide-5-el-mercado-tamsamsom">Slide 5 — El mercado (TAM/SAM/SOM)</a></li>
+<li><a href="#slide-6-producto-ya-construido">Slide 6 — Producto (ya construido)</a></li>
+<li><a href="#slide-7-modelo-de-negocio">Slide 7 — Modelo de negocio</a></li>
+<li><a href="#slide-8-go-to-market">Slide 8 — Go-to-market</a></li>
+<li><a href="#slide-9-por-que-ganamos-foso-fracasos-ajenos">Slide 9 — Por qué ganamos (foso + fracasos ajenos)</a></li>
+<li><a href="#slide-10-numeros">Slide 10 — Números</a></li>
+<li><a href="#slide-11-equipo">Slide 11 — Equipo</a></li>
+<li><a href="#slide-12-el-ask">Slide 12 — El ask</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="content">
+<h1 id="tesis-de-inversion-y-columna-vertebral-estrategica">Tesis de inversión y columna vertebral estratégica</h1>
+<blockquote>
+<p>Documento maestro del plan de negocios. Fija la tesis, el "por qué ahora", el
+foso competitivo y la <strong>secuencia de monetización</strong>. Todo el resto del paquete
+(plan completo, modelo financiero, one-pager, deck) se deriva de acá.</p>
+<p>Estado: <strong>pre-lanzamiento</strong>, levantando <strong>pre-seed (~US$500K)</strong>.
+Última actualización: 2026-07-31.</p>
+</blockquote>
+<hr />
+<h2 id="1-la-tesis-en-una-frase">1. La tesis en una frase</h2>
+<blockquote>
+<p><strong>LOBBY es la capa de identidad profesional de la economía del entretenimiento,
+empezando por los creadores de gaming de LATAM — y monetiza vendiéndole a las
+marcas el único activo que hoy no pueden comprar: acceso a creadores con
+audiencia verificada y segmentable.</strong></p>
+</blockquote>
+<p>No es "LinkedIn para gamers" como red social de consumo (ese es un cementerio —
+ver research). Es una <strong>infraestructura B2B de descubrimiento y verificación</strong>
+disfrazada de perfil profesional gratis para el creador.</p>
+<hr />
+<h2 id="2-el-problema-y-por-que-vale-plata">2. El problema (y por qué vale plata)</h2>
+<p><strong>Dos dolores, un solo mercado:</strong></p>
+<ol>
+<li>
+<p><strong>Lado creador (oferta):</strong> el talento de gaming/streaming LATAM no tiene una
+   identidad profesional portable. Su "CV" está fragmentado en Twitch, YouTube,
+   TikTok, Discord y un Linktree. No hay forma estándar de probar <em>"esta es mi
+   audiencia real"</em> ante una marca.</p>
+</li>
+<li>
+<p><strong>Lado marca (demanda — el que paga):</strong> las marcas no-endémicas <strong>superaron por
+   primera vez a las endémicas</strong> en sponsorship de gaming (2025, &gt;40% share) y
+   suben, pero su pregunta #1 es siempre la misma: <em>"¿cómo sé que esta audiencia no
+   está inflada?"</em>. El dolor tiene número: <strong>37,2% de seguidores falsos</strong> y
+   <strong>~US$4,6B/año</strong> desperdiciados. Hoy lo resuelven pagando <strong>agencias</strong> que
+   mantienen rosters pre-chequeados a mano. Es <strong>manual, caro y opaco.</strong></p>
+</li>
+</ol>
+<p><strong>El insight central:</strong> el creador nunca va a pagar (el gamer de consumo no
+paga — eso hundió a eFuse, Zengaming, PvP). Pero la marca <strong>ya está pagando</strong> por
+resolver el problema de verificación, sólo que se lo paga a una agencia. LOBBY se
+inserta en ese flujo de dinero que ya existe.</p>
+<hr />
+<h2 id="3-por-que-ahora-timing">3. Por qué ahora (timing)</h2>
+<table>
+<thead>
+<tr>
+<th>Señal</th>
+<th>Dato</th>
+<th>Fuente</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>La torta grande es contenido, no esports</td>
+<td>Creator economy <strong>US$250B→480B (2027)</strong>; esports sólo <strong>~US$2,6-4,5B</strong></td>
+<td>Goldman Sachs / Grand View</td>
+</tr>
+<tr>
+<td>El pagador crece</td>
+<td>Influencer marketing <strong>~US$33B (2025)</strong>, gaming la vertical que más sube (~32,7% CAGR)</td>
+<td>Statista / Mordor</td>
+</tr>
+<tr>
+<td>El dinero no-endémico entra</td>
+<td>No-endémicas <strong>superaron a endémicas por 1ª vez en 2025</strong> (&gt;40% share)</td>
+<td>Grand View Research</td>
+</tr>
+<tr>
+<td>El dolor tiene número</td>
+<td><strong>37,2%</strong> de seguidores falsos; <strong>~US$4,6B/año</strong> desperdiciados; <strong>48,3%</strong> de fraude en el tramo 100K-500K (el mid-tier que LOBBY verifica)</td>
+<td>SociaVault / HypeAuditor</td>
+</tr>
+<tr>
+<td>LATAM es enorme y desatendido</td>
+<td><strong>372,3M jugadores</strong>, <strong>~US$8,3B (2025)</strong>, 4ª región del mundo</td>
+<td>Newzoo 2025</td>
+</tr>
+<tr>
+<td>El hueco está abierto</td>
+<td>Hay ligas (GGTech) y programas de creadores (TikTok) pero <strong>ninguna capa de identidad profesional consolidada</strong> en LATAM</td>
+<td><code>investigacion-mercado.md</code></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>Detalle completo, metodología y fuentes en <code>05-mercado-y-tamano.md</code>.</p>
+</blockquote>
+<p><strong>Por qué no antes:</strong> la verificación de audiencia por OAuth (Twitch/YouTube/
+TikTok/Instagram) recién ahora es técnicamente barata y accesible vía APIs — es
+lo que ya está construido en el producto. El foso de "stats verificadas" antes
+era carísimo; hoy es un fin de semana de ingeniería.</p>
+<hr />
+<h2 id="4-el-foso-por-que-no-lo-copian-manana">4. El foso (por qué no lo copian mañana)</h2>
+<ol>
+<li><strong>Datos de verificación propietarios.</strong> Cada creador que conecta sus canales
+   por OAuth agrega un dato que no se puede comprar: audiencia real, cruzada entre
+   plataformas. Ese dataset compuesto es el activo.</li>
+<li><strong>Efecto red de dos lados, secuenciado bien.</strong> Densidad de creadores en un
+   mercado → la marca no puede ignorarlo → más marcas → más creadores. La clave
+   es no encender los dos lados a la vez (ver §6).</li>
+<li><strong>Posición de categoría en LATAM.</strong> Ser <em>la</em> fuente de creadores LATAM
+   verificados antes de que exista una. Op.gg/Tracker.gg ocupan stats
+   competitivas; nadie ocupa "identidad profesional + audiencia verificada + B2B"
+   en la región.</li>
+<li><strong>Costo de cambio para la marca.</strong> Una vez que la marca corre su descubrimiento
+   y segmentación sobre LOBBY, migrar a un Excel de agencia es un downgrade.</li>
+</ol>
+<hr />
+<h2 id="5-lecciones-de-los-que-fallaron-grabadas-en-la-estrategia">5. Lecciones de los que fallaron (grabadas en la estrategia)</h2>
+<table>
+<thead>
+<tr>
+<th>Quién falló</th>
+<th>Por qué</th>
+<th>Cómo LOBBY lo evita</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>eFuse</td>
+<td>Social de consumo puro no monetiza; se distrajo con cripto/NFT</td>
+<td>B2B desde el diseño; cero cripto</td>
+</tr>
+<tr>
+<td>Zengaming</td>
+<td>3M registros ≠ negocio</td>
+<td>Métrica norte = <strong>densidad verificada + revenue B2B</strong>, no registros</td>
+</tr>
+<tr>
+<td>GameTree</td>
+<td>Cold-start brutal de doble cara</td>
+<td>Encendemos <strong>primero la oferta</strong> (gratis), después la demanda</td>
+</tr>
+<tr>
+<td>Perfiles-CV genéricos</td>
+<td>Se arman una vez y se olvidan</td>
+<td>Loop de hábito: "quién te vio", oportunidades, refresh de stats</td>
+</tr>
+<tr>
+<td>Stats auto-reportadas</td>
+<td>Basura, no confiables</td>
+<td><strong>Sólo OAuth verificado</strong> — el diferencial</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="6-la-secuencia-de-monetizacion-el-mezcla-de-todo-bien-hecho">6. La secuencia de monetización — el "mezcla de todo" bien hecho</h2>
+<p>El error sería prender freemium + B2B + reclutamiento a la vez. La respuesta
+sofisticada es un <strong>portafolio secuenciado</strong>: cada motor se enciende cuando el
+anterior creó la condición que lo hace posible.</p>
+<pre><code>FASE 1 (0-12m)   FASE 2 (12-24m)      FASE 3 (24m+)
+CONSTRUIR OFERTA  MONETIZAR DEMANDA    APILAR MOTORES
+─────────────────────────────────────────────────────────
+Creadores GRATIS  Directorio B2B       + Reclutamiento (Hitmarker)
+Perfil verificado (marcas/agencias     + Freemium creador premium
+Media kit vivo     pagan suscripción   + Take-rate en deals
+Analytics básico   por descubrimiento   facilitados en la plataforma
+                   + verificación +
+                   segmentación)
+─────────────────────────────────────────────────────────
+Métrica norte:    Métrica norte:       Métrica norte:
+densidad          ARR B2B +            net revenue retention
+verificada por    retención de         + GMV facilitado
+mercado           cuentas
+</code></pre>
+<p><strong>Por qué este orden:</strong>
+- <strong>La oferta primero y gratis</strong> resuelve el cold-start: sin creadores verificados
+  no hay nada que venderle a la marca. Es costo de construir el foso, no un centro
+  de ganancia.
+- <strong>El B2B es el primer revenue real</strong> y llega cuando hay densidad suficiente para
+  que la marca no pueda ignorarlo (~masa crítica en 3-5 mercados clave).
+- <strong>Reclutamiento, freemium y take-rate</strong> son expansión de LTV sobre una base ya
+  construida — no dependen de levantar un mercado nuevo.</p>
+<p>Los <strong>motores de ingreso</strong>, en orden de encendido:</p>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>Motor</th>
+<th>Quién paga</th>
+<th>Cuándo</th>
+<th>Modelo probado por</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td><strong>Directorio B2B verificado</strong></td>
+<td>Marcas + agencias</td>
+<td>Fase 2</td>
+<td>(hueco — nadie lo hace en LATAM)</td>
+</tr>
+<tr>
+<td>2</td>
+<td><strong>Reclutamiento / jobs</strong></td>
+<td>Teams, orgs, empleadores endémicos</td>
+<td>Fase 3</td>
+<td>Hitmarker (rentable)</td>
+</tr>
+<tr>
+<td>3</td>
+<td><strong>Freemium creador</strong></td>
+<td>Creadores top (3-5%)</td>
+<td>Fase 3</td>
+<td>Patreon/LinkedIn Premium</td>
+</tr>
+<tr>
+<td>4</td>
+<td><strong>Take-rate en deals</strong></td>
+<td>Marca (fee sobre deal cerrado)</td>
+<td>Fase 3</td>
+<td>Marketplaces de influencers</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="7-mercado-objetivo-inicial-donde-encender">7. Mercado objetivo inicial (dónde encender)</h2>
+<p><strong>5 mercados LATAM en orden de prioridad</strong> (por tamaño de creadores × apetito de
+marca):</p>
+<ol>
+<li><strong>Brasil</strong> — el más grande, mercado de sponsorship más maduro (Ambev, Banco do
+   Brasil, LOUD, FURIA).</li>
+<li><strong>México</strong> — segundo en volumen, marcas globales activas.</li>
+<li><strong>Argentina</strong> — alta densidad de creadores/referentes, KRÜ, 9z, Spreen.</li>
+<li><strong>Colombia</strong> — creciente.</li>
+<li><strong>Chile</strong> — chico pero de alto poder adquisitivo.</li>
+</ol>
+<p>Foco de oferta: <strong>creadores de tamaño medio (10K-500K)</strong> — los "mid-tier" que las
+marcas más buscan por engagement/costo y que hoy son los peor servidos (los top
+ya tienen agencia; los chicos no mueven aguja).</p>
+<hr />
+<h2 id="8-el-ask-resumen-detalle-en-modelo-financiero">8. El ask (resumen — detalle en modelo financiero)</h2>
+<ul>
+<li><strong>Ronda:</strong> pre-seed, <strong>US$500K</strong> vía SAFE.</li>
+<li><strong>Uso:</strong> ~18 meses de runway → construir densidad de oferta en 3 mercados +
+  cerrar primeros pilotos B2B pagos.</li>
+<li><strong>Hito para Serie Seed:</strong> masa crítica de creadores verificados en 3 mercados +
+  US$250-500K de ARR B2B contratado.</li>
+</ul>
+<hr />
+<h2 id="9-riesgos-y-mitigacion-los-honestos">9. Riesgos y mitigación (los honestos)</h2>
+<table>
+<thead>
+<tr>
+<th>Riesgo</th>
+<th>Severidad</th>
+<th>Mitigación</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Dependencia de APIs de plataformas (te cortan el OAuth)</td>
+<td>🔴 Alta</td>
+<td>Multi-plataforma (no depender de una); capturar el dato en el momento de la conexión; términos de uso al día</td>
+</tr>
+<tr>
+<td>Cold-start igual de brutal que a los que fallaron</td>
+<td>🔴 Alta</td>
+<td>Secuencia oferta→demanda; BD dirigido a mercados/juegos densos, no horizontal</td>
+</tr>
+<tr>
+<td>La marca sigue prefiriendo agencias</td>
+<td>🟡 Media</td>
+<td>LOBBY como herramienta <em>de</em> la agencia también (no sólo reemplazo); vender el ahorro de due diligence</td>
+</tr>
+<tr>
+<td>Un incumbente (LinkedIn, Twitch, una agencia grande) copia el ángulo</td>
+<td>🟡 Media</td>
+<td>Velocidad + foco LATAM + dataset propietario; ellos tienen conflictos de negocio</td>
+</tr>
+<tr>
+<td>Plata "sucia" (apuestas) contamina la marca</td>
+<td>🟡 Media</td>
+<td>Política de categorías; priorizar demanda sostenible (fintech, consumo, tech)</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="10-que-falta-para-cerrar-el-paquete-checklist">10. Qué falta para cerrar el paquete (checklist)</h2>
+<ul>
+<li>[x] Research de mercado, competencia y demanda (ya existía)</li>
+<li>[x] Tesis y secuencia de monetización (este doc)</li>
+<li>[ ] Plan escrito completo (<code>01</code>)</li>
+<li>[ ] Modelo financiero + unit economics (<code>02</code>)</li>
+<li>[ ] One-pager (<code>03</code>)</li>
+<li>[ ] Pitch deck (<code>04</code>)</li>
+<li>[ ] <strong>Versión en inglés</strong> de one-pager + deck (para Harvard/SV)</li>
+<li>[ ] Datos de tracción tempranos para reemplazar supuestos (post-lanzamiento)</li>
+</ul>
+<h1 id="plan-de-negocios">Plan de Negocios</h1>
+<p><strong>La capa profesional de la economía del entretenimiento</strong></p>
+<blockquote>
+<p>Documento maestro escrito. Estructura tipo HBS / consultora. Se apoya en el
+research de <code>investigacion-mercado.md</code>, <code>mapa-industria-gaming.md</code> y
+<code>mapa-marcas-latam.md</code>, y en la tesis de <code>00-tesis-y-estrategia.md</code>.</p>
+<p>Etapa: pre-lanzamiento · Ronda: pre-seed US$500K · Última act.: 2026-07-31.</p>
+</blockquote>
+<hr />
+<h2 id="1-resumen-ejecutivo">1. Resumen ejecutivo</h2>
+<p><strong>LOBBY</strong> es la capa de identidad profesional de la economía del entretenimiento,
+comenzando por los <strong>creadores de gaming y streaming de LATAM</strong>. Ofrece al creador
+un perfil profesional gratuito con <strong>audiencia verificada por OAuth</strong> (Twitch,
+YouTube, TikTok, Instagram) y le vende a las <strong>marcas y agencias</strong> el acceso a ese
+directorio verificado y segmentable — el único activo que hoy no pueden comprar.</p>
+<p>El "LinkedIn para gamers" como red social de consumo ya fracasó varias veces
+(eFuse, Zengaming, PvP): el gamer no paga y el cold-start es brutal. <strong>LOBBY no
+repite ese error.</strong> Es una infraestructura B2B de descubrimiento y verificación,
+disfrazada de perfil gratis para el creador. El pagador —la marca— <strong>ya está
+gastando</strong> en resolver el problema de verificación, hoy tercerizándolo en agencias
+de forma manual, cara y opaca.</p>
+<ul>
+<li><strong>Mercado:</strong> creator economy global US$250B→480B (2027); influencer marketing
+  ~US$33B (2025), gaming la vertical que más crece; LATAM 372,3M jugadores y
+  ~US$8,3B (Newzoo). No-endémicas superaron a las endémicas por 1ª vez en 2025. El
+  dolor tiene número: 37,2% de seguidores falsos, ~US$4,6B/año desperdiciados.</li>
+<li><strong>Wedge:</strong> directorio B2B de creadores LATAM con audiencia verificada.</li>
+<li><strong>Monetización (secuenciada):</strong> oferta gratis → suscripción B2B → reclutamiento</li>
+<li>freemium + take-rate.</li>
+<li><strong>Ask:</strong> US$500K pre-seed (SAFE), 18 meses de runway.</li>
+<li><strong>Hito Serie Seed:</strong> densidad verificada en 3 mercados + US$250-500K ARR B2B.</li>
+</ul>
+<hr />
+<h2 id="2-el-problema">2. El problema</h2>
+<h3 id="21-el-creador-no-tiene-identidad-profesional-portable">2.1 El creador no tiene identidad profesional portable</h3>
+<p>El talento de gaming/streaming vive fragmentado: audiencia en Twitch, contenido en
+YouTube, descubrimiento en TikTok, comunidad en Discord, y un Linktree que junta
+todo sin probar nada. No existe una forma estándar y creíble de decir <em>"esta es mi
+audiencia real, así es como performa, esto es lo que puedo ofrecer a una marca."</em></p>
+<h3 id="22-la-marca-no-puede-comprar-lo-que-mas-necesita-confianza-en-la-audiencia">2.2 La marca no puede comprar lo que más necesita: confianza en la audiencia</h3>
+<p>El presupuesto de marketing de influencers crece y se corre hacia gaming, pero la
+pregunta #1 de toda marca sigue sin resolverse a escala: <strong>¿esta audiencia es real
+o está inflada?</strong> A eso se suma la necesidad de <strong>segmentar</strong> (por juego, país,
+plataforma, tipo de audiencia) y <strong>descubrir</strong> creadores más allá de los tres
+nombres obvios.</p>
+<h3 id="23-hoy-el-parche-es-la-agencia-manual-cara-y-opaca">2.3 Hoy el parche es la agencia — manual, cara y opaca</h3>
+<p>Las marcas tercerizan en agencias que mantienen rosters pre-chequeados a mano. Eso
+funciona pero: (a) es caro, (b) no escala, (c) es una caja negra — la marca no ve
+el universo de creadores, sólo lo que la agencia le muestra. <strong>Hay un flujo de
+dinero real buscando una herramienta que todavía no existe en LATAM.</strong></p>
+<hr />
+<h2 id="3-la-solucion">3. La solución</h2>
+<p>Un perfil profesional donde el creador conecta sus canales y LOBBY <strong>verifica su
+audiencia por OAuth</strong>, generando un "media kit vivo" que se actualiza solo. Para la
+marca, LOBBY es un <strong>motor de descubrimiento</strong>: buscar y segmentar creadores LATAM
+con audiencia verificada, por juego, país, plataforma y tamaño.</p>
+<p><strong>Estado del producto (ya construido — ver repo):</strong>
+- Perfiles públicos con handle propio y SEO/Open Graph.
+- Verificación de audiencia por OAuth: Twitch, YouTube, TikTok, Instagram.
+- Badge de "audiencia verificada" + refresh automático de stats vía cron.
+- Discovery para marcas en <code>/buscar</code> (filtra por juego, país, audiencia).
+- Analítica de comportamiento + panel de métricas para el creador.
+- Onboarding, auth, edición de perfil.</p>
+<p>Es decir: <strong>el wedge técnico ya existe.</strong> El pre-seed es para densidad de mercado y
+primeros pilotos de venta, no para construir el MVP desde cero.</p>
+<hr />
+<h2 id="4-mercado-tam-sam-som">4. Mercado (TAM / SAM / SOM)</h2>
+<blockquote>
+<p>Resumen. <strong>Metodología completa, fuentes citables y sensibilidad en
+<code>05-mercado-y-tamano.md</code>.</strong> Números <em>(est.)</em> = estimaciones propias con supuesto
+explícito, a validar con datos primarios post-lanzamiento.</p>
+</blockquote>
+<h3 id="41-tam-el-dinero-que-fluye-a-los-creadores">4.1 TAM — el dinero que fluye a los creadores</h3>
+<p>Influencer marketing global <strong>~US$33B (2025)</strong> (Statista), dentro de una creator
+economy de <strong>US$250B→480B (2027)</strong> (Goldman Sachs). <strong>Gaming/entretenimiento es la
+vertical de mayor crecimiento (~32,7% CAGR, Mordor).</strong></p>
+<h3 id="42-sam-gamingcreadores-en-latam">4.2 SAM — gaming/creadores en LATAM</h3>
+<p>Gasto de influencer marketing LATAM <strong>~US$1,26B (2025)</strong> (extrapolado de US$1,12B
+2024, Statista) × <strong>~15% de share de gaming</strong> <em>(est.)</em> = <strong>~US$189M/año</strong> (rango
+US$150-250M). Contexto: LATAM tiene <strong>372,3M jugadores</strong> y <strong>~US$8,3B</strong> de mercado
+gaming (Newzoo 2025).</p>
+<h3 id="43-som-lo-que-lobby-puede-capturar">4.3 SOM — lo que LOBBY puede capturar</h3>
+<p>LOBBY captura suscripción B2B + reclutamiento + freemium + take-rate, no el pool
+completo. Con ~800 cuentas B2B pagas (bottom-up: ~16-27% de un universo serviceable
+de 3.000-5.000 cuentas), el SOM a 5 años es <strong>~US$10-15M de ARR</strong> <em>(est.)</em> —
+<strong>~6% del SAM</strong>, captura conservadora.</p>
+<h3 id="44-el-dolor-cuantificado-por-que-es-urgente">4.4 El dolor cuantificado (por qué es urgente)</h3>
+<p><strong>37,2% de seguidores falsos</strong>, <strong>~US$4,6B/año desperdiciados</strong>, y el tramo con más
+fraude es el <strong>macro 100K-500K (48,3%)</strong> — exactamente el <strong>mid-tier que LOBBY
+verifica</strong>. <strong>81% de los anunciantes</strong> sufrió fraude en los últimos 12 meses (WFA).</p>
+<h3 id="45-segmento-de-entrada">4.5 Segmento de entrada</h3>
+<p>Creadores <strong>mid-tier (10K-500K)</strong> en Brasil, México, Argentina, Colombia y Chile —
+los que las marcas más buscan, los de mayor fraude no-verificado, y hoy los peor
+servidos.</p>
+<hr />
+<h2 id="5-panorama-competitivo">5. Panorama competitivo</h2>
+<table>
+<thead>
+<tr>
+<th>Categoría</th>
+<th>Players</th>
+<th>Cómo se diferencia LOBBY</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>"LinkedIn for gamers" social</td>
+<td>eFuse, Zengaming, PvP</td>
+<td>Todos murieron/pivotearon: consumo no monetiza. LOBBY es B2B.</td>
+</tr>
+<tr>
+<td>Bolsa de empleo gaming</td>
+<td><strong>Hitmarker</strong> (rentable)</td>
+<td>LOBBY parte del descubrimiento+verificación de marca; reclutamiento es Fase 3</td>
+</tr>
+<tr>
+<td>Stats competitivas</td>
+<td>Op.gg, Mobalytics, Tracker.gg</td>
+<td>Ellos = skill del jugador. LOBBY = audiencia del creador + capa B2B</td>
+</tr>
+<tr>
+<td>Link-in-bio</td>
+<td>Linktree, Beacons</td>
+<td>Ellos = media kit estático. LOBBY = verificado + descubrible por marcas</td>
+</tr>
+<tr>
+<td>Plataformas madre</td>
+<td>Twitch, YouTube, TikTok, Discord</td>
+<td>Dan audiencia pero no identidad profesional cross-plataforma ni B2B</td>
+</tr>
+<tr>
+<td>Agencias / MCN</td>
+<td>rosters manuales</td>
+<td>LOBBY los complementa y/o desintermedia con datos y escala</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Ventaja defendible:</strong> dataset propietario de verificación cross-plataforma +
+posición de categoría en LATAM + secuencia correcta de red de dos lados. Detalle
+del foso en <code>00-tesis-y-estrategia.md §4</code>.</p>
+<hr />
+<h2 id="6-modelo-de-negocio">6. Modelo de negocio</h2>
+<p><strong>Portafolio de ingresos secuenciado</strong> (detalle y racional en <code>00 §6</code>):</p>
+<ol>
+<li><strong>Directorio B2B verificado</strong> (Fase 2, primer revenue): marcas y agencias pagan
+   suscripción por descubrimiento + verificación + segmentación. Precio por asiento
+   / tier según volumen de búsquedas y features.</li>
+<li><strong>Reclutamiento / jobs</strong> (Fase 3): teams, orgs y empleadores endémicos pagan por
+   publicar y contratar — el modelo Hitmarker, ya probado rentable.</li>
+<li><strong>Freemium creador</strong> (Fase 3): 3-5% de creadores top pagan por analytics
+   avanzado, prioridad en búsqueda y media kit premium.</li>
+<li><strong>Take-rate en deals</strong> (Fase 3): fee sobre deals marca-creador cerrados en la
+   plataforma.</li>
+</ol>
+<p>El creador <strong>no paga</strong> en el núcleo — su gratuidad es lo que construye el foso de
+datos que se le vende a la marca.</p>
+<hr />
+<h2 id="7-go-to-market">7. Go-to-market</h2>
+<h3 id="71-encender-la-oferta-0-12m">7.1 Encender la oferta (0-12m)</h3>
+<ul>
+<li><strong>BD dirigido por mercado y juego</strong>, no horizontal: entrar donde ya hay densidad
+  (ej. Valorant/FIFA/Free Fire en Brasil y México).</li>
+<li><strong>Alianzas con ligas y programas</strong> (GGTech/University Esports, programas de
+  creadores) para onboarding en bloque.</li>
+<li><strong>Loop de producto:</strong> "quién te vio", verificación como status symbol, media kit
+  compartible → adquisición orgánica creador-a-creador.</li>
+</ul>
+<h3 id="72-encender-la-demanda-12-24m">7.2 Encender la demanda (12-24m)</h3>
+<ul>
+<li><strong>Venta directa a marcas y agencias</strong> activas en LATAM: partir de las endémicas
+  (Razer, Logitech, HyperX, Red Bull) por ser el cierre más natural, y bebidas/QSR
+  que ya invierten fuerte (Ambev, McDonald's, Burger King).</li>
+<li><strong>Vender el ahorro de due diligence:</strong> el pitch a la marca es "lo que hoy te
+  cuesta meses y una agencia, acá lo hacés en minutos con datos verificados".</li>
+<li><strong>Modelo land-and-expand:</strong> empezar con un piloto pago acotado, expandir a más
+  asientos/campañas.</li>
+</ul>
+<h3 id="73-politica-de-demanda-sostenible">7.3 Política de demanda sostenible</h3>
+<p>Priorizar fintech, consumo y tech por sobre apuestas — plata más lenta pero marca
+más limpia y defendible ante Harvard/VCs y ante los propios creadores.</p>
+<hr />
+<h2 id="8-producto-y-roadmap">8. Producto y roadmap</h2>
+<table>
+<thead>
+<tr>
+<th>Fase</th>
+<th>Foco</th>
+<th>Entregables clave</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Hecho</strong></td>
+<td>Wedge técnico</td>
+<td>Perfiles verificados, discovery, analytics, OAuth 4 plataformas</td>
+</tr>
+<tr>
+<td><strong>0-6m</strong></td>
+<td>Densidad + pulido</td>
+<td>Onboarding en bloque, calidad de datos, loop de hábito</td>
+</tr>
+<tr>
+<td><strong>6-12m</strong></td>
+<td>Herramientas de marca</td>
+<td>Búsqueda avanzada, listas/segmentos, export, seats B2B</td>
+</tr>
+<tr>
+<td><strong>12-24m</strong></td>
+<td>Monetización B2B</td>
+<td>Facturación, tiers, dashboard de campaña</td>
+</tr>
+<tr>
+<td><strong>24m+</strong></td>
+<td>Apilar motores</td>
+<td>Jobs/reclutamiento, freemium premium, take-rate/marketplace</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="9-equipo">9. Equipo</h2>
+<blockquote>
+<p><strong>A completar con datos reales.</strong> Un plan McKinsey es tan creíble como su equipo.
+Detallar: fundador(es), rol, por qué son los indicados ("founder-market fit"),
+asesores del ecosistema gaming/esports LATAM, y los 3-4 primeros hires que
+financia el pre-seed (eng, BD de creadores, ventas B2B).</p>
+</blockquote>
+<p>Placeholder de estructura con el pre-seed (~18m):
+- Fundador/es (producto + estrategia).
+- 2 ingenieros (producto + datos/verificación).
+- 1 BD de creadores (oferta).
+- 1 ventas B2B (demanda, pilotos).</p>
+<hr />
+<h2 id="10-proyecciones-financieras-resumen">10. Proyecciones financieras (resumen)</h2>
+<blockquote>
+<p>Detalle completo, supuestos y escenarios en <code>02-modelo-financiero.md</code>.</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Año</th>
+<th>Creadores verif.</th>
+<th>Cuentas B2B</th>
+<th>Ingresos (base)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Y1</td>
+<td>3.000</td>
+<td>0 (piloto)</td>
+<td>~US$0</td>
+</tr>
+<tr>
+<td>Y2</td>
+<td>15.000</td>
+<td>40</td>
+<td>~US$0.28M</td>
+</tr>
+<tr>
+<td>Y3</td>
+<td>50.000</td>
+<td>150</td>
+<td>~US$1.4M</td>
+</tr>
+<tr>
+<td>Y4</td>
+<td>120.000</td>
+<td>400</td>
+<td>~US$4.8M</td>
+</tr>
+<tr>
+<td>Y5</td>
+<td>250.000</td>
+<td>800</td>
+<td>~US$11M</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Unit economics B2B (base):</strong> CAC cuenta ~US$2.000; ARPA ~US$6-10K/año;
+retención ~80%; <strong>LTV/CAC &gt; 10x</strong>. La oferta (creadores) se adquiere casi orgánica
+a ~US$3-8 de CAC y es costo de foso, no centro de ganancia.</p>
+<hr />
+<h2 id="11-el-ask-y-uso-de-fondos">11. El ask y uso de fondos</h2>
+<ul>
+<li><strong>US$500K pre-seed</strong> vía SAFE, ~18 meses de runway.</li>
+<li><strong>Uso:</strong> ~55% producto/ingeniería y datos, ~30% BD de creadores + ventas B2B,
+  ~15% operación/legal.</li>
+<li><strong>Hito para levantar Seed:</strong> densidad verificada en 3 mercados + US$250-500K de
+  ARR B2B contratado + unit economics B2B validados con cuentas reales.</li>
+</ul>
+<hr />
+<h2 id="12-riesgos">12. Riesgos</h2>
+<p>Tabla completa en <code>00-tesis-y-estrategia.md §9</code>. Los tres materiales:
+1. <strong>Dependencia de APIs</strong> de plataformas → mitigar con multi-plataforma y captura
+   del dato en la conexión.
+2. <strong>Cold-start</strong> → mitigar con secuencia oferta→demanda y BD por nicho denso.
+3. <strong>Preferencia por agencias</strong> → mitigar posicionando LOBBY también como
+   herramienta <em>de</em> la agencia, no sólo como reemplazo.</p>
+<hr />
+<h2 id="13-apendices">13. Apéndices</h2>
+<ul>
+<li><code>investigacion-mercado.md</code> — competencia, fracasos y foso.</li>
+<li><code>mapa-industria-gaming.md</code> — value chain y las tres tortas.</li>
+<li><code>mapa-marcas-latam.md</code> — el pagador: quién, cuánto, cómo compra.</li>
+<li><code>02-modelo-financiero.md</code> — modelo cuantitativo.</li>
+<li><strong>Pendiente:</strong> cohortes de tracción reales (post-lanzamiento) y bios del equipo.</li>
+</ul>
+<h1 id="investigacion-de-mercado-y-dimensionamiento-tam-sam-som">Investigación de mercado y dimensionamiento (TAM / SAM / SOM)</h1>
+<blockquote>
+<p>Análisis de tamaño de mercado con <strong>fuentes citables y metodología
+transparente</strong>. Cada cifra lleva su fuente; las estimaciones propias están
+marcadas <em>(est.)</em> con el supuesto explícito. Reemplaza las cifras aproximadas
+del research inicial (ver §8, Correcciones).</p>
+<p>Última actualización: 2026-07-31. Fuentes: Newzoo, Goldman Sachs GIR, Statista,
+Mordor Intelligence, HypeAuditor / WFA, Grand View Research.</p>
+</blockquote>
+<hr />
+<h2 id="1-resumen-para-el-inversor-la-tesis-en-numeros">1. Resumen para el inversor (la tesis en números)</h2>
+<ul>
+<li>El dinero que fluye a creadores (influencer marketing global) es <strong>~US$33 B en
+  2025</strong>, y <strong>gaming/entretenimiento es la vertical de mayor crecimiento
+  (~32,7% CAGR)</strong>.</li>
+<li>El <strong>dolor que LOBBY resuelve está cuantificado</strong>: el <strong>37,2% de los seguidores
+  de influencers son falsos o sospechosos</strong> y las marcas desperdician <strong>~US$4,6 B
+  al año</strong> en audiencia que no existe. El tramo <strong>macro (100K-500K) es el de mayor
+  fraude, 48,3%</strong> — y ese es <strong>exactamente el segmento mid-tier que LOBBY
+  verifica</strong>.</li>
+<li>LATAM es un mercado de <strong>372,3 M jugadores</strong> y <strong>~US$8,3 B</strong> en gaming (Newzoo
+  2025), con <strong>gasto de influencer marketing regional &gt;US$1,12 B (2024)</strong> creciendo
+  a doble dígito.</li>
+<li><strong>TAM</strong> (influencer marketing global): ~US$33 B. <strong>SAM</strong> (gaming-creadores
+  LATAM): <strong>~US$150-250 M/año</strong> <em>(est.)</em>. <strong>SOM</strong> (ingreso capturable por LOBBY a
+  5 años): <strong>~US$10-15 M ARR</strong> <em>(est.)</em>.</li>
+</ul>
+<hr />
+<h2 id="2-las-tres-tortas-donde-esta-la-plata-corrige-el-foco">2. Las tres tortas — dónde está la plata (corrige el foco)</h2>
+<table>
+<thead>
+<tr>
+<th>Mercado</th>
+<th>Tamaño 2025</th>
+<th>Fuente</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Videojuegos (global)</strong></td>
+<td><strong>US$188,8 B</strong></td>
+<td>Newzoo, Global Games Market 2025</td>
+</tr>
+<tr>
+<td><strong>Creator economy (global)</strong></td>
+<td><strong>US$250 B (2023) → US$480 B (2027)</strong>, ~14% CAGR</td>
+<td>Goldman Sachs Global Investment Research</td>
+</tr>
+<tr>
+<td><strong>Influencer marketing (global)</strong></td>
+<td><strong>~US$33 B (2025)</strong></td>
+<td>Statista</td>
+</tr>
+<tr>
+<td><strong>Esports (global, sin apuestas)</strong></td>
+<td><strong>~US$2,6-4,5 B (2025)</strong> según fuente</td>
+<td>Grand View / Future Market Insights</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Conclusión clave (reforzada con datos):</strong> el esports es la torta <strong>más chica y
+volátil</strong>; la plata está en <strong>creadores/contenido</strong>. Goldman Sachs proyecta
+<strong>67 M de creadores en 2025 → 107 M en 2030</strong>, de los cuales sólo <strong>~2,5-3% son
+"profesionales"</strong> — justo la capa que LOBBY quiere formalizar. <em>LOBBY apunta a la
+torta grande (creadores), no a la chica (esports pro).</em></p>
+<hr />
+<h2 id="3-el-pagador-y-su-dolor-cuantificado">3. El pagador y su dolor — cuantificado</h2>
+<p>Esto es lo que convierte a LOBBY de "nice to have" a "urgente". El problema de
+verificación de audiencia <strong>tiene número</strong>:</p>
+<table>
+<thead>
+<tr>
+<th>Métrica del dolor</th>
+<th>Dato</th>
+<th>Fuente</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Seguidores falsos/sospechosos</td>
+<td><strong>37,2%</strong> (estudio de 100K cuentas IG/TikTok)</td>
+<td>SociaVault Labs 2026</td>
+</tr>
+<tr>
+<td>Desperdicio global por fraude</td>
+<td><strong>~US$4,6 B/año</strong></td>
+<td>SociaVault Labs 2026</td>
+</tr>
+<tr>
+<td>Actividad fraudulenta (auditoría 8,7M perfiles)</td>
+<td><strong>41,3%</strong> (2026, +34% vs 2025)</td>
+<td>HypeAuditor</td>
+</tr>
+<tr>
+<td>% del presupuesto perdido en engagement falso</td>
+<td><strong>~36%</strong></td>
+<td>Sector influencer mkt</td>
+</tr>
+<tr>
+<td>Anunciantes que sufrieron fraude en 12 meses</td>
+<td><strong>81%</strong></td>
+<td>World Federation of Advertisers 2026</td>
+</tr>
+<tr>
+<td>Desperdicio mediano por campaña mid-scale</td>
+<td><strong>US$128.000</strong></td>
+<td>WFA 2026</td>
+</tr>
+<tr>
+<td><strong>Fraude en el tramo macro (100K-500K)</strong></td>
+<td><strong>48,3%</strong> — el más alto</td>
+<td>HypeAuditor / estudios de tier</td>
+</tr>
+</tbody>
+</table>
+<p><strong>El punchline para el pitch:</strong> <em>el tramo de creadores con más fraude (100K-500K)
+es exactamente el mid-tier que las marcas más compran y el que LOBBY verifica.</em>
+LOBBY no vende un "directorio lindo": vende <strong>eliminar el 36-48% de desperdicio</strong>
+del presupuesto de la marca.</p>
+<hr />
+<h2 id="4-el-sponsorship-se-corre-a-no-endemicas-la-demanda-que-paga-creciendo">4. El sponsorship se corre a no-endémicas (la demanda que paga, creciendo)</h2>
+<ul>
+<li>En 2025, <strong>las marcas no-endémicas superaron por primera vez a las endémicas</strong> en
+  sponsorship de gaming/esports, y son el <strong>segmento de mayor crecimiento</strong>
+  (Grand View Research). Representan <strong>&gt;40% del share</strong> de sponsorship.</li>
+<li>Categorías que se expanden hacia 2026: <strong>FMCG, automotriz, banca/fintech (BFSI),
+  telecom y edtech</strong> — más allá de tech y bebidas energéticas.</li>
+<li>Dato de eficacia: un estudio alemán encontró <strong>53% de recall de marca para
+  no-endémicas vs 43% para endémicas</strong> — se destacan en un mar de logos de
+  hardware. Esto <strong>justifica que sigan entrando</strong>.</li>
+</ul>
+<p><strong>Lectura para LOBBY:</strong> la base de clientes B2B no sólo existe, <strong>se está
+diversificando y ampliando</strong> — más categorías, más presupuesto, misma necesidad de
+verificación.</p>
+<hr />
+<h2 id="5-latam-el-mercado-de-entrada-con-numeros-reales">5. LATAM — el mercado de entrada, con números reales</h2>
+<h3 id="51-tamano-y-crecimiento-corregido-vs-research-inicial">5.1 Tamaño y crecimiento (corregido vs. research inicial)</h3>
+<table>
+<thead>
+<tr>
+<th>Métrica LATAM 2025</th>
+<th>Dato</th>
+<th>Fuente</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Jugadores</td>
+<td><strong>372,3 M</strong> (+4,5% interanual)</td>
+<td>Newzoo 2025</td>
+</tr>
+<tr>
+<td>Ingreso gaming</td>
+<td><strong>US$8,3 B</strong> (+6,4%)</td>
+<td>Newzoo 2025</td>
+</tr>
+<tr>
+<td>Gasto promedio por jugador</td>
+<td><strong>US$48,5</strong></td>
+<td>Newzoo 2025</td>
+</tr>
+<tr>
+<td>Posición global</td>
+<td><strong>4ª región</strong> tras APAC ($87,6 B), NA ($52,7 B), Europa ($33,1 B)</td>
+<td>Newzoo 2025</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>⚠️ <strong>Corrección:</strong> el research inicial citaba "~335M jugadores y ~US$25B". La
+cifra de Newzoo (autoridad de la industria) para el <strong>ingreso de mercado de
+juegos</strong> es <strong>US$8,3 B</strong> (gasto de consumidores en software). El "$25 B" sólo se
+sostiene con una definición mucho más amplia (hardware + periféricos + todo el
+ecosistema) de fuentes secundarias, no comparable. Usamos Newzoo como ancla
+conservadora y citable.</p>
+</blockquote>
+<h3 id="52-el-gasto-que-lobby-intermedia-influencer-marketing-latam">5.2 El gasto que LOBBY intermedia: influencer marketing LATAM</h3>
+<table>
+<thead>
+<tr>
+<th>Métrica</th>
+<th>Dato</th>
+<th>Fuente</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Gasto influencer LATAM + Caribe</td>
+<td><strong>&gt;US$1,12 B (2024)</strong>, +12,6% vs. US$999 M (2023)</td>
+<td>Statista</td>
+</tr>
+<tr>
+<td>Proyección fin de década</td>
+<td><strong>&gt;US$1,82 B</strong></td>
+<td>Statista</td>
+</tr>
+<tr>
+<td>Sudamérica específicamente (2025)</td>
+<td><strong>&gt;US$811,7 M</strong></td>
+<td>Statista</td>
+</tr>
+<tr>
+<td>Brasil (proyección 2030)</td>
+<td><strong>US$4.334 M</strong> — el de mayor crecimiento regional</td>
+<td>market research</td>
+</tr>
+<tr>
+<td>México (CAGR plataformas 2025-2030)</td>
+<td><strong>20%</strong></td>
+<td>Grand View</td>
+</tr>
+<tr>
+<td>Brasil — usuarios activos en redes (inicio 2025)</td>
+<td><strong>144 M</strong> (83,5% de adultos 18+)</td>
+<td>DataReportal</td>
+</tr>
+</tbody>
+</table>
+<h3 id="53-la-audiencia-de-streaming-latam-es-real-y-masiva">5.3 La audiencia de streaming LATAM es real y masiva</h3>
+<ul>
+<li><strong>&gt;98 M horas</strong> de contenido gaming transmitidas en LATAM en 2024.</li>
+<li>El <strong>español es el 2º idioma más usado en Twitch</strong>; portugués y español crecieron
+  rápido en 2025-2026.</li>
+<li><strong>Prueba de potencia:</strong> "La Velada del Año V" de <strong>Ibai Llanos</strong> (español)
+  alcanzó <strong>9,33 M de espectadores concurrentes</strong> el 26/07/2025 — <strong>el stream de
+  gaming más visto de la historia</strong>. La audiencia hispanohablante no es marginal:
+  es récord mundial.</li>
+</ul>
+<hr />
+<h2 id="6-dimensionamiento-tam-sam-som-metodologia-transparente">6. Dimensionamiento — TAM / SAM / SOM (metodología transparente)</h2>
+<blockquote>
+<p>Enfoque combinado: <strong>top-down</strong> (partir del gasto total y acotar) + <strong>bottom-up</strong>
+(contar cuentas pagadoras × ARPA). Ambos deben converger para ser creíbles.</p>
+</blockquote>
+<h3 id="61-tam-el-pool-total">6.1 TAM — el pool total</h3>
+<p><strong>Influencer marketing global: ~US$33 B (2025)</strong> (Statista), con gaming como
+vertical de mayor crecimiento (~32,7% CAGR, Mordor). Es el océano del que LOBBY
+toma una gota bien elegida.</p>
+<h3 id="62-sam-gaming-creadores-en-latam-top-down">6.2 SAM — gaming-creadores en LATAM (top-down)</h3>
+<pre><code>Gasto influencer LATAM 2025      ≈ US$1,26 B   (US$1,12B 2024 × +12,6%)
+× Share de gaming/entretenimiento ≈ 15%         (conservador; es la vertical
+                                                  que más crece) (est.)
+─────────────────────────────────────────────────────────────
+SAM ≈ US$189 M/año   (rango 12-20% → US$150-250 M)   (est.)
+</code></pre>
+<p>Este es el <strong>dinero de marca que fluye hacia creadores de gaming LATAM</strong> — el flujo
+sobre el que LOBBY se posiciona.</p>
+<h3 id="63-som-lo-que-lobby-captura-bottom-up">6.3 SOM — lo que LOBBY captura (bottom-up)</h3>
+<p>LOBBY <strong>no</strong> captura el pool completo; captura suscripción B2B + reclutamiento +
+freemium + take-rate. Universo de cuentas pagadoras:</p>
+<pre><code>Marcas activas en gaming influencer mkt en LATAM  ≈ 2.000-4.000  (est.)
+Agencias / MCN con rosters                        ≈   200-500    (est.)
+─────────────────────────────────────────────────────────────
+Cuentas B2B serviceables (TAM de cuentas)         ≈ 3.000-5.000  (est.)
+
+Objetivo LOBBY Y5: 800 cuentas pagas
+  → penetración ≈ 16-27% del universo serviceable   (defendible)
+  × ARPA ~US$8-10K
+  = US$6,4-8,2 M ARR de suscripción
+  + reclutamiento + freemium + take-rate
+─────────────────────────────────────────────────────────────
+SOM a 5 años ≈ US$10-15 M ARR   (est. — coincide con modelo financiero)
+</code></pre>
+<p><strong>Convergencia:</strong> el SOM (~US$11 M ARR base) representa <strong>~6% del SAM</strong> (~US$189 M)
+— una captura conservadora y creíble de un mercado que LOBBY además ayuda a
+expandir. Si LOBBY llegara a intermediar sólo el 5% del pool con 10% de take-rate,
+eso solo ya son ~US$0,95 M adicionales/año, creciendo con la adopción.</p>
+<hr />
+<h2 id="7-sensibilidad-del-dimensionamiento-las-palancas">7. Sensibilidad del dimensionamiento (las palancas)</h2>
+<table>
+<thead>
+<tr>
+<th>Palanca</th>
+<th>Conservador</th>
+<th>Base</th>
+<th>Agresivo</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Share gaming del influencer LATAM</td>
+<td>12%</td>
+<td>15%</td>
+<td>20%</td>
+</tr>
+<tr>
+<td>SAM resultante</td>
+<td>US$151 M</td>
+<td>US$189 M</td>
+<td>US$252 M</td>
+</tr>
+<tr>
+<td>Penetración de cuentas Y5</td>
+<td>10%</td>
+<td>16%</td>
+<td>27%</td>
+</tr>
+<tr>
+<td>Cuentas B2B Y5</td>
+<td>~400</td>
+<td>~800</td>
+<td>~1.350</td>
+</tr>
+<tr>
+<td>ARR Y5</td>
+<td>~US$6 M</td>
+<td>~US$11 M</td>
+<td>~US$19,5 M</td>
+</tr>
+</tbody>
+</table>
+<p>Las cuatro variables que mueven todo: (1) share de gaming en el gasto influencer,
+(2) penetración de cuentas, (3) ARPA (mezcla marca/agencia), (4) timing de los
+motores de Fase 3.</p>
+<hr />
+<h2 id="8-correcciones-al-research-inicial-trazabilidad">8. Correcciones al research inicial (trazabilidad)</h2>
+<table>
+<thead>
+<tr>
+<th>Afirmación vieja</th>
+<th>Corrección</th>
+<th>Fuente</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>"~335M jugadores LATAM"</td>
+<td><strong>372,3 M</strong> (Newzoo 2025)</td>
+<td>Newzoo</td>
+</tr>
+<tr>
+<td>"~US$25B mercado gaming LATAM"</td>
+<td><strong>US$8,3 B</strong> (definición Newzoo, gasto en juegos)</td>
+<td>Newzoo</td>
+</tr>
+<tr>
+<td>"influencer marketing ~US$32,5 B"</td>
+<td><strong>~US$33 B (2025)</strong> — se mantiene, redondeado</td>
+<td>Statista</td>
+</tr>
+<tr>
+<td>"no-endémicas 47% del sponsorship"</td>
+<td><strong>Superaron a endémicas por 1ª vez en 2025; &gt;40% share</strong></td>
+<td>Grand View</td>
+</tr>
+<tr>
+<td>"creator economy US$253 B"</td>
+<td><strong>US$250 B (2023) → US$480 B (2027)</strong></td>
+<td>Goldman Sachs</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>Acción: actualizar <code>00-tesis-y-estrategia.md</code> y <code>01-plan-completo.md</code> con estas
+cifras (hecho en esta iteración).</p>
+</blockquote>
+<hr />
+<h2 id="9-fuentes">9. Fuentes</h2>
+<ul>
+<li>Newzoo — <em>Global Games Market Report 2025</em> (US$188,8 B global; LATAM 372,3 M
+  jugadores / US$8,3 B): pocketgamer.biz, gamesbeat.com</li>
+<li>Goldman Sachs Global Investment Research — <em>Creator Economy</em> (US$250 B→480 B;
+  67M→107M creadores): goldmansachs.com/insights</li>
+<li>Statista — <em>Global influencer market value 2025</em> (~US$33 B) y <em>LATAM digital
+  influencer ad spend</em> (&gt;US$1,12 B 2024): statista.com</li>
+<li>Mordor Intelligence — <em>Influencer Marketing Market</em> (gaming +32,7% CAGR):
+  mordorintelligence.com</li>
+<li>SociaVault Labs 2026 — <em>Fake Follower Study</em> (37,2% falsos; US$4,6 B
+  desperdiciados): sociavault.com</li>
+<li>HypeAuditor / World Federation of Advertisers 2026 — fraude 41,3%; 81% de
+  anunciantes afectados; US$128K/campaña</li>
+<li>Grand View Research — <em>Esports Market</em> (sponsorship &gt;40%; no-endémicas superan
+  endémicas): grandviewresearch.com</li>
+<li>DataReportal — <em>Digital 2025 Brazil</em> (144 M usuarios en redes)</li>
+<li>TechRT / electroiq — <em>Twitch statistics 2025-2026</em> (98 M horas LATAM; español 2º
+  idioma; Ibai 9,33 M concurrentes)</li>
+</ul>
+<blockquote>
+<p><strong>Nota metodológica para due diligence:</strong> las cifras de firmas de research
+secundarias varían según definición y alcance. Cuando hubo conflicto, se priorizó
+la fuente-autoridad de la industria (Newzoo para gaming, Goldman Sachs para
+creator economy, Statista para influencer marketing) y se marcó el rango. Los
+números <em>(est.)</em> son de LOBBY y se validan con datos primarios post-lanzamiento.</p>
+</blockquote>
+<h1 id="panorama-competitivo-con-numeros">Panorama competitivo con números</h1>
+<blockquote>
+<p>Quién levantó cuánto, quién murió, quién sobrevive, y qué valen las categorías
+adyacentes. Sirve para (a) demostrar que conocemos el cementerio, (b) probar que
+el espacio es venture-scale, y (c) benchmarkear el ask de LOBBY.</p>
+<p>Última act.: 2026-07-31. Fuentes: Crunchbase, PitchBook, Tracxn, TechCrunch,
+SEC filings, EU-Startups. Cifras redondeadas.</p>
+</blockquote>
+<hr />
+<h2 id="1-lectura-rapida-el-argumento-en-una-tabla">1. Lectura rápida (el argumento en una tabla)</h2>
+<table>
+<thead>
+<tr>
+<th>Cluster</th>
+<th>Ejemplo</th>
+<th>Levantó</th>
+<th>Qué prueba</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>☠️ El cementerio (social de consumo)</td>
+<td>eFuse</td>
+<td><strong>US$17,7M</strong> → pivoteó</td>
+<td>El social puro no monetiza</td>
+</tr>
+<tr>
+<td>✅ El modelo rentable (B2B recruiting)</td>
+<td>Hitmarker</td>
+<td><strong>~US$1,1M</strong> (crowdfunding)</td>
+<td>B2B es rentable y capital-efficient</td>
+</tr>
+<tr>
+<td>💰 Identidad/stats</td>
+<td>OP.GG</td>
+<td><strong>US$29,4M</strong></td>
+<td>La identidad verificada es fundable</td>
+</tr>
+<tr>
+<td>💰 Media kit / link-in-bio</td>
+<td>Linktree</td>
+<td><strong>US$165M+ @ US$1,3-1,7B</strong></td>
+<td>El "perfil de creador" vale miles de M</td>
+</tr>
+<tr>
+<td>💰 Discovery de influencers</td>
+<td>GRIN / CreatorIQ</td>
+<td><strong>US$144M / US$80M</strong></td>
+<td>El descubrimiento B2B es venture-scale</td>
+</tr>
+<tr>
+<td>🏦 Exit de comunidad</td>
+<td>Guilded → Roblox</td>
+<td><strong>~US$90M</strong> (adquisición)</td>
+<td>Hay salida estratégica en el vertical</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Conclusión:</strong> cada <em>pilar</em> que LOBBY combina ya demostró ser financiable a escala
+por separado. <strong>Nadie los junta —identidad verificada + discovery B2B— en LATAM.</strong>
+Ese es el espacio en blanco.</p>
+<hr />
+<h2 id="2-el-cementerio-los-que-intentaron-el-social-de-consumo-con-numeros">2. El cementerio — los que intentaron el social de consumo (con números)</h2>
+<h3 id="efuse-el-linkedin-for-gamers">eFuse — "el" LinkedIn for gamers</h3>
+<ul>
+<li><strong>Levantó US$17,67M</strong> en 5 rondas: US$1,4M seed (Ohio Innovation Fund, 2019),
+  US$6M (2021, con estrellas NBA/NFL: <strong>Seth Curry, Denzel Ward, Ezekiel Elliott,
+  Chase Winovich</strong>), US$10,12M (jul 2022).</li>
+<li><strong>Qué pasó:</strong> pivoteó fuera del social de consumo. Hoy es un proveedor de
+  <strong>ad-tech con IA para marcas</strong> que buscan acceso a gamers. Coqueteó con la
+  "Creator League" ligada a cripto/NFT (backlash) y recortó personal.</li>
+<li><strong>Lección para LOBBY:</strong> ni US$17,7M ni estrellas deportivas salvan a un social de
+  consumo puro. <strong>La plata estaba en B2B — terminó ahí igual, pero tarde y
+  quemando capital.</strong> LOBBY nace B2B: se saltea el error.</li>
+</ul>
+<h3 id="otros-del-cementerio-contexto-del-research-previo">Otros del cementerio (contexto del research previo)</h3>
+<ul>
+<li><strong>Zengaming</strong> (Israel): "LinkedIn de pro gamers", ~US$2,8M, 3M usuarios → se
+  apagó. <em>3M registros ≠ negocio.</em></li>
+<li><strong>PvP, GameTree</strong>: marginales / cold-start brutal.</li>
+</ul>
+<hr />
+<h2 id="3-el-sobreviviente-rentable-hitmarker-el-modelo-que-funciona">3. El sobreviviente rentable — Hitmarker (el modelo que funciona)</h2>
+<ul>
+<li><strong>Levantó ~US$0,9-1,2M</strong>, la mayoría vía <strong>equity crowdfunding</strong> (Crowdcube
+  €568K a 2,5x su valuación previa; alcanzó 207% del target en 7 días).</li>
+<li><strong>Modelo:</strong> plataforma de <strong>empleo B2B por suscripción</strong> — las empresas pagan
+  por contratar talento gaming/esports. Job board + base de candidatos + sourcing.</li>
+<li><strong>Tracción:</strong> ~100% de crecimiento anual de revenue (2020), expansión localizada
+  a <strong>Brasil, España, Japón, China</strong>.</li>
+<li><strong>Lección para LOBBY:</strong> el B2B recruiting es <strong>rentable y capital-efficient</strong>
+  (creció con ~US$1M, no US$18M). Es el <strong>Motor 2</strong> de LOBBY (Fase 3), ya validado
+  por un tercero. Y su expansión a Brasil/España confirma el apetito en mercados de
+  habla hispana/portuguesa.</li>
+</ul>
+<hr />
+<h2 id="4-las-categorias-adyacentes-son-venture-scale-prueba-de-que-el-espacio-es-grande">4. Las categorías adyacentes son venture-scale (prueba de que el espacio es grande)</h2>
+<p>Cada pilar de LOBBY tiene un comparable que ya levantó en serio:</p>
+<table>
+<thead>
+<tr>
+<th>Empresa</th>
+<th>Qué hace</th>
+<th>Levantó / Valuación</th>
+<th>Relevancia para LOBBY</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Linktree</strong></td>
+<td>Link-in-bio / perfil de creador</td>
+<td><strong>US$165M+, valuada US$1,3-1,7B</strong>, 50M+ usuarios</td>
+<td>El "perfil de creador" solo ya vale miles de M — pero es estático y no verificado</td>
+</tr>
+<tr>
+<td><strong>Beacons</strong></td>
+<td>Link-in-bio + monetización</td>
+<td><strong>US$50M Series B</strong> (Spark Capital), ~US$29M+ total</td>
+<td>Idem, con capa de monetización</td>
+</tr>
+<tr>
+<td><strong>OP.GG</strong></td>
+<td>Stats/identidad de jugador (LoL/OW/PUBG)</td>
+<td><strong>US$29,4M</strong> (Series B; 500 Global, SBVA), 28M MAU</td>
+<td>Identidad <em>verificada</em> fundable — pero de <strong>skill del jugador</strong>, no audiencia del creador</td>
+</tr>
+<tr>
+<td><strong>GRIN</strong></td>
+<td>Discovery/gestión de influencers (ecommerce)</td>
+<td><strong>US$144M</strong> en 5 rondas</td>
+<td>El discovery B2B de influencers es un mercado enorme — pero centrado en US/ecommerce, no LATAM/gaming</td>
+</tr>
+<tr>
+<td><strong>CreatorIQ</strong></td>
+<td>Influencer marketing enterprise</td>
+<td><strong>US$80M</strong></td>
+<td>Idem enterprise</td>
+</tr>
+<tr>
+<td><strong>Guilded</strong></td>
+<td>Comunidades gaming (rival de Discord)</td>
+<td><strong>Adquirida por Roblox ~US$90M (2021)</strong></td>
+<td>Hay exits estratégicos en el vertical</td>
+</tr>
+</tbody>
+</table>
+<p><strong>El mercado de plataformas de influencer marketing:</strong> <strong>US$6,79B (2024) → US$8,72B
+(2025) → US$28,72B (2030)</strong>, CAGR <strong>27,2%</strong> (SNS Insider). Ese es el mercado de
+software en el que juega el lado B2B de LOBBY.</p>
+<hr />
+<h2 id="5-mapa-de-posicionamiento-donde-esta-el-hueco">5. Mapa de posicionamiento — dónde está el hueco</h2>
+<p><strong>Dos ejes que nadie cruza: verificación de audiencia (Y) × orientación B2B/
+descubrimiento (X).</strong></p>
+<pre><code>                    ALTA verificación de audiencia
+                              ▲
+                              │
+              OP.GG           │          ◆ LOBBY
+        (verifica skill,      │      (verifica AUDIENCIA
+         no audiencia;        │       del creador +
+         no B2B de marca)     │       discovery B2B +
+                              │       LATAM)
+   consumo ◄──────────────────┼──────────────────► B2B / discovery de marca
+                              │
+        Linktree/Beacons      │        GRIN / CreatorIQ
+        (perfil lindo,        │      (discovery B2B pero
+         sin verificar,       │       audiencia auto-reportada,
+         sin discovery)       │       US/ecommerce, no gaming LATAM)
+                              │
+                              ▼
+                    BAJA verificación de audiencia
+</code></pre>
+<p><strong>El cuadrante superior derecho está vacío:</strong> identidad de creador <strong>con audiencia
+verificada</strong> + <strong>descubrimiento B2B</strong> + <strong>foco LATAM</strong>. Ahí se para LOBBY. Cada
+competidor cubre <em>un</em> eje; ninguno los dos.</p>
+<hr />
+<h2 id="6-matriz-de-features-por-que-lobby-en-concreto">6. Matriz de features (por qué LOBBY, en concreto)</h2>
+<table>
+<thead>
+<tr>
+<th></th>
+<th style="text-align: center;">LOBBY</th>
+<th style="text-align: center;">eFuse</th>
+<th style="text-align: center;">Hitmarker</th>
+<th style="text-align: center;">Linktree</th>
+<th style="text-align: center;">OP.GG</th>
+<th style="text-align: center;">GRIN</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Perfil profesional de creador</td>
+<td style="text-align: center;">✅</td>
+<td style="text-align: center;">⚠️</td>
+<td style="text-align: center;">❌</td>
+<td style="text-align: center;">✅</td>
+<td style="text-align: center;">⚠️</td>
+<td style="text-align: center;">❌</td>
+</tr>
+<tr>
+<td><strong>Audiencia verificada por OAuth</strong></td>
+<td style="text-align: center;">✅</td>
+<td style="text-align: center;">❌</td>
+<td style="text-align: center;">❌</td>
+<td style="text-align: center;">❌</td>
+<td style="text-align: center;">⚠️*</td>
+<td style="text-align: center;">❌</td>
+</tr>
+<tr>
+<td>Discovery B2B para marcas</td>
+<td style="text-align: center;">✅</td>
+<td style="text-align: center;">⚠️</td>
+<td style="text-align: center;">❌</td>
+<td style="text-align: center;">❌</td>
+<td style="text-align: center;">❌</td>
+<td style="text-align: center;">✅</td>
+</tr>
+<tr>
+<td>Segmentación por juego/país/plataforma</td>
+<td style="text-align: center;">✅</td>
+<td style="text-align: center;">❌</td>
+<td style="text-align: center;">❌</td>
+<td style="text-align: center;">❌</td>
+<td style="text-align: center;">⚠️</td>
+<td style="text-align: center;">✅</td>
+</tr>
+<tr>
+<td>Reclutamiento / jobs</td>
+<td style="text-align: center;">🔜</td>
+<td style="text-align: center;">⚠️</td>
+<td style="text-align: center;">✅</td>
+<td style="text-align: center;">❌</td>
+<td style="text-align: center;">❌</td>
+<td style="text-align: center;">❌</td>
+</tr>
+<tr>
+<td>Foco LATAM nativo</td>
+<td style="text-align: center;">✅</td>
+<td style="text-align: center;">❌</td>
+<td style="text-align: center;">⚠️</td>
+<td style="text-align: center;">❌</td>
+<td style="text-align: center;">❌</td>
+<td style="text-align: center;">❌</td>
+</tr>
+</tbody>
+</table>
+<p><em>OP.GG verifica </em><em>skill del jugador</em><em>, no la </em><em>audiencia del creador</em>* — es otra
+cosa. 🔜 = roadmap Fase 3.</p>
+<hr />
+<h2 id="7-que-significa-para-el-ask-de-lobby-benchmarking-del-pre-seed">7. Qué significa para el ask de LOBBY (benchmarking del pre-seed)</h2>
+<ul>
+<li><strong>Comparables directos de entrada:</strong> eFuse levantó su <strong>seed en US$1,4M</strong>;
+  Hitmarker construyó un negocio rentable con <strong>~US$1M</strong>. El pre-seed de <strong>US$500K</strong>
+  de LOBBY está <strong>en el fairway o por debajo</strong> — y con <strong>ventajas que ellos no
+  tenían al levantar:</strong>
+  1. <strong>Producto ya construido</strong> (eFuse levantó para construir; LOBBY ya tiene el
+     MVP verificado).
+  2. <strong>B2B desde el día 1</strong> (eFuse gastó US$17M aprendiendo que el consumo no paga).
+  3. <strong>Wedge de verificación</strong> (nadie más lo tiene como identidad de creador).
+  4. <strong>Beachhead LATAM</strong> desatendido (todos los comps son US/EU/Asia).</li>
+<li><strong>El techo del espacio es alto:</strong> Linktree US$1,3-1,7B con un producto <em>inferior</em>
+  (perfil sin verificar). El mercado de plataformas de influencer marketing va a
+  <strong>US$28,7B en 2030</strong>. La pregunta del VC no es "¿es grande?", es "¿pueden ser los
+  dueños de LATAM?".</li>
+</ul>
+<blockquote>
+<p><strong>Punchline para el pitch:</strong> <em>"eFuse quemó US$17M para descubrir que la plata es
+B2B. Hitmarker lo probó rentable con US$1M. Linktree vale US$1,3B con un perfil
+que ni siquiera verifica la audiencia. LOBBY junta lo mejor de los tres —
+verificado, B2B, en el mercado que ninguno atiende— y pide US$500K para
+ser dueño de LATAM."</em></p>
+</blockquote>
+<hr />
+<h2 id="8-riesgo-competitivo-los-honestos">8. Riesgo competitivo (los honestos)</h2>
+<table>
+<thead>
+<tr>
+<th>Amenaza</th>
+<th>Probabilidad</th>
+<th>Mitigación</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Un incumbente (LinkedIn, GRIN) baja a LATAM/gaming</td>
+<td>Media</td>
+<td>Foco + dataset propietario + velocidad; ellos tienen conflictos y no priorizan LATAM</td>
+</tr>
+<tr>
+<td>Una agencia grande construye su propio directorio</td>
+<td>Media</td>
+<td>Vendemos <em>a</em> las agencias también; el dato verificado cross-plataforma es difícil de replicar</td>
+</tr>
+<tr>
+<td>OP.GG/Tracker.gg extienden a "audiencia de creador"</td>
+<td>Baja-media</td>
+<td>Distinto core (skill vs. audiencia); ventaja de foco en el nicho de marca</td>
+</tr>
+<tr>
+<td>eFuse (ya con US$17M y ad-tech) apunta a LATAM</td>
+<td>Baja</td>
+<td>Está en otro negocio (ad-tech), no en identidad de creador; y quemó credibilidad</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="9-fuentes_1">9. Fuentes</h2>
+<ul>
+<li>eFuse: Crunchbase/PitchBook/Tracxn (US$17,67M total); Crain's Cleveland; PRWeb.</li>
+<li>Hitmarker: EU-Startups (€568K Crowdcube); Dexerto; Crunchbase.</li>
+<li>Linktree: TechCrunch (US$1,3B Series C, Index/Coatue); Sacra; Contrary Research.</li>
+<li>Beacons: TechCrunch (US$6M seed); Crunchbase (US$50M Series B, Spark).</li>
+<li>OP.GG: Tracxn/Crunchbase (US$29,35M; 500 Global, SBVA); 28M MAU.</li>
+<li>GRIN / CreatorIQ: Tracxn (US$144M / US$80M).</li>
+<li>Guilded → Roblox: SEC 8-K/A; PocketGamer.biz (~US$90M, 2021).</li>
+<li>Mercado plataformas influencer mkt: SNS Insider (US$8,72B 2025 → US$28,72B 2030).</li>
+</ul>
+<h1 id="estrategia-geografica-y-mapas-por-pais">Estrategia geográfica y mapas por país</h1>
+<blockquote>
+<p>Parte A: por qué LATAM primero y cuál es el camino global (beachhead + expand).
+Parte B: mapas por país de los 5 mercados de entrada, con números, ecosistema,
+marcas y ángulo de entrada de LOBBY. Parte C: secuencia de rollout.</p>
+<p>Última act.: 2026-07-31. Fuentes: Newzoo, imarc, Grand View, Statista, LAESF,
+EsportsAtlas. Estimaciones propias marcadas <em>(est.)</em>.</p>
+</blockquote>
+<hr />
+<h2 id="parte-a-por-que-latam-primero-y-por-que-no-el-mundo-entero">PARTE A — Por qué LATAM primero (y por qué no el mundo entero)</h2>
+<p><strong>LOBBY no es una empresa LATAM; es una empresa global que arranca en LATAM
+porque ahí el wedge es más filoso.</strong> La geografía es una decisión de beachhead,
+no un techo.</p>
+<h3 id="por-que-no-global-desde-el-dia-1">Por qué NO global desde el día 1</h3>
+<ol>
+<li><strong>Los efectos de red de dos lados son locales.</strong> Una marca de un país quiere
+   creadores de ese país. Un directorio global y fino = marketplace vacío en todos
+   lados = el cold-start que mató a eFuse/Zengaming. Se gana con <strong>densidad en un
+   mercado</strong>, no dispersión en 40.</li>
+<li><strong>Eficiencia de capital.</strong> US$500K dominan un beachhead; no hierven el océano.</li>
+<li><strong>Defendibilidad.</strong> Ser <strong>#1 en creadores LATAM</strong> es un foso; ser #50 global no
+   es nada. LinkedIn y las agencias grandes ya son fuertes en US/EU. LATAM es el
+   <strong>hueco desatendido</strong>.</li>
+<li><strong>Founder-market fit.</strong> Idioma (ES + PT), red, cercanía cultural, BD en el
+   territorio.</li>
+<li><strong>LATAM es atractivo per se:</strong> 372,3M jugadores, crecimiento doble dígito,
+   no-endémicas entrando, y el <strong>español abre ~10 países con un idioma</strong>.</li>
+</ol>
+<h3 id="por-que-la-vision-sigue-siendo-global">Por qué la visión sigue siendo global</h3>
+<p>El producto es <strong>agnóstico a la geografía</strong> — un directorio de creadores
+verificados funciona en cualquier país sin cambiar el código. El camino:</p>
+<pre><code>FASE 1              FASE 2                 FASE 3            FASE 4
+LATAM               Mercado hispano        Sur global        Mercados
+(ES + Brasil PT)    de EE.UU.              (SE Asia, África)  maduros (US/EU)
+BEACHHEAD           EL CABALLO DE TROYA    escala             LinkedIn territory
+</code></pre>
+<p><strong>El caballo de Troya (US hispano):</strong> ~63M de hispanos en EE.UU., poder de compra
+~US$3,6 billones, anunciantes premium, <strong>mismo idioma y mismos creadores</strong> que ya
+están en el directorio LATAM. Se entra a EE.UU. <strong>sin rehacer el producto</strong>.</p>
+<blockquote>
+<p><strong>One-liner de pitch:</strong> <em>"No nos limitamos a LATAM — nos negamos a perder por
+dispersarnos. LATAM es donde podemos ser #1 en 24 meses, y el modelo viaja."</em></p>
+</blockquote>
+<hr />
+<h2 id="parte-b-mapas-por-pais-5-mercados-de-entrada">PARTE B — Mapas por país (5 mercados de entrada)</h2>
+<blockquote>
+<p><strong>Nota sobre cifras:</strong> las firmas de research difieren por definición de
+"mercado" (Newzoo cuenta gasto en software; imarc/Grand View incluyen scope más
+amplio → números más altos). Se muestra la fuente en cada caso. Ancla regional
+conservadora: <strong>Newzoo, LATAM US$8,3B / 372,3M jugadores (2025)</strong>.</p>
+</blockquote>
+<hr />
+<h3 id="brasil-el-ancla-empezar-aca">🇧🇷 Brasil — el ancla (empezar acá)</h3>
+<table>
+<thead>
+<tr>
+<th>Dato</th>
+<th>Valor</th>
+<th>Fuente</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Jugadores</td>
+<td><strong>103-115 M</strong> (5º país del mundo)</td>
+<td>Newzoo</td>
+</tr>
+<tr>
+<td>Mercado gaming 2025</td>
+<td><strong>US$5,64 B</strong> (imarc) — &gt;52% del total LATAM</td>
+<td>imarc / market data</td>
+</tr>
+<tr>
+<td>Penetración de juego</td>
+<td><strong>82,8%</strong> de brasileños juega</td>
+<td>Pesquisa Game Brasil 2025</td>
+</tr>
+<tr>
+<td>Idioma</td>
+<td><strong>Portugués</strong> (mercado propio, no compite con el ES)</td>
+<td>—</td>
+</tr>
+<tr>
+<td>Plataforma dominante</td>
+<td>Mobile (52,8% del revenue)</td>
+<td>imarc</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong>Ecosistema esports/orgs:</strong> LOUD, FURIA, MIBR, paiN Gaming, Vivo Keyd, Red
+  Canids, Fluxo, Los Grandes, Black Dragons. Path a VCT Americas (Valorant).</li>
+<li><strong>Marcas activas (demanda que paga):</strong> Ambev (Corona, Budweiser, Brahma,
+  Quilmes, Becker — partner Liga LATAM Riot), Banco do Brasil (gamescom latam),
+  McDonald's, Burger King (restaurante LOUD), betting (FURIA/BetBoom).</li>
+<li><strong>Ángulo LOBBY:</strong> el mercado más grande y maduro; mayor densidad de marca y de
+  creadores. <strong>Riesgo:</strong> portugués (necesita localización) y es el más competido.</li>
+<li><strong>Prioridad:</strong> 🟢 <strong>Máxima</strong> — es el ancla de volumen.</li>
+</ul>
+<hr />
+<h3 id="mexico-el-hub-hispano-segundo-motor">🇲🇽 México — el hub hispano (segundo motor)</h3>
+<table>
+<thead>
+<tr>
+<th>Dato</th>
+<th>Valor</th>
+<th>Fuente</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Posición</td>
+<td><strong>2º mercado LATAM</strong></td>
+<td>Newzoo</td>
+</tr>
+<tr>
+<td>Mercado gaming 2025</td>
+<td><strong>US$4,57 B</strong> (→ US$6,04 B en 2029, 7,21% CAGR)</td>
+<td>Grand View</td>
+</tr>
+<tr>
+<td>Penetración de juego</td>
+<td><strong>78,4%</strong> — la más alta de la región</td>
+<td>Statista</td>
+</tr>
+<tr>
+<td>Idioma</td>
+<td><strong>Español</strong> (puerta al resto de LATAM y al US hispano)</td>
+<td>—</td>
+</tr>
+<tr>
+<td>Dominante</td>
+<td>Mobile-first; Garena / Free Fire fuerte</td>
+<td>Antom / Statista</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong>Ecosistema:</strong> fuerte en mobile esports (Free Fire, LoL LLA), orgs como
+  Estral Esports, Six Karma, Isurus (regional).</li>
+<li><strong>Marcas activas:</strong> Claro, Telcel, Coca-Cola/PepsiCo, bancos (captación joven),
+  QSR. Alta actividad de marcas globales con oficina en México.</li>
+<li><strong>Ángulo LOBBY:</strong> <strong>el mercado hispano ancla.</strong> Ganar México valida el motor en
+  español que después escala a todo LATAM-ES y al US hispano.</li>
+<li><strong>Prioridad:</strong> 🟢 <strong>Máxima</strong> — el hub del idioma.</li>
+</ul>
+<hr />
+<h3 id="argentina-la-fabrica-de-creadores-densidad-de-talento">🇦🇷 Argentina — la fábrica de creadores (densidad de talento)</h3>
+<table>
+<thead>
+<tr>
+<th>Dato</th>
+<th>Valor</th>
+<th>Fuente</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Penetración internet</td>
+<td><strong>93%</strong></td>
+<td>market data</td>
+</tr>
+<tr>
+<td>Dinámica</td>
+<td>Riesgo cambiario → F2P y suscripciones; <strong>altísima densidad de referentes</strong></td>
+<td>—</td>
+</tr>
+<tr>
+<td>Idioma</td>
+<td>Español</td>
+<td>—</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong>Ecosistema / creadores:</strong> epicentro de referentes hispanohablantes — <strong>KRÜ
+  Esports</strong> (Agüero), <strong>9z Team</strong>, <strong>Spreen</strong> (récords de audiencia), Coscu /
+  Coscu Army, Davoo Xeneize, Momo. Los <strong>Premios ESLAND</strong> (Ibai) mueven la cultura
+  regional.</li>
+<li><strong>Marcas:</strong> Personal, Movistar, bancos/fintech (Mercado Pago, Ualá), periféricos.
+  Poder de compra menor pero <strong>la cultura de creador se fija acá</strong>.</li>
+<li><strong>Ángulo LOBBY:</strong> no es el mercado de mayor <em>plata</em>, es el de mayor <strong>densidad y
+  prestigio de oferta</strong>. Ganar Argentina = llenar el directorio de nombres que
+  arrastran. <strong>Encender la oferta acá primero</strong> tiene efecto halo regional.</li>
+<li><strong>Prioridad:</strong> 🟢 <strong>Alta (oferta)</strong> — arranca la máquina de creadores.</li>
+</ul>
+<hr />
+<h3 id="colombia-el-crecimiento-fintech-escala">🇨🇴 Colombia — el crecimiento (fintech + escala)</h3>
+<table>
+<thead>
+<tr>
+<th>Dato</th>
+<th>Valor</th>
+<th>Fuente</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Proyección gaming 2028</td>
+<td><strong>US$3,67 B</strong> (16,3% CAGR)</td>
+<td>market data</td>
+</tr>
+<tr>
+<td>Fintech</td>
+<td>Stack avanzado; ARPU ~US$823 <em>(reportado)</em></td>
+<td>market data</td>
+</tr>
+<tr>
+<td>Idioma</td>
+<td>Español</td>
+<td>—</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong>Ecosistema:</strong> escena creciente, fuerte en FreeFire/LoL; creadores en ascenso.</li>
+<li><strong>Marcas:</strong> telcos (Claro/Tigo), bancos digitales (Nequi/Nu), consumo.</li>
+<li><strong>Ángulo LOBBY:</strong> mercado de <strong>alto crecimiento</strong> — entrar temprano antes de que
+  se consolide. El stack fintech facilita el cobro B2B.</li>
+<li><strong>Prioridad:</strong> 🟡 <strong>Media-alta (expansión Fase 2)</strong>.</li>
+</ul>
+<hr />
+<h3 id="chile-el-premium-chico-alto-valor-poco-volumen">🇨🇱 Chile — el premium chico (alto valor, poco volumen)</h3>
+<table>
+<thead>
+<tr>
+<th>Dato</th>
+<th>Valor</th>
+<th>Fuente</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Perfil</td>
+<td>Mercado chico pero <strong>alto poder adquisitivo</strong>; 5G y regulación madura</td>
+<td>market data</td>
+</tr>
+<tr>
+<td>Idioma</td>
+<td>Español</td>
+<td>—</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong>Ecosistema:</strong> escena competitiva sólida para su tamaño; audiencia con capacidad
+  de gasto.</li>
+<li><strong>Marcas:</strong> retail (Falabella/Ripley), banca, telcos — anunciantes que pagan bien.</li>
+<li><strong>Ángulo LOBBY:</strong> <strong>calidad sobre cantidad.</strong> Buen mercado para pilotos B2B de
+  ARPA alto una vez que el motor ES está afinado.</li>
+<li><strong>Prioridad:</strong> 🟡 <strong>Media (expansión Fase 2)</strong>.</li>
+</ul>
+<hr />
+<h3 id="tabla-resumen-de-priorizacion">Tabla-resumen de priorización</h3>
+<table>
+<thead>
+<tr>
+<th>País</th>
+<th>Rol estratégico</th>
+<th>Idioma</th>
+<th>Prioridad</th>
+<th>Fase</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>🇧🇷 Brasil</td>
+<td>Ancla de volumen y demanda</td>
+<td>PT</td>
+<td>🟢 Máxima</td>
+<td>1</td>
+</tr>
+<tr>
+<td>🇲🇽 México</td>
+<td>Hub hispano (demanda)</td>
+<td>ES</td>
+<td>🟢 Máxima</td>
+<td>1</td>
+</tr>
+<tr>
+<td>🇦🇷 Argentina</td>
+<td>Fábrica de oferta (creadores)</td>
+<td>ES</td>
+<td>🟢 Alta</td>
+<td>1</td>
+</tr>
+<tr>
+<td>🇨🇴 Colombia</td>
+<td>Crecimiento + fintech</td>
+<td>ES</td>
+<td>🟡 Media-alta</td>
+<td>2</td>
+</tr>
+<tr>
+<td>🇨🇱 Chile</td>
+<td>Premium de ARPA alto</td>
+<td>ES</td>
+<td>🟡 Media</td>
+<td>2</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="parte-c-secuencia-de-rollout-como-se-enciende">PARTE C — Secuencia de rollout (cómo se enciende)</h2>
+<pre><code>0-6m    Argentina (oferta) + México (oferta+piloto demanda)
+        → encender la fábrica de creadores en español
+6-12m   Brasil (localización PT, oferta + demanda)
+        → sumar el mercado ancla de volumen
+12-18m  Colombia + Chile (expansión ES)
+        → densidad regional, primeros pilotos B2B de ARPA alto
+18-24m+ Consolidar LATAM → preparar el salto al US hispano (Fase 2 global)
+</code></pre>
+<p><strong>Racional del orden:</strong> se enciende <strong>primero la oferta donde es más densa y barata
+(Argentina)</strong>, se valida el <strong>motor en español y el primer revenue en México</strong>, y
+recién ahí se paga el costo de localización de <strong>Brasil (portugués)</strong>. Colombia y
+Chile son expansión natural del motor ES ya probado. Todo prepara el salto al
+<strong>mercado hispano de EE.UU.</strong>, donde el mismo directorio se monetiza a ARPA de
+primer mundo.</p>
+<hr />
+<h2 id="apendice-discrepancia-de-cifras-regionales-transparencia">Apéndice — discrepancia de cifras regionales (transparencia)</h2>
+<p>El tamaño del "mercado gaming LATAM 2025" varía según fuente y definición:
+- <strong>Newzoo: US$8,3 B</strong> (gasto de consumidores en software — ancla conservadora).
+- Otras firmas: <strong>US$18,6 B</strong> (2024, scope amplio) hasta <strong>US$25,7 B</strong> (definición
+  con hardware/periféricos/ecosistema completo).</p>
+<p>Para el plan usamos <strong>Newzoo como piso citable</strong> y mostramos el rango. Lo relevante
+para LOBBY no es el tamaño del gasto en juegos sino el <strong>gasto de marca sobre
+creadores</strong> (SAM ~US$189M, ver <code>05-mercado-y-tamano.md</code>).</p>
+<h1 id="estrategia-de-marketing">Estrategia de marketing</h1>
+<blockquote>
+<p>Capa de marketing profesional del plan: STP, posicionamiento y marca, propuesta
+de valor por lado, arquitectura de mensajes, embudo pirata (AARRR), growth loops,
+flywheel, canales y KPIs. Cada framework está <strong>aplicado a LOBBY</strong>, no en
+abstracto. Se apoya en <code>00-tesis</code>, <code>05-mercado</code>, <code>06-mapas</code>, <code>07-competitivo</code>.</p>
+<p>Última act.: 2026-07-31.</p>
+</blockquote>
+<hr />
+<h2 id="0-principio-rector-marketing-de-un-marketplace-de-dos-lados">0. Principio rector: marketing de un marketplace de dos lados</h2>
+<p>LOBBY no hace "marketing" a un público; hace marketing a <strong>dos mercados
+interdependientes</strong> (creadores y marcas) con una regla de oro tomada de la teoría
+de redes (Andrew Chen, <em>The Cold Start Problem</em>):</p>
+<blockquote>
+<p><strong>Encender primero el "hard side" (la oferta: creadores), construir una "red
+atómica" densa en un nicho, y recién ahí traccionar el "easy side" (la demanda:
+marcas).</strong></p>
+</blockquote>
+<p>Todo lo que sigue se ordena bajo esa lógica: <strong>oferta antes que demanda</strong>,
+<strong>densidad antes que amplitud</strong>.</p>
+<hr />
+<h2 id="1-stp-segmentacion-targeting-posicionamiento-kotler">1. STP — Segmentación, Targeting, Posicionamiento (Kotler)</h2>
+<h3 id="11-segmentacion">1.1 Segmentación</h3>
+<p><strong>Lado oferta (creadores)</strong> por tamaño de audiencia:
+- Nano (&lt;10K) · <strong>Mid-tier (10K-500K)</strong> · Macro (500K-1M) · Mega (&gt;1M).</p>
+<p><strong>Lado demanda (marcas)</strong> por relación con gaming (ver <code>mapa-marcas-latam.md</code>):
+- Endémicas (periféricos/hardware) · No-endémicas (bebidas, QSR, fintech, telco,
+  tech) · Agencias/MCN.</p>
+<h3 id="12-targeting-a-quien-le-pegamos-primero">1.2 Targeting (a quién le pegamos primero)</h3>
+<ul>
+<li><strong>Beachhead de oferta:</strong> <strong>creadores mid-tier (10K-500K)</strong> en Argentina y México.
+  <em>Por qué:</em> los top ya tienen agencia, los nano no mueven aguja, y el mid-tier es
+  <strong>el de mayor fraude no-verificado (48,3%)</strong> y el que la marca más busca. Es el
+  segmento con mayor dolor y menor competencia por él.</li>
+<li><strong>Beachhead de demanda:</strong> <strong>endémicas + agencias</strong> primero (cierre más natural,
+  ya compran gaming), después no-endémicas en expansión.</li>
+</ul>
+<h3 id="13-posicionamiento-el-statement">1.3 Posicionamiento (el statement)</h3>
+<blockquote>
+<p><strong>Para</strong> marcas y agencias que invierten en creadores de gaming en LATAM,
+<strong>LOBBY</strong> es la <strong>capa de identidad profesional con audiencia verificada</strong>
+<strong>que</strong> les permite descubrir y contratar creadores reales sin desperdiciar el
+36% del presupuesto en audiencia inflada,
+<strong>a diferencia de</strong> las agencias opacas o los directorios sin verificar.</p>
+</blockquote>
+<hr />
+<h2 id="2-category-design-no-competir-en-una-categoria-crear-una">2. Category design — no competir en una categoría, crear una</h2>
+<p>En vez de pelear en la categoría saturada de "influencer platforms" (donde GRIN y
+CreatorIQ ya son fuertes), LOBBY <strong>diseña una categoría nueva</strong> (marco <em>Play
+Bigger</em>): <strong>"identidad de creador verificada"</strong> / <em>verified creator identity</em>.</p>
+<ul>
+<li><strong>El enemigo con nombre:</strong> la <strong>"audiencia inflada"</strong> (fake followers, engagement
+  comprado). Toda categoría nueva necesita un villano; el nuestro tiene número
+  (37,2% falsos, US$4,6B desperdiciados).</li>
+<li><strong>La narrativa POV (point of view):</strong> <em>"En la economía del creador, la confianza
+  es la nueva moneda — y hoy no se puede comprar. LOBBY la vuelve verificable."</em></li>
+<li><strong>Ventaja:</strong> el que define la categoría suele quedarse con la mayor parte de su
+  valor. LOBBY quiere ser sinónimo de "creador verificado en LATAM".</li>
+</ul>
+<hr />
+<h2 id="3-arquitectura-de-marca">3. Arquitectura de marca</h2>
+<h3 id="31-esencia-y-racional-del-nombre">3.1 Esencia y racional del nombre</h3>
+<p><strong>LOBBY</strong> = el <em>lobby</em> profesional donde el talento del entretenimiento se
+presenta, se conecta y hace negocios. Evoca acceso, networking y profesionalismo —
+lo opuesto al caos de un feed. La "capa profesional de la economía del
+entretenimiento".</p>
+<h3 id="32-pilares-de-marca-brand-pillars">3.2 Pilares de marca (brand pillars)</h3>
+<ol>
+<li><strong>Verificado</strong> — nada auto-reportado; la confianza es el producto.</li>
+<li><strong>Profesional</strong> — LinkedIn energy, no red social de consumo.</li>
+<li><strong>LATAM-native</strong> — hecho por y para la región, no un producto gringo traducido.</li>
+<li><strong>Del lado del creador</strong> — el creador es dueño de su perfil y sus datos.</li>
+</ol>
+<h3 id="33-personalidad-y-tono">3.3 Personalidad y tono</h3>
+<p>Confiable pero cercano; profesional sin ser acartonado; bilingüe cultural
+(español/portugués, cultura gamer). <em>Tono: "el manager que te hace ver pro", no
+"el corporativo aburrido".</em></p>
+<hr />
+<h2 id="4-propuesta-de-valor-por-lado-value-proposition-canvas">4. Propuesta de valor por lado (Value Proposition Canvas)</h2>
+<h3 id="41-creador-oferta-gratis">4.1 Creador (oferta) — gratis</h3>
+<table>
+<thead>
+<tr>
+<th>Jobs (qué quiere)</th>
+<th>Pains (qué le duele)</th>
+<th>Gains que LOBBY entrega</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Que lo tomen en serio como profesional</td>
+<td>Su valor disperso en 5 plataformas</td>
+<td>Un perfil profesional único y verificado</td>
+</tr>
+<tr>
+<td>Conseguir deals con marcas</td>
+<td>No tiene cómo probar su audiencia real</td>
+<td>Badge de audiencia verificada = credibilidad</td>
+</tr>
+<tr>
+<td>Un media kit que no arme a mano</td>
+<td>El media kit se desactualiza</td>
+<td>Media kit vivo (refresh automático)</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Propuesta:</strong> <em>"Tu identidad profesional de creador, verificada y siempre al día —
+para que las marcas te encuentren y te crean. Gratis."</em></p>
+<h3 id="42-marcaagencia-demanda-paga">4.2 Marca/agencia (demanda) — paga</h3>
+<table>
+<thead>
+<tr>
+<th>Jobs</th>
+<th>Pains</th>
+<th>Gains que LOBBY entrega</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Descubrir creadores reales</td>
+<td>El vetting manual es lento y caro</td>
+<td>Directorio verificado, buscable en minutos</td>
+</tr>
+<tr>
+<td>No pagar audiencia inflada</td>
+<td>36% del presupuesto se desperdicia</td>
+<td>Audiencia verificada por OAuth</td>
+</tr>
+<tr>
+<td>Segmentar por campaña</td>
+<td>Las agencias son cajas negras</td>
+<td>Segmentación por juego/país/plataforma/tamaño</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Propuesta:</strong> <em>"Encontrá creadores LATAM con audiencia verificada y segmentable en
+minutos — sin agencias opacas ni presupuesto tirado a la basura."</em></p>
+<hr />
+<h2 id="5-arquitectura-de-mensajes-messaging-house">5. Arquitectura de mensajes (messaging house)</h2>
+<p>Un mensaje techo por audiencia + 3 pilares que lo sostienen:</p>
+<table>
+<thead>
+<tr>
+<th>Audiencia</th>
+<th>Mensaje techo</th>
+<th>Pilares de prueba</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Creador</strong></td>
+<td>"Volvé profesional tu carrera de creador."</td>
+<td>Verificado · Gratis · Media kit vivo</td>
+</tr>
+<tr>
+<td><strong>Marca</strong></td>
+<td>"Dejá de pagar audiencia que no existe."</td>
+<td>37,2% es falso · Verificado por OAuth · En minutos</td>
+</tr>
+<tr>
+<td><strong>Inversor</strong></td>
+<td>"Somos dueños de la capa verificada de creadores LATAM."</td>
+<td>B2B rentable (Hitmarker) · Wedge de datos · Beachhead defendible</td>
+</tr>
+</tbody>
+</table>
+<p>Regla: <strong>un solo mensaje techo por pieza</strong>. Nada de vender las tres cosas juntas.</p>
+<hr />
+<h2 id="6-el-embudo-pirata-aarrr-por-lado-north-star">6. El embudo pirata (AARRR) por lado + North Star</h2>
+<h3 id="61-north-star-metric">6.1 North Star Metric</h3>
+<blockquote>
+<p><strong>Creadores verificados activos con perfil completo</strong> (proxy de densidad del
+foso). No "registros" (el error de Zengaming: 3M registros ≠ negocio).</p>
+</blockquote>
+<h3 id="62-aarrr-lado-creador-dave-mcclure">6.2 AARRR — lado creador (Dave McClure)</h3>
+<ul>
+<li><strong>Acquisition:</strong> alianzas con ligas/programas, referidos creador-a-creador, orgánico por handle/SEO.</li>
+<li><strong>Activation:</strong> conectar ≥1 canal por OAuth y obtener el badge (el "aha moment").</li>
+<li><strong>Retention:</strong> "quién te vio", refresh de stats, oportunidades entrantes.</li>
+<li><strong>Referral:</strong> compartir el media kit + invitar pares (loop viral, ver §7).</li>
+<li><strong>Revenue:</strong> freemium (Fase 3), no en el núcleo.</li>
+</ul>
+<h3 id="63-aarrr-lado-marca">6.3 AARRR — lado marca</h3>
+<ul>
+<li><strong>Acquisition:</strong> outbound de ventas, content marketing (reportes de audiencia), eventos de industria.</li>
+<li><strong>Activation:</strong> primera búsqueda con resultado + primer creador contactado.</li>
+<li><strong>Retention:</strong> listas/segmentos guardados, campañas recurrentes.</li>
+<li><strong>Referral:</strong> caso de éxito / boca a boca entre marketers.</li>
+<li><strong>Revenue:</strong> suscripción B2B (Motor 1) → take-rate (Motor 4).</li>
+</ul>
+<hr />
+<h2 id="7-growth-loops-y-flywheel-crecimiento-compuesto-no-lineal">7. Growth loops y flywheel (crecimiento compuesto, no lineal)</h2>
+<p>Los embudos son lineales; los <strong>loops</strong> son compuestos. LOBBY tiene tres:</p>
+<p><strong>Loop 1 — Viral de oferta (creador→creador):</strong></p>
+<pre><code>Creador arma perfil verificado → comparte su media kit (link público)
+→ otros creadores lo ven → &quot;yo también quiero mi badge&quot; → nuevo perfil ↺
+</code></pre>
+<p><strong>Loop 2 — De contenido/SEO:</strong></p>
+<pre><code>Cada perfil público = página indexable → SEO por nombre de creador
+→ tráfico orgánico → nuevos creadores y marcas descubren LOBBY ↺
+</code></pre>
+<p><strong>Loop 3 — De red de dos lados (el flywheel central):</strong></p>
+<pre><code>Más creadores verificados → directorio más valioso para marcas
+→ más marcas pagan → más deals/visibilidad para creadores
+→ más creadores se suman ↺  (gira más rápido con densidad)
+</code></pre>
+<p><strong>El flywheel (estilo Amazon):</strong> verificación → densidad → valor para la marca →
+revenue → mejor producto/datos → más verificación. El pre-seed es el <strong>empujón
+inicial</strong> de la rueda.</p>
+<hr />
+<h2 id="8-estrategia-de-canales-paid-owned-earned">8. Estrategia de canales (paid / owned / earned)</h2>
+<table>
+<thead>
+<tr>
+<th>Tipo</th>
+<th>Lado creador</th>
+<th>Lado marca</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Owned</strong></td>
+<td>Perfiles públicos (SEO), blog, media kit compartible</td>
+<td>Reportes de audiencia (lead magnet), newsletter B2B</td>
+</tr>
+<tr>
+<td><strong>Earned</strong></td>
+<td>PR con ligas/orgs, referidos, prensa gaming (Dexerto/regional)</td>
+<td>Casos de éxito, boca a boca entre marketers, industria</td>
+</tr>
+<tr>
+<td><strong>Paid</strong></td>
+<td>Mínimo (orgánico-first); social gaming puntual</td>
+<td>Outbound, LinkedIn ads a marketers, eventos (gamescom latam)</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Principio de eficiencia:</strong> la oferta se adquiere <strong>orgánica/earned</strong> (CAC US$3-8);
+la plata de paid se reserva para el <strong>outbound B2B</strong> (CAC ~US$2.000, con LTV/CAC
+~16x que lo justifica). No quemar en paid de consumo — ese fue el pozo de eFuse.</p>
+<hr />
+<h2 id="9-marketing-de-contenido-y-comunidad-el-motor-de-la-oferta">9. Marketing de contenido y comunidad (el motor de la oferta)</h2>
+<ul>
+<li><strong>Contenido con dato propietario:</strong> informes de "estado del creador LATAM"
+  (audiencia verificada agregada) → posicionan a LOBBY como autoridad y generan
+  earned media + leads B2B. <em>El dato que sólo LOBBY tiene se vuelve marketing.</em></li>
+<li><strong>Comunidad de creadores:</strong> onboarding en cohortes por país/juego (crea densidad
+  y pertenencia); embajadores (creadores mid-tier con influencia entre pares).</li>
+<li><strong>Alianzas de distribución:</strong> ligas (GGTech/University Esports), programas de
+  creadores — onboarding en bloque en vez de uno a uno.</li>
+</ul>
+<hr />
+<h2 id="10-las-4-p-7-p-aplicadas-marketing-mix-de-servicios">10. Las 4 P / 7 P aplicadas (marketing mix de servicios)</h2>
+<p>El marketing mix de LOBBY es de <strong>servicio de dos lados</strong>, así que usamos las 7 P
+(las 4 P clásicas + las 3 de servicios: People, Process, Physical evidence).
+<strong>Ojo:</strong> muchas P se instancian <strong>distinto por lado</strong> (creador vs. marca).</p>
+<h3 id="product-producto">Product (producto)</h3>
+<ul>
+<li><strong>Núcleo:</strong> identidad profesional de creador con <strong>audiencia verificada por
+  OAuth</strong> + motor de <strong>discovery/segmentación</strong> para marcas.</li>
+<li><strong>Aumentado:</strong> media kit vivo, analytics, badge, "quién te vio".</li>
+<li><strong>Extensiones (Fase 3):</strong> reclutamiento, freemium premium, take-rate.</li>
+<li><strong>El producto es el dato:</strong> cada verificación mejora el activo que se le vende a
+  la marca. Producto y foso son lo mismo.</li>
+</ul>
+<h3 id="price-precio-la-p-que-mas-se-desarrolla-engancha-con-pricing-packaging">Price (precio) — <em>la P que más se desarrolla (engancha con pricing &amp; packaging)</em></h3>
+<ul>
+<li><strong>Creador: US$0</strong> en el núcleo. Es deliberado: la gratuidad construye la densidad
+  que se monetiza del lado B2B. Freemium premium (~US$8/mes) sólo en Fase 3.</li>
+<li><strong>Marca/agencia: suscripción por tier + asientos.</strong> Modelo de valor, no de costo:
+  se cobra por el <strong>ahorro de due diligence + el presupuesto que se deja de
+  desperdiciar</strong> (36%), no por "features".</li>
+<li><strong>Estrategia de entrada:</strong> <em>land-and-expand</em> — piloto acotado de bajo riesgo →
+  expansión de asientos/uso. Anclar el precio al <strong>ROI de no tirar el 36%</strong>, no a
+  la competencia.</li>
+<li><strong>Take-rate (Fase 3):</strong> fee sobre deals cerrados en la plataforma.</li>
+<li><strong>Métrica:</strong> ARPA creciente (US$6K→10K), NRR &gt; 100% vía upsell de asientos.</li>
+<li><strong>Detalle de tiers y packaging:</strong> ver <code>12-pricing-y-packaging.md</code>.</li>
+</ul>
+<h3 id="place-plaza-distribucion">Place (plaza / distribución)</h3>
+<ul>
+<li><strong>Canal:</strong> web/app propias; <strong>LATAM-first</strong>, español primero, portugués en Fase 2.</li>
+<li><strong>Distribución de oferta:</strong> alianzas con ligas/programas (onboarding en bloque) +
+  SEO de perfiles públicos (cada perfil es un canal de entrada).</li>
+<li><strong>Distribución de demanda:</strong> ventas directas + presencia en eventos de industria.</li>
+</ul>
+<h3 id="promotion-promocion">Promotion (promoción)</h3>
+<ul>
+<li><strong>Owned:</strong> perfiles públicos (SEO), media kit compartible, informes de dato
+  propietario, newsletter B2B.</li>
+<li><strong>Earned:</strong> PR con ligas/orgs, prensa gaming, casos de éxito, boca a boca de
+  marketers.</li>
+<li><strong>Paid:</strong> mínimo y quirúrgico — sólo outbound B2B (LTV/CAC ~16x lo justifica).
+  <strong>Nada de paid de consumo</strong> (disciplina anti-eFuse).</li>
+<li><strong>Mensaje:</strong> un mensaje techo por audiencia (ver <code>08 §5</code>).</li>
+</ul>
+<h3 id="people-personas">People (personas)</h3>
+<ul>
+<li>BD de creadores (oferta) + ventas B2B (demanda) + embajadores (creadores
+  mid-tier con influencia entre pares).</li>
+<li><strong>Soporte bilingüe</strong> (ES/PT) y culturalmente nativo — parte del posicionamiento
+  "LATAM-native", no un producto gringo traducido.</li>
+</ul>
+<h3 id="process-proceso">Process (proceso)</h3>
+<ul>
+<li><strong>Activación:</strong> onboarding con OAuth de baja fricción (el "aha moment" = badge).</li>
+<li><strong>Retención:</strong> refresh automático de stats (el media kit no envejece), loops de
+  hábito ("quién te vio", oportunidades).</li>
+<li><strong>Venta B2B:</strong> proceso de descubrimiento guiado por las buyer personas (<code>10</code>) y
+  manejo de objeciones estandarizado.</li>
+</ul>
+<h3 id="physical-evidence-evidencia-fisica-senales-de-confianza">Physical evidence (evidencia física / señales de confianza)</h3>
+<ul>
+<li>En un servicio digital, la "evidencia" es lo que <strong>prueba la promesa</strong>: el
+  <strong>badge de verificación</strong>, el media kit, los <strong>casos de éxito</strong>, los informes con
+  dato, y una marca profesional consistente. Todo refuerza el pilar <strong>Verificado</strong>.</li>
+</ul>
+<blockquote>
+<p><strong>Nota:</strong> el mix respeta la asimetría del marketplace — el creador recibe
+producto gratis con máxima evidencia de confianza; la marca paga un precio
+anclado al valor (ahorro/ROI). Cada P se diseñó por lado, no en promedio.</p>
+</blockquote>
+<hr />
+<h2 id="11-kpis-de-marketing-y-asignacion-de-presupuesto">11. KPIs de marketing y asignación de presupuesto</h2>
+<h3 id="111-kpis-por-embudo">11.1 KPIs por embudo</h3>
+<ul>
+<li><strong>Oferta:</strong> creadores verificados activos (North Star), tasa de activación
+  (registro→badge), coeficiente viral (K-factor) del Loop 1, CAC creador.</li>
+<li><strong>Demanda:</strong> SQLs B2B, tasa de cierre, CAC cuenta, ARPA, NRR (net revenue
+  retention), payback.</li>
+<li><strong>Marca:</strong> share of voice en "creador verificado LATAM", tráfico orgánico.</li>
+</ul>
+<h3 id="112-presupuesto-dentro-del-30-de-bdventas-del-pre-seed-ver-02">11.2 Presupuesto (dentro del ~30% de BD+ventas del pre-seed, ver <code>02</code>)</h3>
+<ul>
+<li>Mayoría a <strong>BD de oferta orgánico</strong> (alianzas, comunidad, embajadores) — barato y
+  compuesto.</li>
+<li>Resto a <strong>outbound B2B</strong> (el único paid que se paga solo por LTV/CAC).</li>
+<li><strong>Casi nada a paid de consumo</strong> — disciplina anti-eFuse.</li>
+</ul>
+<hr />
+<h2 id="12-resumen-ejecutivo-de-la-estrategia-de-marketing">12. Resumen ejecutivo de la estrategia de marketing</h2>
+<ol>
+<li><strong>Dos lados, oferta primero</strong> (cold-start resuelto por secuencia, no por plata).</li>
+<li><strong>Diseñar la categoría</strong> "creador verificado", con la "audiencia inflada" como
+   villano cuantificado.</li>
+<li><strong>Crecer por loops, no por embudos</strong> (viral de oferta + SEO + flywheel de red).</li>
+<li><strong>Adquirir oferta orgánica</strong> (CAC US$3-8) y <strong>demanda por outbound</strong> (LTV/CAC
+   ~16x); nada de quemar en paid de consumo.</li>
+<li><strong>El dato propietario es el marketing</strong> (informes de audiencia verificada =
+   autoridad + leads).</li>
+</ol>
+<h1 id="buyer-personas-y-perfiles-de-usuario">Buyer personas y perfiles de usuario</h1>
+<blockquote>
+<p>Los personajes concretos detrás de la segmentación de <code>08-marketing §1</code>. En un
+marketplace de dos lados hay dos familias: <strong>personas de oferta</strong> (creadores, el
+usuario que llena el foso) y <strong>buyer personas</strong> (marca/agencia, quien paga).
+Cada una con contexto, jobs-to-be-done, dolores, disparador de compra,
+objeciones y el mensaje exacto que la mueve.</p>
+<p>Última act.: 2026-07-31. Personas basadas en el research (<code>mapa-marcas-latam.md</code>,
+<code>05-mercado</code>, <code>06-mapas</code>); nombres ilustrativos.</p>
+</blockquote>
+<hr />
+<h2 id="como-usar-este-documento">Cómo usar este documento</h2>
+<ul>
+<li><strong>Marketing</strong> lo usa para elegir mensaje, canal y creativo por persona.</li>
+<li><strong>Ventas</strong> lo usa como guía de descubrimiento y manejo de objeciones (demanda).</li>
+<li><strong>Producto</strong> lo usa para priorizar features por job-to-be-done.</li>
+</ul>
+<p>Prioridad de foco en el lanzamiento (ver <code>09</code>): <strong>Valentina</strong> (oferta) +
+<strong>Rodrigo/Carolina + Diego</strong> (demanda).</p>
+<hr />
+<h2 id="parte-a-personas-de-oferta-creadores-el-usuario-gratis">PARTE A — Personas de OFERTA (creadores, el usuario gratis)</h2>
+<h2 id="persona-a1-valentina-la-mid-tier-en-ascenso-target-primario">🎮 Persona A1 — "Valentina, la mid-tier en ascenso" ⭐ (target primario)</h2>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Edad / lugar</strong></td>
+<td>24 · Buenos Aires, Argentina</td>
+</tr>
+<tr>
+<td><strong>Perfil</strong></td>
+<td>80K en Twitch + 150K en TikTok · Valorant + variety · streamea 5 días/semana</td>
+</tr>
+<tr>
+<td><strong>Segmento</strong></td>
+<td>Mid-tier (10K-500K) — el corazón del target</td>
+</tr>
+<tr>
+<td><strong>Ingreso actual</strong></td>
+<td>Subs + donaciones + 2-3 deals de marca al año (inestables)</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong>Jobs-to-be-done:</strong> <em>"Quiero que las marcas me tomen en serio como profesional y
+  me lleguen deals sin tener que mendigarlos por DM."</em></li>
+<li><strong>Dolores:</strong> su valor está disperso (Twitch, TikTok, Discord, un Linktree); arma
+  el media kit a mano en Canva y queda desactualizado; no tiene cómo <strong>probar</strong> que
+  su audiencia es real frente a una marca que desconfía.</li>
+<li><strong>Disparador:</strong> vio a un colega conseguir un deal mostrando su badge verificado.</li>
+<li><strong>Objeción:</strong> <em>"¿otra plataforma más para mantener?"</em> → se vence con <strong>cero
+  fricción</strong> (conecta OAuth una vez y listo) y <strong>gratis</strong>.</li>
+<li><strong>Canal:</strong> referido de pares, embajadores, TikTok, alianzas con ligas.</li>
+<li><strong>Mensaje LOBBY:</strong> <em>"Volvé profesional tu carrera. Tu audiencia verificada, tu
+  media kit siempre al día — para que las marcas te encuentren y te crean."</em></li>
+<li><strong>Aha moment:</strong> conecta un canal, aparece el badge de audiencia verificada.</li>
+</ul>
+<h2 id="persona-a2-mateo-el-competitivo-que-se-profesionaliza">🕹️ Persona A2 — "Mateo, el competitivo que se profesionaliza"</h2>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Edad / lugar</strong></td>
+<td>20 · Guadalajara, México</td>
+</tr>
+<tr>
+<td><strong>Perfil</strong></td>
+<td>Ex jugador semipro de FIFA/EA FC pasando a creador; 30K y creciendo</td>
+</tr>
+<tr>
+<td><strong>Segmento</strong></td>
+<td>Nano-a-mid en transición</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong>Jobs-to-be-done:</strong> <em>"Quiero construir una identidad profesional que no dependa
+  de mis resultados en el juego."</em></li>
+<li><strong>Dolores:</strong> su "CV" es un historial de torneos que a la marca no le dice nada de
+  audiencia; no sabe cómo monetizar el pivot a contenido.</li>
+<li><strong>Disparador:</strong> dejó/complementó lo competitivo y necesita ingresos por marca.</li>
+<li><strong>Objeción:</strong> <em>"todavía soy chico para que una marca me mire"</em> → LOBBY le muestra
+  que el <strong>mid-tier es justo lo que más buscan</strong> (mejor engagement/costo).</li>
+<li><strong>Mensaje LOBBY:</strong> <em>"Tu próxima etapa como profesional del contenido empieza con
+  un perfil que las marcas entienden."</em></li>
+</ul>
+<h2 id="persona-a3-bruna-la-creadora-multiplataforma-fase-2-brasil">📱 Persona A3 — "Bruna, la creadora multiplataforma" (Fase 2 · Brasil)</h2>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Edad / lugar</strong></td>
+<td>27 · São Paulo, Brasil (PT)</td>
+</tr>
+<tr>
+<td><strong>Perfil</strong></td>
+<td>250K cross-plataforma · mobile-first (Free Fire) + lifestyle gaming</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong>Jobs-to-be-done:</strong> <em>"Consolidar mi presencia fragmentada y cerrar deals más
+  grandes y estables."</em></li>
+<li><strong>Dolores:</strong> trabaja con una agencia que se queda una tajada y es opaca; quiere
+  más control y visibilidad de su propio valor.</li>
+<li><strong>Relevancia:</strong> representa el mercado ancla (Brasil) que se abre en la Fase 2 con
+  localización a portugués.</li>
+</ul>
+<hr />
+<h2 id="parte-b-buyer-personas-marcaagencia-quien-paga">PARTE B — BUYER PERSONAS (marca/agencia, quien PAGA)</h2>
+<h2 id="persona-b1-carolina-brand-manager-de-fintech-no-endemica-target-de-mayor-crecimiento">💳 Persona B1 — "Carolina, Brand Manager de fintech no-endémica" ⭐ (target de mayor crecimiento)</h2>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Edad / lugar / rol</strong></td>
+<td>34 · Ciudad de México · Brand/Growth Manager en una fintech</td>
+</tr>
+<tr>
+<td><strong>Categoría</strong></td>
+<td>No-endémica (BFSI) — el segmento que más crece en sponsorship</td>
+</tr>
+<tr>
+<td><strong>Presupuesto</strong></td>
+<td>Maneja campañas de influencer marketing; responde a un CMO</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong>Jobs-to-be-done:</strong> <em>"Llegar a una audiencia joven y bancarizándose, con
+  creadores auténticos, y poder justificarle el ROI a mi jefe."</em></li>
+<li><strong>Dolores:</strong> su <strong>pregunta #1 es "¿esta audiencia es real?"</strong>; sabe que <strong>~36% del
+  presupuesto se pierde en engagement falso</strong>; hoy depende de una agencia que es una
+  caja negra; le cuesta segmentar por país/juego.</li>
+<li><strong>Disparador de compra:</strong> una campaña anterior rindió mal (bots) y ahora tiene que
+  <strong>demostrar audiencia real</strong> antes de aprobar gasto.</li>
+<li><strong>Objeciones y manejo:</strong></li>
+<li><em>"Ya trabajo con una agencia"</em> → LOBBY complementa/transparenta a la agencia y
+    baja su costo de due diligence.</li>
+<li><em>"¿Cómo sé que su verificación es confiable?"</em> → OAuth directo de la plataforma,
+    no auto-reportado.</li>
+<li><strong>Criterio de decisión:</strong> verificación creíble &gt; segmentación &gt; precio.</li>
+<li><strong>Canal:</strong> outbound directo, LinkedIn, lead magnet (informe de audiencia), eventos.</li>
+<li><strong>Mensaje LOBBY:</strong> <em>"Dejá de pagar audiencia que no existe. Creadores LATAM con
+  audiencia verificada por OAuth, segmentables, en minutos."</em></li>
+</ul>
+<h2 id="persona-b2-diego-accounttalent-manager-de-agencia-comprador-de-mayor-arpa">🧩 Persona B2 — "Diego, Account/Talent Manager de agencia" ⭐ (comprador de mayor ARPA)</h2>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Edad / lugar / rol</strong></td>
+<td>30 · Buenos Aires · maneja rosters de creadores para varias marcas</td>
+</tr>
+<tr>
+<td><strong>Categoría</strong></td>
+<td>Agencia / MCN — el buyer de mayor volumen y ARPA</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong>Jobs-to-be-done:</strong> <em>"Mantener un roster pre-chequeado y armar propuestas para
+  marcas más rápido que la competencia."</em></li>
+<li><strong>Dolores:</strong> el vetting es <strong>manual, caro y no escala</strong>; le toma semanas armar y
+  verificar una lista; teme perder un pitch por datos flojos.</li>
+<li><strong>Disparador:</strong> una marca cliente le exige pruebas de audiencia real y rapidez.</li>
+<li><strong>Objeción:</strong> <em>"¿esto me reemplaza o me sirve?"</em> → LOBBY es su <strong>herramienta</strong>:
+  descubre y verifica más rápido, y le da datos para ganar pitches. No lo desintermedia,
+  lo potencia (por ahora).</li>
+<li><strong>Criterio de decisión:</strong> ahorro de tiempo/costo de vetting &gt; cobertura del
+  directorio &gt; integración con su flujo.</li>
+<li><strong>Mensaje LOBBY:</strong> <em>"Tu roster verificado y segmentable en un lugar. Ganá pitches
+  con datos que tu competencia arma a mano."</em></li>
+<li><strong>Valor de negocio:</strong> paga el <strong>ARPA más alto</strong> (más asientos, uso intensivo) → es
+  el motor del revenue B2B temprano.</li>
+</ul>
+<h2 id="persona-b3-rodrigo-marketing-lead-de-marca-endemica-el-cierre-mas-facil">🎧 Persona B3 — "Rodrigo, Marketing Lead de marca endémica" ⭐ (el cierre más fácil)</h2>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Edad / lugar / rol</strong></td>
+<td>38 · regional · Marketing de una marca de periféricos/hardware</td>
+</tr>
+<tr>
+<td><strong>Categoría</strong></td>
+<td>Endémica — el primer cliente natural</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong>Jobs-to-be-done:</strong> <em>"Poner mi producto en manos de gamers auténticos que muevan
+  ventas y refuercen la marca en la comunidad."</em></li>
+<li><strong>Dolores:</strong> necesita <strong>autenticidad gamer</strong> real, no influencers genéricos; quiere
+  descubrir talento más allá de los 3 nombres obvios.</li>
+<li><strong>Disparador:</strong> lanzamiento de producto o campaña estacional que necesita creadores
+  reales ya.</li>
+<li><strong>Objeción:</strong> <em>"a los grandes ya los conozco"</em> → LOBBY le abre el <strong>mid-tier
+  verificado</strong> (mejor costo/engagement) que hoy no ve.</li>
+<li><strong>Criterio de decisión:</strong> autenticidad &gt; alcance &gt; precio.</li>
+<li><strong>Mensaje LOBBY:</strong> <em>"Descubrí gamers auténticos y verificados —no sólo los de
+  siempre— con la audiencia que tu producto necesita."</em></li>
+<li><strong>Por qué primero:</strong> ya invierte en gaming, entiende el valor, ciclo de venta
+  corto → ideal para los <strong>pilotos del día 90</strong> (ver <code>09</code>).</li>
+</ul>
+<hr />
+<h2 id="tabla-resumen-a-quien-con-que-por-que-canal">Tabla-resumen: a quién, con qué, por qué canal</h2>
+<table>
+<thead>
+<tr>
+<th>Persona</th>
+<th>Lado</th>
+<th>Prioridad</th>
+<th>Mensaje techo</th>
+<th>Canal principal</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A1 Valentina (mid-tier)</td>
+<td>Oferta</td>
+<td>⭐ 1</td>
+<td>"Volvé profesional tu carrera"</td>
+<td>Referidos, embajadores, ligas</td>
+</tr>
+<tr>
+<td>A2 Mateo (competitivo)</td>
+<td>Oferta</td>
+<td>2</td>
+<td>"Tu próxima etapa como creador"</td>
+<td>Comunidad competitiva</td>
+</tr>
+<tr>
+<td>A3 Bruna (Brasil)</td>
+<td>Oferta</td>
+<td>Fase 2</td>
+<td>"Consolidá y controlá tu valor"</td>
+<td>Localización PT</td>
+</tr>
+<tr>
+<td>B1 Carolina (fintech)</td>
+<td>Demanda</td>
+<td>⭐ Crecimiento</td>
+<td>"Dejá de pagar audiencia que no existe"</td>
+<td>Outbound, lead magnet</td>
+</tr>
+<tr>
+<td>B2 Diego (agencia)</td>
+<td>Demanda</td>
+<td>⭐ ARPA alto</td>
+<td>"Ganá pitches con datos verificados"</td>
+<td>Outbound, industria</td>
+</tr>
+<tr>
+<td>B3 Rodrigo (endémica)</td>
+<td>Demanda</td>
+<td>⭐ Cierre fácil</td>
+<td>"Gamers auténticos, no los de siempre"</td>
+<td>Outbound, eventos</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="nota-para-el-pitch-due-diligence">Nota para el pitch / due diligence</h2>
+<p>Las personas conectan hacia atrás con los datos duros del plan:
+- El dolor de <strong>B1/B2/B3</strong> = el <strong>37,2% de audiencia falsa</strong> y el <strong>36% de
+  presupuesto desperdiciado</strong> (<code>05-mercado §3</code>).
+- El foco en <strong>A1 (mid-tier)</strong> = el tramo de <strong>mayor fraude no-verificado (48,3%)</strong>
+  y el que la marca más busca (<code>05 §3</code>).
+- La secuencia de personas espeja la <strong>secuencia geográfica y de monetización</strong>:
+  encender oferta (A1/A2 en AR/MX) → cerrar demanda fácil (B3) → escalar con B1/B2.</p>
+<blockquote>
+<p><strong>Pendiente de validación:</strong> estas personas son hipótesis estructuradas
+(research-based). Se refinan con <strong>entrevistas reales</strong> a 10-15 creadores y
+10-15 marcas/agencias en el pre-lanzamiento — es una tarea concreta del
+readiness de <code>09 §2</code>.</p>
+</blockquote>
+<h1 id="frameworks-estrategicos-de-marketing">Frameworks estratégicos de marketing</h1>
+<blockquote>
+<p>Los marcos analíticos que un comité de inversión / HBS espera, aplicados a LOBBY:
+SWOT, Porter (5 fuerzas), PESTEL (macro LATAM), Ansoff, Blue Ocean/ERRC y
+Customer Journey Map. Se apoyan en <code>05-mercado</code>, <code>06-mapas</code>, <code>07-competitivo</code>,
+<code>08-marketing</code> y <code>10-personas</code>.</p>
+<p>Última act.: 2026-07-31.</p>
+</blockquote>
+<hr />
+<h2 id="1-swot-matriz-foda">1. SWOT (matriz FODA)</h2>
+<table>
+<thead>
+<tr>
+<th><strong>Fortalezas</strong></th>
+<th><strong>Debilidades</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Producto ya construido (MVP verificado)</td>
+<td>Pre-lanzamiento: cero tracción real todavía</td>
+</tr>
+<tr>
+<td>Wedge de <strong>verificación por OAuth</strong> (nadie lo tiene como identidad de creador)</td>
+<td>Cold-start de dos lados aún por resolver</td>
+</tr>
+<tr>
+<td><strong>B2B desde el diseño</strong> (evita el error de eFuse)</td>
+<td>Dependencia de APIs de plataformas (riesgo estructural)</td>
+</tr>
+<tr>
+<td>LATAM-native + founder-market fit</td>
+<td>Marca desconocida; equipo chico</td>
+</tr>
+<tr>
+<td>Capital-efficient (US$500K, no US$17M)</td>
+<td>Brasil exige localización a portugués (costo)</td>
+</tr>
+<tr>
+<td>Dato propietario cross-plataforma</td>
+<td>Sin bios de equipo cerradas aún (<code>01 §9</code>)</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th><strong>Oportunidades</strong></th>
+<th><strong>Amenazas</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>No-endémicas <strong>superaron a endémicas</strong> (2025) y suben</td>
+<td>Plataformas cortan/limitan el OAuth</td>
+</tr>
+<tr>
+<td><strong>Ningún player consolidado</strong> en LATAM</td>
+<td>Incumbente (LinkedIn, GRIN) baja a LATAM/gaming</td>
+</tr>
+<tr>
+<td>Dolor de fraude creciente (37,2% falso, US$4,6B)</td>
+<td>Una agencia grande construye su propio directorio</td>
+</tr>
+<tr>
+<td>Expansión al <strong>mercado hispano de EE.UU.</strong></td>
+<td>Plata de apuestas = riesgo reputacional</td>
+</tr>
+<tr>
+<td>Creator economy US$250B→480B</td>
+<td>Macro LATAM (riesgo cambiario, regulación)</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Estrategias cruzadas (lo que hace útil un SWOT):</strong>
+- <strong>FO (usar fuerza para oportunidad):</strong> el wedge de verificación + hueco LATAM →
+  ser dueños de la categoría antes de que aparezca un rival.
+- <strong>FA (fuerza contra amenaza):</strong> dato propietario + multi-plataforma → mitigar el
+  riesgo de corte de API (no depender de una sola).
+- <strong>DO (corregir debilidad para aprovechar oportunidad):</strong> cerrar equipo y tracción
+  rápido para capturar el hueco antes que un incumbente.
+- <strong>DA (defensivo):</strong> disciplina de foco (beachhead) para no dispersar el poco
+  capital ante amenazas múltiples.</p>
+<hr />
+<h2 id="2-porter-5-fuerzas-estructura-de-la-industria">2. Porter — 5 Fuerzas (estructura de la industria)</h2>
+<table>
+<thead>
+<tr>
+<th>Fuerza</th>
+<th>Intensidad</th>
+<th>Análisis</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Poder de proveedores</strong> (plataformas como fuente de datos)</td>
+<td>🔴 <strong>ALTA</strong></td>
+<td>Twitch/YouTube/TikTok/IG controlan el OAuth. Pueden cortar/encarecer el acceso. <strong>Es la fuerza que más ata a LOBBY.</strong></td>
+</tr>
+<tr>
+<td><strong>Poder de compradores</strong> (marcas/agencias)</td>
+<td>🟡 Media</td>
+<td>Hoy tienen alternativas (agencias, vetting manual), pero ninguna verificada. El costo de cambio <strong>crece</strong> con el uso.</td>
+</tr>
+<tr>
+<td><strong>Amenaza de sustitutos</strong></td>
+<td>🔴 Alta (hoy)</td>
+<td>Agencias, Excel, Linktree, vetting manual, herramientas in-platform. LOBBY debe ser 10x mejor, no marginal.</td>
+</tr>
+<tr>
+<td><strong>Amenaza de nuevos entrantes</strong></td>
+<td>🟡 Media-alta</td>
+<td>Copiar el OAuth es barato; <strong>el foso real es el dataset denso + posición de categoría + red de dos lados</strong>, no el código.</td>
+</tr>
+<tr>
+<td><strong>Rivalidad competitiva</strong></td>
+<td>🟢 Baja en LATAM / 🔴 Alta global</td>
+<td>En LATAM-gaming no hay rival directo; global (GRIN, CreatorIQ) es fuerte pero no atiende la región.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Conclusión de Porter:</strong> la fuerza <strong>vinculante es el poder de proveedores
+(plataformas)</strong>. Toda la defensa estratégica pasa por: (a) <strong>multi-plataforma</strong>
+para no depender de una, (b) <strong>capturar y componer el dato</strong> en el momento de la
+conexión (que el valor viva en LOBBY, no en la API), y (c) construir <strong>densidad y
+categoría</strong> que suban la barrera a nuevos entrantes. La estructura es atractiva
+<strong>localmente</strong> (baja rivalidad, hueco claro), que es exactamente por qué el
+beachhead LATAM tiene sentido.</p>
+<hr />
+<h2 id="3-pestel-entorno-macro-critico-por-la-geografia-latam">3. PESTEL (entorno macro — crítico por la geografía LATAM)</h2>
+<table>
+<thead>
+<tr>
+<th>Factor</th>
+<th>Implicancia para LOBBY</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>P — Político</strong></td>
+<td>Inestabilidad regional variable; regulación de <strong>apuestas</strong> en cambio (afecta una fuente de demanda). Neutralidad política de la marca es un activo.</td>
+</tr>
+<tr>
+<td><strong>E — Económico</strong></td>
+<td><strong>Riesgo cambiario</strong> (inflación AR) presiona el CAC local pero también abarata el talento/BD; el <strong>revenue B2B dolarizado</strong> actúa de cobertura natural. Gasto de ad en alza (+12,6% influencer LATAM).</td>
+</tr>
+<tr>
+<td><strong>S — Social</strong></td>
+<td>Población joven, altísimo uso de redes (Brasil 144M), <strong>cultura de creador fuerte</strong> y <strong>alta confianza en creadores locales</strong> — viento a favor de la adopción.</td>
+</tr>
+<tr>
+<td><strong>T — Tecnológico</strong></td>
+<td>APIs de OAuth disponibles y baratas (habilitador del wedge); <strong>mobile-first</strong>; despliegue de <strong>5G</strong>; stack <strong>fintech</strong> maduro facilita el cobro B2B.</td>
+</tr>
+<tr>
+<td><strong>E — Ambiental</strong></td>
+<td>Baja relevancia directa (negocio digital). Ángulo ESG menor: economía del creador como inclusión económica.</td>
+</tr>
+<tr>
+<td><strong>L — Legal</strong></td>
+<td><strong>Privacidad de datos</strong> (LGPD Brasil y leyes símiles), <strong>Términos de uso</strong> de plataformas (riesgo API), <strong>IVA a servicios digitales</strong> por país, reglas de publicidad/apuestas. Requiere compliance desde el diseño.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Lectura:</strong> el entorno es <strong>mayormente favorable</strong> (social + tecnológico
+empujan), con dos focos de gestión activa: <strong>económico (cambiario)</strong> —cubierto por
+revenue dolarizado— y <strong>legal (datos + ToS de plataformas)</strong> —cubierto por
+compliance y multi-plataforma.</p>
+<hr />
+<h2 id="4-ansoff-vectores-de-crecimiento">4. Ansoff — vectores de crecimiento</h2>
+<table>
+<thead>
+<tr>
+<th></th>
+<th><strong>Mercados existentes</strong></th>
+<th><strong>Mercados nuevos</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Productos existentes</strong></td>
+<td><strong>Penetración de mercado</strong> 🟢 <em>Ahora:</em> densidad de creadores + cuentas B2B en AR/MX con el producto actual</td>
+<td><strong>Desarrollo de mercado</strong> 🟡 <em>Fase 2:</em> Brasil (PT), Colombia, Chile → <strong>US hispano</strong> (mismo producto, nueva geo)</td>
+</tr>
+<tr>
+<td><strong>Productos nuevos</strong></td>
+<td><strong>Desarrollo de producto</strong> 🟡 <em>Fase 3:</em> reclutamiento, freemium, take-rate (el portafolio de monetización sobre la misma base)</td>
+<td><strong>Diversificación</strong> 🔵 <em>Visión:</em> extender de gaming a <strong>otras verticales del entretenimiento</strong> (música, deportes, streaming general) — la "capa profesional de la economía del entretenimiento"</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Secuencia de riesgo creciente:</strong> penetración → desarrollo (mercado + producto en
+paralelo) → diversificación. LOBBY <strong>no salta a diversificación</strong> hasta dominar el
+núcleo — pero el nombre y la tesis ya dejan la puerta abierta a la visión grande
+(lo que un VC quiere ver: TAM expansible sin cambiar la marca).</p>
+<hr />
+<h2 id="5-blue-ocean-errc-refuerza-el-category-design">5. Blue Ocean / ERRC (refuerza el category design)</h2>
+<p>En vez de competir en el "océano rojo" de las influencer platforms, LOBBY crea uno
+azul con el canvas <strong>Eliminar-Reducir-Aumentar-Crear</strong>:</p>
+<table>
+<thead>
+<tr>
+<th><strong>Eliminar</strong></th>
+<th><strong>Reducir</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>La opacidad de las agencias</td>
+<td>El costo y tiempo de descubrir/vettear creadores</td>
+</tr>
+<tr>
+<td>Las stats auto-reportadas (basura)</td>
+<td>La dependencia de intermediarios</td>
+</tr>
+<tr>
+<td>El vetting 100% manual</td>
+<td>El desperdicio de presupuesto (36%)</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th><strong>Aumentar</strong></th>
+<th><strong>Crear</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>La <strong>confianza</strong> (verificación real)</td>
+<td>La categoría <strong>"identidad de creador verificada"</strong></td>
+</tr>
+<tr>
+<td>La granularidad de <strong>segmentación</strong></td>
+<td>La <strong>audiencia verificada cross-plataforma</strong> como estándar</td>
+</tr>
+<tr>
+<td>El <strong>control del creador</strong> sobre su dato</td>
+<td>Un <strong>directorio LATAM-native</strong> que no existía</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Curva de valor (comparación cualitativa):</strong></p>
+<pre><code>Atributo                Agencias   Influencer     Link-in-bio   LOBBY
+                                   platforms      (Linktree)
+Verificación audiencia    Media       Baja           Nula        ALTA
+Cobertura LATAM           Media       Baja           Media        ALTA
+Segmentación              Media       Alta           Nula         ALTA
+Costo para la marca       ALTO        Medio          —            Bajo
+Transparencia             Baja        Media          Alta         ALTA
+Control del creador       Baja        Baja           Alta         ALTA
+</code></pre>
+<p>LOBBY <strong>rompe el trade-off</strong> clásico: da la verificación+segmentación de las
+plataformas caras con la transparencia+control del link-in-bio, a costo bajo.</p>
+<hr />
+<h2 id="6-customer-journey-map-personas-embudo">6. Customer Journey Map (personas → embudo)</h2>
+<p>Recorrido de las dos personas clave, mapeado al embudo AARRR (<code>08 §6</code>).</p>
+<h3 id="61-creador-valentina-oferta">6.1 Creador — "Valentina" (oferta)</h3>
+<table>
+<thead>
+<tr>
+<th>Etapa</th>
+<th>Qué siente / hace</th>
+<th>Touchpoint</th>
+<th>Acción de LOBBY</th>
+<th>AARRR</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Awareness</strong></td>
+<td>"Un colega mostró su badge y cerró un deal"</td>
+<td>Referido, TikTok, liga</td>
+<td>Contenido "por qué verificar importa"</td>
+<td>Acquisition</td>
+</tr>
+<tr>
+<td><strong>Consideración</strong></td>
+<td>"¿Me sirve? ¿Es otra plataforma más?"</td>
+<td>Landing, perfiles de ejemplo</td>
+<td>Prueba social, cero fricción, gratis</td>
+<td>Acquisition</td>
+</tr>
+<tr>
+<td><strong>Onboarding</strong></td>
+<td>Conecta su canal por OAuth</td>
+<td>Flujo de alta</td>
+<td>Aha moment: aparece el badge</td>
+<td><strong>Activation</strong></td>
+</tr>
+<tr>
+<td><strong>Uso</strong></td>
+<td>Comparte su media kit, ve "quién te vio"</td>
+<td>Producto</td>
+<td>Loops de hábito</td>
+<td>Retention</td>
+</tr>
+<tr>
+<td><strong>Retención</strong></td>
+<td>Le llegan oportunidades</td>
+<td>Notificaciones</td>
+<td>Mantener valor entrante</td>
+<td>Retention</td>
+</tr>
+<tr>
+<td><strong>Advocacy</strong></td>
+<td>Invita a sus pares</td>
+<td>Referral in-product</td>
+<td>Incentivo de referido (Loop 1)</td>
+<td>Referral</td>
+</tr>
+</tbody>
+</table>
+<h3 id="62-marca-carolina-demanda-buyer">6.2 Marca — "Carolina" (demanda / buyer)</h3>
+<table>
+<thead>
+<tr>
+<th>Etapa</th>
+<th>Qué siente / hace</th>
+<th>Touchpoint</th>
+<th>Acción de LOBBY</th>
+<th>AARRR</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Awareness</strong></td>
+<td>"Perdí presupuesto en bots, necesito audiencia real"</td>
+<td>Outbound, informe (lead magnet)</td>
+<td>Mostrar el dolor con dato (37,2%)</td>
+<td>Acquisition</td>
+</tr>
+<tr>
+<td><strong>Consideración</strong></td>
+<td>"¿Su verificación es confiable? ¿Reemplaza mi agencia?"</td>
+<td>Demo, caso de éxito</td>
+<td>OAuth directo; posicionar como complemento</td>
+<td>Acquisition</td>
+</tr>
+<tr>
+<td><strong>Activación</strong></td>
+<td>Primera búsqueda con resultado, contacta un creador</td>
+<td>Producto (discovery)</td>
+<td>Segmentación útil, resultado en minutos</td>
+<td><strong>Activation</strong></td>
+</tr>
+<tr>
+<td><strong>Uso</strong></td>
+<td>Guarda listas/segmentos, arma campaña</td>
+<td>Producto</td>
+<td>Herramientas de campaña</td>
+<td>Retention</td>
+</tr>
+<tr>
+<td><strong>Retención</strong></td>
+<td>Repite campañas, suma asientos</td>
+<td>Suscripción</td>
+<td>NRR, upsell de asientos</td>
+<td>Revenue/Retention</td>
+</tr>
+<tr>
+<td><strong>Advocacy</strong></td>
+<td>Recomienda a otros marketers</td>
+<td>Boca a boca, industria</td>
+<td>Programa de referidos B2B</td>
+<td>Referral</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Uso del mapa:</strong> cada "qué siente" negativo es un punto de fricción a resolver por
+producto o mensaje; cada touchpoint tiene un dueño (marketing/ventas/producto). Es
+la traducción operativa de las personas de <code>10</code>.</p>
+<hr />
+<h2 id="7-como-se-encadenan-los-frameworks-para-no-verlos-sueltos">7. Cómo se encadenan los frameworks (para no verlos sueltos)</h2>
+<pre><code>PESTEL + Porter  → ¿es atractivo el entorno/industria?  → SÍ, localmente
+        ↓
+SWOT             → ¿qué tenemos vs. qué enfrentamos?     → wedge + hueco vs. API/incumbentes
+        ↓
+Blue Ocean/ERRC  → ¿cómo escapamos a la competencia?     → crear categoría verificada
+        ↓
+STP + Personas   → ¿a quién exactamente?                  → mid-tier + no-endémicas/agencias
+        ↓
+Ansoff           → ¿por dónde crecemos, en qué orden?     → penetración→desarrollo→diversificación
+        ↓
+Journey + AARRR  → ¿cómo lo ejecutamos touchpoint a touchpoint? → embudo por persona
+        ↓
+Plan lanzamiento → ¿qué hacemos los primeros 90 días?     → ver `09`
+</code></pre>
+<p>Los frameworks no son decoración: <strong>encadenan del macro (PESTEL) al táctico
+(journey/lanzamiento)</strong> en una sola línea argumental.</p>
+<h1 id="pricing-y-packaging-tiers-b2b-freemium">Pricing y packaging (tiers B2B + freemium)</h1>
+<blockquote>
+<p>Estrategia de precio y empaquetado de los planes. Anclada a benchmarks reales
+(plataformas globales y agencias) y a las buyer personas de <code>10</code>. Desarrolla la
+P de Price de <code>08 §10</code> y alimenta el ARPA del <code>02-modelo-financiero</code>.</p>
+<p>Última act.: 2026-07-31. Benchmarks: Stack Influence, Favikon, InfluencerFee.
+Precios de LOBBY = propuesta inicial <em>(a validar con pilotos)</em>.</p>
+</blockquote>
+<hr />
+<h2 id="1-filosofia-de-precio-value-based-no-cost-plus">1. Filosofía de precio: value-based, no cost-plus</h2>
+<p>LOBBY <strong>no cobra por features</strong>; cobra por el <strong>valor que libera</strong>:
+- El <strong>ahorro de due diligence</strong> (lo que hoy la marca terceriza en una agencia).
+- El <strong>presupuesto que se deja de desperdiciar</strong> (<strong>~36%</strong> en audiencia falsa;
+  hasta <strong>US$128K por campaña</strong> mid-scale, WFA).</p>
+<p><strong>Regla de anclaje:</strong> el precio se ancla al <strong>retainer de una agencia</strong> (US$3-5K/
+mes por ejecución) y al <strong>costo del desperdicio</strong>, no a la competencia SaaS. LOBBY
+entrega la capa de <strong>descubrimiento + verificación</strong> por una fracción de eso.</p>
+<hr />
+<h2 id="2-el-espacio-de-precio-benchmarking-competitivo">2. El espacio de precio (benchmarking competitivo)</h2>
+<table>
+<thead>
+<tr>
+<th>Proveedor</th>
+<th>Qué es</th>
+<th>Precio</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>CreatorIQ</strong></td>
+<td>Plataforma enterprise (global)</td>
+<td>US$2.500-5.000/mes (o US$35K-200K/año)</td>
+</tr>
+<tr>
+<td><strong>GRIN</strong></td>
+<td>Plataforma (ecommerce, global)</td>
+<td>US$2.500-10.000+/mes</td>
+</tr>
+<tr>
+<td><strong>Aspire</strong></td>
+<td>Plataforma mid-market</td>
+<td>~US$2.000-2.500/mes (US$24-30K/año)</td>
+</tr>
+<tr>
+<td><strong>Upfluence</strong></td>
+<td>Plataforma modular</td>
+<td>desde US$478/mes; típico US$1.200-2.000/mes</td>
+</tr>
+<tr>
+<td><strong>Agencia (servicio)</strong></td>
+<td>Retainer de ejecución</td>
+<td>US$3.000-30.000/mes; comisión 15-25% del spend</td>
+</tr>
+<tr>
+<td><strong>◆ LOBBY</strong></td>
+<td><strong>Discovery + verificación, LATAM-native</strong></td>
+<td><strong>desde US$99/mes; core US$399-599/mes</strong></td>
+</tr>
+</tbody>
+</table>
+<p><strong>El hueco:</strong> las plataformas globales arrancan caras (US$2K+/mes) y no atienden
+LATAM; las agencias cobran retainers altos. <strong>LOBBY entra muy por debajo</strong>, con un
+producto verificado y LATAM-native, ajustado a presupuestos regionales. <em>No compite
+por precio con el enterprise — desbloquea un segmento que hoy no puede pagar esas
+herramientas.</em></p>
+<hr />
+<h2 id="3-los-tiers-b2b-good-better-best-rol">3. Los tiers B2B (good-better-best + rol)</h2>
+<p>Empaquetado por <strong>rol + intensidad de uso</strong>, no sólo por features. Métrica de
+precio: <strong>por asiento + tier</strong>, con guardrails de uso (búsquedas/contactos) que
+habilitan el <em>land-and-expand</em>.</p>
+<table>
+<thead>
+<tr>
+<th>Tier</th>
+<th>Persona (<code>10</code>)</th>
+<th>Precio <em>(propuesta)</em></th>
+<th>Asientos</th>
+<th>Qué incluye</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Free / Trial</strong></td>
+<td>Explorador</td>
+<td>US$0 (14 días o límite)</td>
+<td>1</td>
+<td>Búsqueda limitada, ver perfiles verificados, sin export</td>
+</tr>
+<tr>
+<td><strong>Starter</strong></td>
+<td>Marca chica probando (parte de B1/B3)</td>
+<td><strong>US$99-149/mes</strong></td>
+<td>1</td>
+<td>Búsqueda + verificación, contactos/mes limitados, sin segmentación avanzada</td>
+</tr>
+<tr>
+<td><strong>Growth</strong> ⭐</td>
+<td>Carolina (fintech), Rodrigo (endémica)</td>
+<td><strong>US$399-599/mes</strong></td>
+<td>3</td>
+<td>Segmentación completa, listas guardadas, export, analytics de audiencia, herramientas de campaña</td>
+</tr>
+<tr>
+<td><strong>Agency</strong> ⭐</td>
+<td>Diego (agencia/MCN)</td>
+<td><strong>US$999-1.499/mes</strong></td>
+<td>10</td>
+<td>Búsquedas ilimitadas, gestión de roster, media kits white-label, multi-cliente, soporte prioritario</td>
+</tr>
+<tr>
+<td><strong>Enterprise</strong></td>
+<td>Holding / gran no-endémica</td>
+<td><strong>Custom (US$20K+/año)</strong></td>
+<td>Ilimitado</td>
+<td>API, integraciones, SSO, dedicated CSM, datos a medida</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>ARPA blended resultante:</strong> con esta mezcla (mayoría Growth, cola de Agency/
+Enterprise) el ARPA cae en <strong>~US$6K→10K/año</strong>, consistente con el <code>02-modelo</code>.
+Agency y Enterprise son los que suben el ARPA con el tiempo (upsell de asientos).</p>
+</blockquote>
+<h3 id="logica-de-gating-que-desbloquea-cada-salto">Lógica de gating (qué desbloquea cada salto)</h3>
+<ul>
+<li><strong>Free→Starter:</strong> poder <strong>contactar</strong> y usar datos (no sólo mirar).</li>
+<li><strong>Starter→Growth:</strong> <strong>segmentación + export + campaña</strong> (el valor real para operar).</li>
+<li><strong>Growth→Agency:</strong> <strong>escala</strong> (asientos, multi-cliente, roster, white-label).</li>
+<li><strong>Agency→Enterprise:</strong> <strong>integración y control</strong> (API, SSO, datos a medida).</li>
+</ul>
+<hr />
+<h2 id="4-lado-creador-freemium-para-completar-el-mix">4. Lado creador — freemium (para completar el mix)</h2>
+<table>
+<thead>
+<tr>
+<th>Plan</th>
+<th>Precio</th>
+<th>Qué incluye</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Creador Free</strong> ⭐</td>
+<td><strong>US$0</strong> (siempre)</td>
+<td>Perfil verificado, media kit vivo, aparecer en discovery, analytics básico</td>
+</tr>
+<tr>
+<td><strong>Creador Pro</strong> (Fase 3)</td>
+<td><strong>~US$8/mes</strong></td>
+<td>Analytics avanzado, prioridad en búsqueda, media kit premium/personalizado, "quién te vio" ampliado</td>
+</tr>
+</tbody>
+</table>
+<p>El núcleo del creador es <strong>gratis a propósito</strong>: su gratuidad construye la densidad
+que se monetiza del lado B2B (ver <code>08 §0</code>). Pro es upsell de Fase 3, con conversión
+esperada ~3-5%.</p>
+<hr />
+<h2 id="5-motores-de-fase-3-pricing">5. Motores de Fase 3 (pricing)</h2>
+<ul>
+<li><strong>Reclutamiento / jobs</strong> (modelo Hitmarker): <strong>por publicación</strong> (~US$X/post) o
+  <strong>suscripción de reclutador</strong> para teams/orgs/empleadores endémicos.</li>
+<li><strong>Take-rate en deals:</strong> <strong>10-15%</strong> sobre deals cerrados en la plataforma —
+  <strong>por debajo del 15-25%</strong> que cobran las agencias, para incentivar que el deal
+  pase por LOBBY. Es el motor que convierte densidad en GMV.</li>
+</ul>
+<hr />
+<h2 id="6-estrategia-comercial-descuentos-contratos-expansion">6. Estrategia comercial (descuentos, contratos, expansión)</h2>
+<ul>
+<li><strong>Compromiso anual:</strong> 2 meses gratis (≈17% off) por pago anual → mejora cash y
+  retención.</li>
+<li><strong>Pilotos / design partners (lanzamiento):</strong> precio simbólico o gratis a cambio
+  de feedback + caso de éxito. Es adquisición de los <strong>primeros logos</strong>, no revenue
+  (ver <code>09</code> día 90).</li>
+<li><strong>Land-and-expand:</strong> entrar por Starter/Growth con 1 marca → expandir asientos y
+  tier con el uso. <strong>La meta de NRR &gt; 100%</strong> vive acá.</li>
+<li><strong>Precio en USD</strong> (con posibilidad de ajuste local): cobra dolarizado como
+  cobertura del riesgo cambiario LATAM (ver PESTEL, <code>11 §3</code>), ofreciendo equivalente
+  local donde haga falta para no frenar la conversión.</li>
+</ul>
+<hr />
+<h2 id="7-anclaje-de-roi-el-argumento-de-venta-del-precio">7. Anclaje de ROI (el argumento de venta del precio)</h2>
+<p>Para la marca, el precio es trivial frente al valor:</p>
+<table>
+<thead>
+<tr>
+<th>Situación de la marca</th>
+<th>Número</th>
+<th>LOBBY</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Retainer de agencia (ejecución)</td>
+<td>US$3.000-5.000/mes</td>
+<td>Growth a ~US$500/mes = <strong>1/8 del costo</strong></td>
+</tr>
+<tr>
+<td>Desperdicio por audiencia falsa</td>
+<td>~36% del presupuesto</td>
+<td>En una campaña de US$50K = <strong>US$18K salvados</strong></td>
+</tr>
+<tr>
+<td>Desperdicio mediano por campaña</td>
+<td>US$128K (WFA)</td>
+<td>El plan anual se paga con <strong>evitar una sola campaña fallida</strong></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>Pitch de precio:</strong> <em>"Pagás menos que un mes de agencia por año, y con eso dejás
+de tirar el 36% del presupuesto en audiencia que no existe."</em></p>
+</blockquote>
+<hr />
+<h2 id="8-como-validar-el-pricing-no-asumirlo">8. Cómo validar el pricing (no asumirlo)</h2>
+<p>Los precios de arriba son <strong>hipótesis</strong>, no verdades. Plan de validación:
+1. <strong>Entrevistas de willingness-to-pay</strong> a 10-15 marcas/agencias (pre-lanzamiento,
+   parte del readiness de <code>09 §2</code>).
+2. <strong>Van Westendorp</strong> (precio muy barato/barato/caro/muy caro) para encontrar el
+   rango aceptable por tier.
+3. <strong>Pilotos con precio variable</strong> en el día 90 para leer elasticidad real.
+4. <strong>Iterar tiers</strong> con datos de uso (qué features gatillan el upgrade).</p>
+<hr />
+<h2 id="9-riesgos-de-pricing-y-mitigacion">9. Riesgos de pricing y mitigación</h2>
+<table>
+<thead>
+<tr>
+<th>Riesgo</th>
+<th>Mitigación</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>LATAM es sensible al precio; los tiers globales no aplican</td>
+<td>Entrada baja (US$99) + precio ajustado a la región</td>
+</tr>
+<tr>
+<td>Cobrar muy poco deja valor en la mesa</td>
+<td>Anclaje a agencia/ROI, no a costo; subir con datos de WTP</td>
+</tr>
+<tr>
+<td>Canibalizar Agency con Growth</td>
+<td>Gating claro por escala (asientos/multi-cliente)</td>
+</tr>
+<tr>
+<td>Riesgo cambiario erosiona el precio local</td>
+<td>Cobro en USD + ajuste local puntual</td>
+</tr>
+<tr>
+<td>Freemium del creador nunca convierte a Pro</td>
+<td>Pro es upside de Fase 3, no el core del revenue (el core es B2B)</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="10-resumen">10. Resumen</h2>
+<ol>
+<li><strong>Value-based</strong>, anclado al retainer de agencia y al 36% de desperdicio.</li>
+<li><strong>5 tiers B2B</strong> (Free→Enterprise) por rol + uso; <strong>Growth es el workhorse</strong>,
+   <strong>Agency el de mayor ARPA</strong>.</li>
+<li><strong>Creador gratis</strong> (foso) + <strong>Pro US$8</strong> en Fase 3.</li>
+<li><strong>Reclutamiento + take-rate (10-15%)</strong> como motores de Fase 3.</li>
+<li><strong>Land-and-expand</strong> con NRR &gt; 100%; <strong>cobro en USD</strong> como cobertura macro.</li>
+<li>Todo <strong>a validar con WTP + pilotos</strong> — son hipótesis estructuradas.</li>
+</ol>
+<h1 id="plan-de-lanzamiento-go-to-market-tactico">Plan de lanzamiento (go-to-market táctico)</h1>
+<blockquote>
+<p>El "0 a 1" ejecutable: cómo se enciende LOBBY en los primeros 90 días y cómo eso
+conecta con el arco de 12 meses hacia la Serie Seed. Aplica tácticamente la
+estrategia de <code>08-marketing</code>, la geografía de <code>06-mapas</code> y las metas de
+<code>02-modelo-financiero</code>.</p>
+<p>Última act.: 2026-07-31.</p>
+</blockquote>
+<hr />
+<h2 id="1-filosofia-de-lanzamiento">1. Filosofía de lanzamiento</h2>
+<p>Tres reglas, heredadas de la tesis:</p>
+<ol>
+<li><strong>Oferta primero, en un nicho denso.</strong> Se lanza donde la oferta es más barata y
+   prestigiosa: <strong>creadores mid-tier en Argentina</strong> (efecto halo regional). No se
+   lanza "en LATAM" — se lanza en <strong>un país, un par de juegos</strong>.</li>
+<li><strong>Red atómica antes que escala.</strong> El objetivo del día 90 no es "muchos usuarios"
+   sino <strong>una red densa y activa</strong> en un nicho que la marca no pueda ignorar.</li>
+<li><strong>Demanda con producto en mano.</strong> No se vende a marcas con un directorio vacío;
+   se prende la demanda recién cuando hay densidad de oferta que mostrar.</li>
+</ol>
+<p><strong>Métrica norte del lanzamiento:</strong> <em>creadores verificados activos con perfil
+completo</em> (no registros).</p>
+<hr />
+<h2 id="2-pre-lanzamiento-semanas-4-a-0-readiness">2. Pre-lanzamiento (Semanas −4 a 0) — readiness</h2>
+<p><strong>Gate: no se lanza hasta que esto esté verde.</strong></p>
+<table>
+<thead>
+<tr>
+<th>Área</th>
+<th>Checklist</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Producto</td>
+<td>OAuth de las 4 plataformas estable · refresh de stats funcionando · perfil público + media kit compartible · discovery básico · analytics del creador</td>
+</tr>
+<tr>
+<td>Datos</td>
+<td>QA de verificación (que el badge no falle) · página pública indexable (SEO)</td>
+</tr>
+<tr>
+<td>Marca</td>
+<td>Logo, identidad, mensaje techo por audiencia (ver <code>08 §5</code>), media kit de la propia LOBBY</td>
+</tr>
+<tr>
+<td>Contenido</td>
+<td>5-10 piezas de lanzamiento listas · landing con waitlist · guion de onboarding</td>
+</tr>
+<tr>
+<td>Distribución</td>
+<td>Lista de 100-150 creadores mid-tier AR objetivo · 2-3 conversaciones con ligas/orgs · 20-30 marcas/agencias mapeadas para demanda</td>
+</tr>
+<tr>
+<td>Legal/ops</td>
+<td>Términos de uso al día con las APIs · flujo de alta sin fricción</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Táctica de pre-lanzamiento:</strong> <strong>waitlist con verificación anticipada</strong> — dejar
+que un grupo semilla de creadores conecte sus canales antes del lanzamiento
+público, para arrancar con perfiles llenos (nunca mostrar un directorio vacío).</p>
+<hr />
+<h2 id="3-objetivos-del-lanzamiento-targets-del-dia-90">3. Objetivos del lanzamiento (targets del día 90)</h2>
+<table>
+<thead>
+<tr>
+<th>Métrica</th>
+<th>Meta día 90</th>
+<th>Racional</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Creadores verificados activos</td>
+<td><strong>500-800</strong> (Argentina)</td>
+<td>Semilla del Y1 de 3.000; densidad en 1-2 juegos</td>
+</tr>
+<tr>
+<td>Tasa de activación (registro→badge)</td>
+<td><strong>≥ 60%</strong></td>
+<td>El OAuth es el "aha moment"</td>
+</tr>
+<tr>
+<td>Coeficiente viral (K-factor) del loop de oferta</td>
+<td><strong>≥ 0,4</strong></td>
+<td>Cada creador trae ~0,4 más (aún no viral puro, pero compuesto)</td>
+</tr>
+<tr>
+<td>Marcas/agencias en pipeline</td>
+<td><strong>10-15</strong></td>
+<td>Para el primer piloto</td>
+</tr>
+<tr>
+<td><strong>Pilotos B2B (LOI o pago)</strong></td>
+<td><strong>1-2</strong></td>
+<td>La prueba de que la demanda existe</td>
+</tr>
+<tr>
+<td>Cobertura de prensa gaming</td>
+<td><strong>3-5 menciones</strong></td>
+<td>Earned media, autoridad</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="4-los-primeros-90-dias-3-sprints-de-30">4. Los primeros 90 días (3 sprints de 30)</h2>
+<h3 id="sprint-1-dias-1-30-sembrar-la-oferta-argentina">🟢 Sprint 1 — Días 1-30: Sembrar la oferta (Argentina)</h3>
+<p><strong>Objetivo: 200-300 creadores verificados en 1-2 juegos.</strong></p>
+<ul>
+<li><strong>Onboarding en cohortes:</strong> captar creadores mid-tier por juego (ej. Valorant +
+  FIFA/EA FC) en tandas — crea densidad y pertenencia, no goteo.</li>
+<li><strong>Embajadores semilla:</strong> 5-10 creadores mid-tier con influencia entre pares que
+  estrenen su badge y lo compartan (arranca el Loop 1 viral).</li>
+<li><strong>Alianza ancla:</strong> cerrar 1 acuerdo con una liga/programa (GGTech/University
+  Esports o similar) para onboarding en bloque.</li>
+<li><strong>Contenido de lanzamiento:</strong> "por qué la audiencia verificada importa" + demos
+  de perfiles reales. PR a prensa gaming regional (Dexerto, medios locales).</li>
+<li><strong>Ritual:</strong> medir activación diaria; iterar el onboarding para subir el % que
+  llega al badge.</li>
+</ul>
+<h3 id="sprint-2-dias-31-60-densidad-abrir-mexico-primer-contacto-de-demanda">🟡 Sprint 2 — Días 31-60: Densidad + abrir México + primer contacto de demanda</h3>
+<p><strong>Objetivo: llegar a 400-600 creadores; primeras conversaciones B2B.</strong></p>
+<ul>
+<li><strong>Profundizar Argentina</strong> (más juegos, más cohortes) y <strong>abrir México</strong> con la
+  misma jugada (español, sin costo de localización).</li>
+<li><strong>Activar el Loop de contenido/SEO:</strong> cada perfil público indexado empieza a
+  traer tráfico orgánico; publicar el primer mini-informe con dato agregado.</li>
+<li><strong>Prender la demanda (soft):</strong> empezar outbound a <strong>endémicas y agencias</strong> (el
+  cierre más natural) mostrando el directorio ya poblado. Objetivo: agendar demos,
+  no cerrar todavía.</li>
+<li><strong>Referral formal:</strong> activar invitaciones creador-a-creador dentro del producto.</li>
+</ul>
+<h3 id="sprint-3-dias-61-90-loop-viral-primer-piloto-pago-momento-de-pr">🔵 Sprint 3 — Días 61-90: Loop viral + primer piloto pago + momento de PR</h3>
+<p><strong>Objetivo: 500-800 creadores; 1-2 pilotos B2B; momento de lanzamiento público.</strong></p>
+<ul>
+<li><strong>Cerrar 1-2 pilotos B2B</strong> (LOI o pago acotado) — la prueba de demanda que
+  destraba la narrativa de revenue.</li>
+<li><strong>Momento de lanzamiento público / PR:</strong> con densidad real que mostrar
+  (nº de creadores verificados, alcance agregado verificado). <em>Recién ahora</em> se
+  hace ruido — con red atómica, no con humo.</li>
+<li><strong>Optimizar el flywheel:</strong> medir qué palanca gira la rueda más rápido
+  (activación, referral, o valor para la marca) y doblar la apuesta ahí.</li>
+<li><strong>Preparar el caso:</strong> documentar el primer piloto como caso de éxito para vender
+  al siguiente.</li>
+</ul>
+<hr />
+<h2 id="5-playbooks-de-canal">5. Playbooks de canal</h2>
+<h3 id="51-adquisicion-de-creadores-oferta-cac-objetivo-us3-8">5.1 Adquisición de creadores (oferta) — CAC objetivo US$3-8</h3>
+<table>
+<thead>
+<tr>
+<th>Canal</th>
+<th>Táctica</th>
+<th>Prioridad</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Alianzas con ligas/programas</td>
+<td>Onboarding en bloque de rosters</td>
+<td>🟢 Alta</td>
+</tr>
+<tr>
+<td>Embajadores mid-tier</td>
+<td>Badge + share del media kit (Loop 1)</td>
+<td>🟢 Alta</td>
+</tr>
+<tr>
+<td>Referidos in-product</td>
+<td>Invitá a tus pares, desbloqueá X</td>
+<td>🟢 Alta</td>
+</tr>
+<tr>
+<td>SEO / perfiles públicos</td>
+<td>Indexación por nombre de creador (Loop 2)</td>
+<td>🟡 Media (compuesto)</td>
+</tr>
+<tr>
+<td>Social gaming orgánico</td>
+<td>Contenido de "verificate"</td>
+<td>🟡 Media</td>
+</tr>
+<tr>
+<td>Paid de consumo</td>
+<td><strong>Evitar</strong> (disciplina anti-eFuse)</td>
+<td>🔴 No</td>
+</tr>
+</tbody>
+</table>
+<h3 id="52-adquisicion-de-marcas-demanda-cac-objetivo-us2000">5.2 Adquisición de marcas (demanda) — CAC objetivo ~US$2.000</h3>
+<table>
+<thead>
+<tr>
+<th>Canal</th>
+<th>Táctica</th>
+<th>Prioridad</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Outbound directo</td>
+<td>A endémicas + agencias, con directorio poblado</td>
+<td>🟢 Alta</td>
+</tr>
+<tr>
+<td>Lead magnet de dato</td>
+<td>Informe "estado del creador LATAM verificado"</td>
+<td>🟢 Alta</td>
+</tr>
+<tr>
+<td>Eventos de industria</td>
+<td>gamescom latam y similares</td>
+<td>🟡 Media</td>
+</tr>
+<tr>
+<td>Caso de éxito</td>
+<td>Del primer piloto → vender al siguiente</td>
+<td>🟢 Alta (post día 90)</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="6-cadencia-operativa-rituales">6. Cadencia operativa (rituales)</h2>
+<ul>
+<li><strong>Diario:</strong> dashboard de activación (registro→badge) y verificaciones nuevas.</li>
+<li><strong>Semanal:</strong> revisión de North Star + pipeline B2B; una hipótesis de crecimiento
+  probada por semana.</li>
+<li><strong>Por sprint (30 días):</strong> retro de metas vs. real; reasignar foco al canal con
+  mejor CAC/loop.</li>
+<li><strong>Regla de foco:</strong> un experimento de crecimiento a la vez, con métrica de éxito
+  definida antes de empezar.</li>
+</ul>
+<hr />
+<h2 id="7-del-dia-90-al-mes-12-arco-hacia-la-serie-seed">7. Del día 90 al mes 12 (arco hacia la Serie Seed)</h2>
+<table>
+<thead>
+<tr>
+<th>Ventana</th>
+<th>Foco</th>
+<th>Hito</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Días 1-90</td>
+<td>Encender oferta AR + prueba de demanda</td>
+<td>500-800 creadores, 1-2 pilotos</td>
+</tr>
+<tr>
+<td>Mes 4-6</td>
+<td>Densidad AR+MX, convertir pilotos en suscripción</td>
+<td>Primer ARR B2B recurrente</td>
+</tr>
+<tr>
+<td>Mes 6-9</td>
+<td><strong>Localizar y abrir Brasil (PT)</strong></td>
+<td>3 mercados activos</td>
+</tr>
+<tr>
+<td>Mes 9-12</td>
+<td>Escalar demanda B2B, empezar Colombia/Chile</td>
+<td><strong>US$250-500K ARR contratado</strong></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Gate de Serie Seed (fin de mes ~12-18):</strong> densidad verificada en 3 mercados +
+US$250-500K ARR B2B + LTV/CAC B2B validado con cuentas reales (ver <code>02 §6</code>).</p>
+<hr />
+<h2 id="8-riesgos-de-lanzamiento-y-mitigacion">8. Riesgos de lanzamiento y mitigación</h2>
+<table>
+<thead>
+<tr>
+<th>Riesgo</th>
+<th>Señal temprana</th>
+<th>Mitigación</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Directorio se ve vacío al abrir</td>
+<td>Marcas piden "más creadores"</td>
+<td>Waitlist con verificación anticipada; no abrir demanda hasta tener densidad</td>
+</tr>
+<tr>
+<td>Baja activación (no llegan al badge)</td>
+<td>Registro→badge &lt; 50%</td>
+<td>Reducir fricción del OAuth; onboarding guiado; soporte</td>
+</tr>
+<tr>
+<td>El loop viral no prende (K bajo)</td>
+<td>K-factor &lt; 0,3</td>
+<td>Incentivos de referral; embajadores; foco en un juego para densidad</td>
+</tr>
+<tr>
+<td>API de plataforma corta el OAuth</td>
+<td>Falla de verificación</td>
+<td>Multi-plataforma; capturar el dato en la conexión; términos al día</td>
+</tr>
+<tr>
+<td>Demanda tibia (marcas no cierran)</td>
+<td>Demos sin avance</td>
+<td>Empezar por endémicas (cierre natural); vender el ahorro de due diligence; caso de éxito</td>
+</tr>
+<tr>
+<td>Foco disperso (querer varios países ya)</td>
+<td>BD dividido</td>
+<td><strong>Disciplina de beachhead:</strong> Argentina primero, no negociable</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="9-resumen-en-una-linea">9. Resumen en una línea</h2>
+<blockquote>
+<p><strong>Se lanza en Argentina, con creadores mid-tier de un par de juegos, se
+construye una red atómica densa en 90 días, se cierra el primer piloto B2B con
+producto en mano, y recién ahí se hace ruido — para después replicar la jugada en
+México y Brasil rumbo a la Serie Seed.</strong></p>
+</blockquote>
+<h1 id="modelo-financiero">Modelo financiero</h1>
+<blockquote>
+<p>Proyección a 5 años, unit economics y escenarios. <strong>Todos los números son
+ilustrativos y están gobernados por los supuestos explícitos del §1</strong> — esto es
+pre-lanzamiento, así que el valor del modelo está en la <em>lógica</em> y las palancas,
+no en la precisión decimal. Se reemplaza por datos reales al tener tracción.</p>
+<p>Moneda: US$. Última act.: 2026-07-31.</p>
+</blockquote>
+<hr />
+<h2 id="1-supuestos-maestros">1. Supuestos maestros</h2>
+<h3 id="11-oferta-creadores-gratis-es-el-foso">1.1 Oferta (creadores — gratis, es el foso)</h3>
+<table>
+<thead>
+<tr>
+<th>Supuesto</th>
+<th>Valor</th>
+<th>Racional</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Creadores verificados fin de Y1</td>
+<td>3.000</td>
+<td>BD dirigido en 2-3 mercados</td>
+</tr>
+<tr>
+<td>Crecimiento</td>
+<td>5x → 3.3x → 2.4x → 2.1x</td>
+<td>desaceleración natural</td>
+</tr>
+<tr>
+<td>CAC creador</td>
+<td>US$3-8</td>
+<td>orgánico + alianzas con ligas</td>
+</tr>
+<tr>
+<td>Conversión a freemium premium</td>
+<td>3% (desde Y3)</td>
+<td>benchmark LinkedIn/Patreon</td>
+</tr>
+<tr>
+<td>Precio premium creador</td>
+<td>US$8/mes</td>
+<td>accesible para mid-tier</td>
+</tr>
+</tbody>
+</table>
+<h3 id="12-demanda-cuentas-b2b-el-revenue">1.2 Demanda (cuentas B2B — el revenue)</h3>
+<table>
+<thead>
+<tr>
+<th>Supuesto</th>
+<th>Valor</th>
+<th>Racional</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Cuentas B2B pagas fin Y2 → Y5</td>
+<td>40 → 150 → 400 → 800</td>
+<td>land-and-expand</td>
+</tr>
+<tr>
+<td>ARPA (ingreso anual por cuenta)</td>
+<td>US$6K → US$10.2K</td>
+<td>agencias &gt; marcas; upsell de asientos</td>
+</tr>
+<tr>
+<td>Retención anual de cuentas</td>
+<td>80%</td>
+<td>B2B con costo de cambio</td>
+</tr>
+<tr>
+<td>CAC cuenta B2B</td>
+<td>US$2.000</td>
+<td>venta directa, ciclo medio</td>
+</tr>
+<tr>
+<td>Margen bruto</td>
+<td>85%</td>
+<td>SaaS + costos de API/infra</td>
+</tr>
+</tbody>
+</table>
+<h3 id="13-motores-fase-3-desde-y3">1.3 Motores Fase 3 (desde Y3)</h3>
+<table>
+<thead>
+<tr>
+<th>Motor</th>
+<th>Y3</th>
+<th>Y4</th>
+<th>Y5</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Reclutamiento / jobs</td>
+<td>US$150K</td>
+<td>US$600K</td>
+<td>US$1.5M</td>
+</tr>
+<tr>
+<td>Take-rate en deals</td>
+<td>—</td>
+<td>US$400K</td>
+<td>US$1.2M</td>
+</tr>
+<tr>
+<td>Freemium creador</td>
+<td>~US$43K</td>
+<td>~US$115K</td>
+<td>~US$240K</td>
+</tr>
+</tbody>
+</table>
+<h3 id="14-ronda">1.4 Ronda</h3>
+<ul>
+<li>Pre-seed <strong>US$500K</strong> vía SAFE (mid del rango $250-750K).</li>
+<li>Runway objetivo: <strong>18 meses</strong>.</li>
+<li>Cap post-money sugerido: <strong>~US$8-10M</strong> (mediana Carta 2025 para rondas de
+  US$250K-1M es ~US$10M; con producto construido + problema validado, LOBBY apunta
+  a la mitad alta). Dilución resultante <strong>~5%</strong> — founder-friendly. Detalle en
+  <code>13-analisis-economico-financiero.md §7-8</code>.</li>
+</ul>
+<hr />
+<h2 id="2-proyeccion-de-ingresos-escenario-base">2. Proyección de ingresos — escenario BASE</h2>
+<table>
+<thead>
+<tr>
+<th>Motor</th>
+<th>Y1</th>
+<th>Y2</th>
+<th>Y3</th>
+<th>Y4</th>
+<th>Y5</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Directorio B2B</td>
+<td>0</td>
+<td>$240K</td>
+<td>$1.17M</td>
+<td>$3.6M</td>
+<td>$8.16M</td>
+</tr>
+<tr>
+<td>Reclutamiento</td>
+<td>0</td>
+<td>0</td>
+<td>$150K</td>
+<td>$600K</td>
+<td>$1.5M</td>
+</tr>
+<tr>
+<td>Take-rate</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>$400K</td>
+<td>$1.2M</td>
+</tr>
+<tr>
+<td>Freemium creador</td>
+<td>0</td>
+<td>$43K</td>
+<td>$43K</td>
+<td>$115K</td>
+<td>$240K</td>
+</tr>
+<tr>
+<td><strong>Total</strong></td>
+<td><strong>~$0</strong></td>
+<td><strong>~$0.28M</strong></td>
+<td><strong>~$1.4M</strong></td>
+<td><strong>~$4.8M</strong></td>
+<td><strong>~$11.1M</strong></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>Directorio B2B = cuentas × ARPA. Ej. Y3: 150 × ~US$7.8K ≈ US$1.17M.</p>
+</blockquote>
+<hr />
+<h2 id="3-escenarios">3. Escenarios</h2>
+<table>
+<thead>
+<tr>
+<th>ARR fin de año</th>
+<th>Conservador</th>
+<th><strong>Base</strong></th>
+<th>Agresivo</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Y2</td>
+<td>$0.15M</td>
+<td>$0.28M</td>
+<td>$0.45M</td>
+</tr>
+<tr>
+<td>Y3</td>
+<td>$0.8M</td>
+<td>$1.4M</td>
+<td>$2.3M</td>
+</tr>
+<tr>
+<td>Y4</td>
+<td>$2.6M</td>
+<td>$4.8M</td>
+<td>$8.0M</td>
+</tr>
+<tr>
+<td>Y5</td>
+<td>$6.0M</td>
+<td>$11.1M</td>
+<td>$19.5M</td>
+</tr>
+</tbody>
+</table>
+<p>Palancas entre escenarios: (a) velocidad de densidad de oferta, (b) tasa de cierre
+B2B, (c) ARPA (mezcla agencia/marca y upsell de asientos), (d) timing de encendido
+de los motores de Fase 3.</p>
+<hr />
+<h2 id="4-unit-economics">4. Unit economics</h2>
+<h3 id="41-cuenta-b2b-el-motor">4.1 Cuenta B2B (el motor)</h3>
+<table>
+<thead>
+<tr>
+<th>Métrica</th>
+<th>Valor</th>
+<th>Cálculo</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ARPA</td>
+<td>~US$7.800/año</td>
+<td>mezcla marca/agencia</td>
+</tr>
+<tr>
+<td>Margen bruto</td>
+<td>85%</td>
+<td>~US$6.630 contribución/año</td>
+</tr>
+<tr>
+<td>Vida media</td>
+<td>5 años</td>
+<td>1 / (1 − 80% retención)</td>
+</tr>
+<tr>
+<td><strong>LTV</strong></td>
+<td><strong>~US$33.000</strong></td>
+<td>contribución × vida</td>
+</tr>
+<tr>
+<td>CAC</td>
+<td>US$2.000</td>
+<td>venta directa</td>
+</tr>
+<tr>
+<td><strong>LTV/CAC</strong></td>
+<td><strong>~16x</strong></td>
+<td>muy por encima del piso de 3x</td>
+</tr>
+<tr>
+<td>Payback</td>
+<td>~3.6 meses</td>
+<td>CAC / (ARPA×margen/12)</td>
+</tr>
+</tbody>
+</table>
+<h3 id="42-creador-foso-no-ganancia-directa">4.2 Creador (foso, no ganancia directa)</h3>
+<table>
+<thead>
+<tr>
+<th>Métrica</th>
+<th>Valor</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>CAC</td>
+<td>US$3-8</td>
+</tr>
+<tr>
+<td>Ingreso directo</td>
+<td>~0 (3% convierte a $8/mes en Fase 3)</td>
+</tr>
+<tr>
+<td>Valor real</td>
+<td>dato de verificación que habilita el revenue B2B</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Lectura:</strong> cada creador verificado es un input del producto que se le vende a la
+marca. La rentabilidad no está en el creador sino en la <strong>densidad</strong> que hace
+inevitable la suscripción B2B.</p>
+<hr />
+<h2 id="5-costos-y-runway-del-pre-seed-18-meses">5. Costos y runway del pre-seed (18 meses)</h2>
+<table>
+<thead>
+<tr>
+<th>Rubro</th>
+<th>% del uso</th>
+<th>Detalle</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Producto / ingeniería / datos</td>
+<td>~55%</td>
+<td>2 eng + infra + costos de API de verificación</td>
+</tr>
+<tr>
+<td>BD creadores + ventas B2B</td>
+<td>~30%</td>
+<td>1 BD oferta + 1 ventas demanda + viáticos/eventos</td>
+</tr>
+<tr>
+<td>Operación / legal / misc</td>
+<td>~15%</td>
+<td>societario, contable, herramientas</td>
+</tr>
+</tbody>
+</table>
+<p>Con US$500K y ~18m, el burn objetivo es <strong>~US$28K/mes</strong>. El hito de salida del
+pre-seed (densidad en 3 mercados + US$250-500K ARR B2B contratado) es lo que
+destraba la Serie Seed.</p>
+<hr />
+<h2 id="6-camino-a-la-serie-seed">6. Camino a la Serie Seed</h2>
+<table>
+<thead>
+<tr>
+<th>Métrica de gate</th>
+<th>Objetivo pre-Seed</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Creadores verificados</td>
+<td>masa crítica en 3 mercados</td>
+</tr>
+<tr>
+<td>ARR B2B contratado</td>
+<td>US$250-500K</td>
+</tr>
+<tr>
+<td>LTV/CAC B2B validado</td>
+<td>&gt; 5x con cuentas reales</td>
+</tr>
+<tr>
+<td>Retención de cuentas</td>
+<td>≥ 70% observada</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="7-advertencia-metodologica-para-el-inversor">7. Advertencia metodológica (para el inversor)</h2>
+<p>Este modelo es <strong>top-down orientado por supuestos</strong>, apropiado para pre-seed. No
+pretende precisión: pretende mostrar (1) que la economía B2B cierra con holgura,
+(2) cuáles son las 3-4 palancas que mueven el resultado, y (3) que el uso de
+US$500K compra los hitos que destraban la próxima ronda. Se sustituye por un
+modelo bottom-up con cohortes reales apenas haya tracción.</p>
+<blockquote>
+<p><strong>Próximo paso sugerido:</strong> exportar este modelo a una planilla (Google
+Sheets/Excel) con celdas de supuestos editables para hacer sensibilidad en vivo
+frente a inversores. Puedo generar el CSV.</p>
+</blockquote>
+<h1 id="analisis-economico-financiero-profundo">Análisis económico-financiero (profundo)</h1>
+<blockquote>
+<p>El companion de nivel VC del <code>02-modelo-financiero.md</code>: revenue bottom-up por
+tier, P&amp;L direccional, unit economics por segmento, <strong>métricas de salud SaaS con
+benchmarks 2025</strong>, burn/runway, cap table y dilución, valuación por comparables,
+roadmap de fundraising y retorno para el inversor.</p>
+<p>Última act.: 2026-07-31. Benchmarks: Carta <em>State of Pre-Seed 2025</em>, SaaS Capital,
+Benchmarkit 2025, Data-Mania. Números de LOBBY = ilustrativos, gobernados por
+supuestos (pre-lanzamiento).</p>
+</blockquote>
+<hr />
+<h2 id="1-metodologia-por-que-este-nivel">1. Metodología (por qué este nivel)</h2>
+<p>El <code>02</code> es <strong>top-down</strong> (apropiado para pre-seed). Acá hacemos el <strong>bottom-up</strong> que
+lo valida —construir el ARR desde los tiers de <code>12-pricing</code>— y lo enmarcamos en las
+<strong>métricas que un VC usa para juzgar salud SaaS</strong>, contra benchmarks públicos. El
+objetivo no es precisión decimal (imposible pre-lanzamiento) sino demostrar que
+<strong>la economía cierra y las palancas son las correctas</strong>.</p>
+<hr />
+<h2 id="2-revenue-bottom-up-por-tier-reconcilia-con-el-top-down">2. Revenue bottom-up por tier (reconcilia con el top-down)</h2>
+<p>Construcción del <strong>directorio B2B</strong> al Año 5 desde los tiers de <code>12</code>:</p>
+<table>
+<thead>
+<tr>
+<th>Tier</th>
+<th>% de cuentas</th>
+<th>Cuentas (de 800)</th>
+<th>ARPA/año</th>
+<th>ARR</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Starter</td>
+<td>20%</td>
+<td>160</td>
+<td>US$1,5K</td>
+<td>US$0,24M</td>
+</tr>
+<tr>
+<td>Growth ⭐</td>
+<td>50%</td>
+<td>400</td>
+<td>US$6,5K</td>
+<td>US$2,60M</td>
+</tr>
+<tr>
+<td>Agency ⭐</td>
+<td>22%</td>
+<td>176</td>
+<td>US$15K</td>
+<td>US$2,64M</td>
+</tr>
+<tr>
+<td>Enterprise</td>
+<td>8%</td>
+<td>64</td>
+<td>US$35K</td>
+<td>US$2,24M</td>
+</tr>
+<tr>
+<td><strong>Total directorio Y5</strong></td>
+<td></td>
+<td><strong>800</strong></td>
+<td><strong>~US$9,7K blended</strong></td>
+<td><strong>~US$7,7M</strong></td>
+</tr>
+</tbody>
+</table>
+<p>Más los otros motores (Y5): reclutamiento <strong>US$1,5M</strong> + take-rate <strong>US$1,2M</strong> +
+freemium creador <strong>US$0,24M</strong>.</p>
+<blockquote>
+<p><strong>Total Y5 ≈ US$10,7-11,1M ARR</strong> — reconcilia con el top-down del <code>02</code>. La clave:
+el <strong>ARPA blended sube</strong> con el tiempo (de ~US$6K a ~US$9,7K) porque la mezcla se
+corre hacia Agency/Enterprise vía <strong>expansión de asientos (NRR)</strong>, no por subir
+precios de lista.</p>
+</blockquote>
+<hr />
+<h2 id="3-pl-direccional-5-anos-ilustrativo">3. P&amp;L direccional 5 años (ilustrativo)</h2>
+<table>
+<thead>
+<tr>
+<th>US$ '000</th>
+<th>Y1</th>
+<th>Y2</th>
+<th>Y3</th>
+<th>Y4</th>
+<th>Y5</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Ingresos</strong></td>
+<td>~0</td>
+<td>280</td>
+<td>1.400</td>
+<td>4.800</td>
+<td>11.100</td>
+</tr>
+<tr>
+<td>COGS (15%: API/infra/soporte)</td>
+<td>—</td>
+<td>(42)</td>
+<td>(210)</td>
+<td>(720)</td>
+<td>(1.665)</td>
+</tr>
+<tr>
+<td><strong>Gross profit (85%)</strong></td>
+<td>~0</td>
+<td>238</td>
+<td>1.190</td>
+<td>4.080</td>
+<td>9.435</td>
+</tr>
+<tr>
+<td>I+D (producto/eng)</td>
+<td>(300)</td>
+<td>(600)</td>
+<td>(1.100)</td>
+<td>(1.800)</td>
+<td>(2.600)</td>
+</tr>
+<tr>
+<td>S&amp;M (ventas + mkt)</td>
+<td>(120)</td>
+<td>(350)</td>
+<td>(900)</td>
+<td>(2.200)</td>
+<td>(3.600)</td>
+</tr>
+<tr>
+<td>G&amp;A</td>
+<td>(80)</td>
+<td>(150)</td>
+<td>(400)</td>
+<td>(900)</td>
+<td>(1.500)</td>
+</tr>
+<tr>
+<td><strong>EBITDA</strong></td>
+<td><strong>(500)</strong></td>
+<td><strong>(862)</strong></td>
+<td><strong>(1.210)</strong></td>
+<td><strong>(820)</strong></td>
+<td><strong>1.735</strong></td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong>Margen bruto 85%</strong> — estándar SaaS; el COGS es API de verificación + infra +
+  soporte.</li>
+<li><strong>Break-even de EBITDA hacia Y5</strong> — el negocio se vuelve rentable a escala,
+  cuando el gross profit (85%) supera el opex. Antes de eso, se <strong>invierte en
+  crecimiento</strong> (es lo que un VC quiere en growth stage, no rentabilidad temprana).</li>
+<li>Estructura de opex converge a un mix sano: <strong>I+D ~23%, S&amp;M ~32%, G&amp;A ~14%</strong> de
+  ingresos en Y5.</li>
+</ul>
+<hr />
+<h2 id="4-unit-economics-por-segmento-el-corazon">4. Unit economics por segmento (el corazón)</h2>
+<p>Las cuentas no son iguales — separamos <strong>marca</strong> de <strong>agencia</strong>:</p>
+<table>
+<thead>
+<tr>
+<th>Métrica</th>
+<th>Marca (Growth)</th>
+<th>Agencia</th>
+<th>Blended</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ARPA/año</td>
+<td>US$6,5K</td>
+<td>US$15K</td>
+<td>~US$9,7K</td>
+</tr>
+<tr>
+<td>Margen bruto</td>
+<td>85%</td>
+<td>85%</td>
+<td>85%</td>
+</tr>
+<tr>
+<td>Contribución/año</td>
+<td>US$5,5K</td>
+<td>US$12,75K</td>
+<td>US$8,2K</td>
+</tr>
+<tr>
+<td>Retención anual</td>
+<td>80%</td>
+<td>85%</td>
+<td>~82%</td>
+</tr>
+<tr>
+<td>Vida media</td>
+<td>5 años</td>
+<td>6,7 años</td>
+<td>~5,5 años</td>
+</tr>
+<tr>
+<td><strong>LTV</strong></td>
+<td><strong>~US$27,6K</strong></td>
+<td><strong>~US$85K</strong></td>
+<td><strong>~US$45K</strong></td>
+</tr>
+<tr>
+<td>CAC</td>
+<td>US$2.000</td>
+<td>US$3.500</td>
+<td>~US$2.400</td>
+</tr>
+<tr>
+<td><strong>LTV/CAC</strong></td>
+<td><strong>~14x</strong></td>
+<td><strong>~24x</strong></td>
+<td><strong>~18x</strong></td>
+</tr>
+<tr>
+<td><strong>CAC payback</strong></td>
+<td><strong>~4,4 meses</strong></td>
+<td><strong>~3,3 meses</strong></td>
+<td><strong>~3,5 meses</strong></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>Lectura:</strong> las <strong>agencias son el mejor negocio</strong> (LTV ~US$85K, LTV/CAC ~24x) —
+por eso son target ⭐. Ambos segmentos están <strong>muy por encima</strong> del piso sano
+(LTV/CAC &gt; 3x, payback &lt; 12 meses). El foso (creadores) se adquiere a CAC US$3-8
+y es costo de red, no incluido acá.</p>
+</blockquote>
+<hr />
+<h2 id="5-metricas-de-salud-saas-vs-benchmarks-2025">5. Métricas de salud SaaS vs. benchmarks 2025</h2>
+<table>
+<thead>
+<tr>
+<th>Métrica</th>
+<th>Target LOBBY</th>
+<th>Benchmark 2025</th>
+<th>Lectura</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>NRR</strong> (net revenue retention)</td>
+<td><strong>&gt;110%</strong></td>
+<td>mediana 82%; &gt;100% "must"; 120%+ elite</td>
+<td>Upsell de asientos (Agency/Enterprise)</td>
+</tr>
+<tr>
+<td><strong>GRR</strong> (gross retention)</td>
+<td>~85%</td>
+<td>85-90% sano</td>
+<td>Costo de cambio B2B</td>
+</tr>
+<tr>
+<td><strong>CAC payback</strong></td>
+<td><strong>~3,5 meses</strong></td>
+<td>mediana 20m; top 12-15m</td>
+<td><strong>Muy por encima</strong> del top</td>
+</tr>
+<tr>
+<td><strong>LTV/CAC</strong></td>
+<td><strong>~18x</strong></td>
+<td>&gt;3x sano</td>
+<td>Elite</td>
+</tr>
+<tr>
+<td><strong>Rule of 40</strong></td>
+<td><strong>&gt;40</strong> (growth&gt;&gt;40 temprano)</td>
+<td>sólo 11-30% lo logra</td>
+<td>Fácil en growth stage por base chica</td>
+</tr>
+<tr>
+<td><strong>Magic Number</strong></td>
+<td><strong>&gt;1,0</strong></td>
+<td>&gt;1,0 = eficiente</td>
+<td>S&amp;M eficiente por LTV/CAC alto</td>
+</tr>
+<tr>
+<td><strong>Burn Multiple</strong></td>
+<td><strong>&lt;1,5x</strong> → &lt;1,0x</td>
+<td>Series A mediana 1,2x; &lt;1,0 elite</td>
+<td>Disciplina de capital</td>
+</tr>
+<tr>
+<td><strong>Gross margin</strong></td>
+<td><strong>85%</strong></td>
+<td>75-85% SaaS</td>
+<td>Sano</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Conclusión:</strong> LOBBY no es un negocio de crecer quemando; su <strong>eficiencia de
+capital</strong> (CAC payback ~3,5m, LTV/CAC ~18x) es su argumento financiero más fuerte —
+consistente con la lección de Hitmarker (rentable con ~US$1M) vs. eFuse (US$17M
+quemados).</p>
+<hr />
+<h2 id="6-burn-runway-y-uso-de-fondos-pre-seed">6. Burn, runway y uso de fondos (pre-seed)</h2>
+<ul>
+<li><strong>Raise:</strong> US$500K · <strong>runway ~18 meses</strong> · <strong>burn objetivo ~US$28K/mes</strong>.</li>
+<li><strong>Uso:</strong> ~55% producto/datos · ~30% BD+ventas · ~15% ops (ver <code>02 §5</code>).</li>
+<li><strong>Burn multiple en la ventana pre-seed:</strong> se prioriza construir densidad + primer
+  ARR; el multiple se vuelve relevante recién post-seed (target &lt;1,5x).</li>
+<li><strong>Regla de disciplina (Carta):</strong> el pre-seed compra <strong>UN hito</strong> — densidad en 3
+  mercados + US$250-500K ARR contratado — no "18 meses de todo".</li>
+</ul>
+<hr />
+<h2 id="7-cap-table-y-dilucion-safe">7. Cap table y dilución (SAFE)</h2>
+<p><strong>Instrumento:</strong> post-money SAFE con cap, sin descuento — el estándar (92% de las
+rondas pre-priced en Q3 2025, Carta).</p>
+<table>
+<thead>
+<tr>
+<th>Ronda</th>
+<th>Monto</th>
+<th>Cap/valuación post</th>
+<th>Dilución</th>
+<th>Founders (aprox.)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Fundación</td>
+<td>—</td>
+<td>—</td>
+<td>—</td>
+<td>100%</td>
+</tr>
+<tr>
+<td><strong>Pre-seed (ahora)</strong></td>
+<td><strong>US$500K</strong></td>
+<td><strong>~US$8-10M post</strong></td>
+<td><strong>~5-6%</strong> + pool</td>
+<td><strong>~88-90%</strong></td>
+</tr>
+<tr>
+<td>Seed (mes 12-18)</td>
+<td>~US$2-3M</td>
+<td>~US$15-20M post</td>
+<td>~15%</td>
+<td>~72%</td>
+</tr>
+<tr>
+<td>Series A (año 3)</td>
+<td>~US$8-12M</td>
+<td>~US$40-60M post</td>
+<td>~20%</td>
+<td>~57%</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>Nota clave:</strong> con US$500K sobre un cap de ~US$10M, la dilución del pre-seed es
+<strong>~5%</strong> — <strong>muy founder-friendly</strong> (la mediana de dilución pre-seed es 10-15%,
+pero esos son raises más grandes). LOBBY entrega poco equity por el capital que
+necesita, gracias a que <strong>el producto ya está construido</strong>.</p>
+</blockquote>
+<hr />
+<h2 id="8-valuacion-por-comparables">8. Valuación (por comparables)</h2>
+<h3 id="81-hoy-pre-seed">8.1 Hoy (pre-seed)</h3>
+<p>El cap se fija por mercado, no por DCF (no hay ingresos aún):
+- <strong>Mediana Carta 2025:</strong> cap post-money <strong>~US$10M</strong> para rondas de US$250K-1M.
+- <strong>B2B SaaS first-time founder con problema validado:</strong> caps de <strong>US$8-15M</strong>.
+- <strong>Target LOBBY: US$8-10M post-money</strong> — justificado por producto construido +
+  problema validado con dato (37,2% fraude) + wedge de verificación.</p>
+<h3 id="82-a-futuro-referencia-de-salida">8.2 A futuro (referencia de salida)</h3>
+<ul>
+<li><strong>Múltiplos SaaS 2025:</strong> privado <strong>2,5-6x ARR</strong>; <strong>vertical SaaS +25-30% de
+  premium</strong> (7-9,5x con fintech embebido); NRR&gt;120% + Rule of 40&gt;50 → 7-9x.</li>
+<li><strong>LOBBY como vertical SaaS + marketplace LATAM:</strong> aplicando <strong>5-7x</strong> conservador
+  sobre <strong>US$11M ARR (Y5)</strong> → <strong>enterprise value ~US$55-77M</strong>.</li>
+<li><strong>Adquirentes estratégicos</strong> pagan 1,5-2x de premium y fueron 62% de los deals
+  SaaS 2025 — hay comprador natural (plataformas, agencias, holdings).</li>
+</ul>
+<hr />
+<h2 id="9-roadmap-de-fundraising-la-escalera">9. Roadmap de fundraising (la escalera)</h2>
+<table>
+<thead>
+<tr>
+<th>Ronda</th>
+<th>Cuándo</th>
+<th>Monto</th>
+<th>Hito que la destraba</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Pre-seed</strong></td>
+<td>Ahora</td>
+<td>US$500K</td>
+<td>Densidad 3 mercados + US$250-500K ARR</td>
+</tr>
+<tr>
+<td><strong>Seed</strong></td>
+<td>Mes 12-18</td>
+<td>US$2-3M</td>
+<td>ARR recurrente + unit economics validados</td>
+</tr>
+<tr>
+<td><strong>Series A</strong></td>
+<td>Año 3</td>
+<td>US$8-12M</td>
+<td>~US$3-5M ARR + NRR&gt;110% + expansión geográfica</td>
+</tr>
+<tr>
+<td><strong>(Salida)</strong></td>
+<td>Año 5+</td>
+<td>—</td>
+<td>~US$11M ARR, EV ~US$55-77M (o más con premium estratégico)</td>
+</tr>
+</tbody>
+</table>
+<p>Cada ronda financia el salto al siguiente hito, no "supervivencia". Es la
+<strong>disciplina de un hito por ronda</strong> (Carta).</p>
+<hr />
+<h2 id="10-retorno-para-el-inversor-del-pre-seed-ilustrativo">10. Retorno para el inversor del pre-seed (ilustrativo)</h2>
+<ul>
+<li><strong>Entrada:</strong> US$500K a cap ~US$10M → ~5% pre-dilución.</li>
+<li><strong>Referencia de salida:</strong> EV ~US$55-77M en ~5 años.</li>
+<li><strong>Múltiplo bruto:</strong> ~5,5-7,7x sobre el valor de entrada <strong>antes</strong> de dilución de
+  rondas siguientes; <strong>neto de dilución</strong> (~40-45% acumulada), sigue siendo un
+  <strong>~3-4x+</strong> en un escenario base, con upside mucho mayor en el agresivo (<code>02 §3</code>).</li>
+</ul>
+<blockquote>
+<p>Estos retornos son <strong>ilustrativos</strong> — dependen de ejecución y de las rondas
+intermedias. El punto para el inversor no es la precisión sino que <strong>la
+estructura de retorno cierra</strong> con eficiencia de capital, no con quema.</p>
+</blockquote>
+<hr />
+<h2 id="11-break-even-y-sensibilidad">11. Break-even y sensibilidad</h2>
+<ul>
+<li><strong>Break-even de EBITDA:</strong> ~<strong>Año 5</strong> (el gross profit al 85% supera el opex a
+  escala). Break-even de caja depende del ritmo de rondas.</li>
+<li><strong>Las 4 palancas que mueven el resultado</strong> (ver <code>02 §3</code> y <code>05 §7</code>):
+  1. Velocidad de densidad de oferta (habilita el B2B).
+  2. Tasa de cierre y penetración de cuentas B2B.
+  3. <strong>ARPA / mezcla de tiers</strong> (Agency/Enterprise suben el ARPA vía NRR).
+  4. Timing de encendido de reclutamiento + take-rate.</li>
+<li><strong>La más sensible:</strong> el ARPA blended (mezcla de tiers). Pasar de 82% a 92% de
+  retención + más peso Agency mueve el ARR de Y5 de ~US$8M a ~US$14M.</li>
+</ul>
+<hr />
+<h2 id="12-riesgos-financieros-y-mitigacion">12. Riesgos financieros y mitigación</h2>
+<table>
+<thead>
+<tr>
+<th>Riesgo</th>
+<th>Mitigación</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ARPA real &lt; proyectado (LATAM sensible al precio)</td>
+<td>Tiers desde US$99; anclaje a ROI; validar con Van Westendorp (<code>12 §8</code>)</td>
+</tr>
+<tr>
+<td>CAC B2B sube (ciclo de venta largo)</td>
+<td>Empezar por endémicas (cierre fácil); casos de éxito para bajar CAC</td>
+</tr>
+<tr>
+<td>Retención B2B &lt; 80%</td>
+<td>Onboarding + valor de campaña + gating por uso</td>
+</tr>
+<tr>
+<td>Riesgo cambiario erosiona ingresos</td>
+<td><strong>Cobro en USD</strong> como cobertura (<code>12 §6</code>, PESTEL <code>11</code>)</td>
+</tr>
+<tr>
+<td>Runway corto si el ARR tarda</td>
+<td>Disciplina de un hito por ronda; burn ~US$28K/mes</td>
+</tr>
+<tr>
+<td>Múltiplos SaaS comprimidos (mercado 2026 en baja)</td>
+<td>Foco en eficiencia (Rule of 40, burn&lt;1x) — lo que el mercado premia hoy</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="13-resumen-para-el-inversor">13. Resumen para el inversor</h2>
+<ol>
+<li><strong>Bottom-up reconcilia</strong> con el top-down: ~US$11M ARR en Y5 desde tiers reales.</li>
+<li><strong>Unit economics elite:</strong> LTV/CAC ~18x, CAC payback ~3,5 meses — muy sobre
+   benchmark.</li>
+<li><strong>Eficiencia &gt; quema:</strong> el argumento financiero es capital-efficient (Hitmarker,
+   no eFuse).</li>
+<li><strong>Ronda founder-friendly:</strong> ~5% de dilución a cap de mercado (~US$10M).</li>
+<li><strong>Retorno que cierra:</strong> ~3-4x+ neto en base, upside grande, con comprador
+   estratégico natural.</li>
+<li>Todo <strong>ilustrativo y gobernado por supuestos</strong> — se reemplaza con datos reales
+   post-lanzamiento.</li>
+</ol>
+<h1 id="anexo-one-pager">Anexo · One-Pager</h1>
+<p><strong>La capa profesional de la economía del entretenimiento.</strong>
+Pre-seed · US$500K · LATAM · pre-lanzamiento (producto construido)</p>
+<hr />
+<p><strong>El problema.</strong> Las marcas ya gastan miles de millones en marketing de
+influencers de gaming, pero no pueden responder a escala su pregunta #1: <em>¿esta
+audiencia es real o está inflada?</em> Hoy lo tercerizan en agencias — manual, caro y
+opaco. Del otro lado, el creador de gaming LATAM no tiene una identidad
+profesional portable: su valor está disperso en Twitch, YouTube, TikTok y un
+Linktree que no prueba nada.</p>
+<p><strong>La solución.</strong> LOBBY le da al creador un perfil profesional gratis con
+<strong>audiencia verificada por OAuth</strong> (Twitch, YouTube, TikTok, Instagram) — un media
+kit vivo que se actualiza solo — y le vende a <strong>marcas y agencias</strong> el acceso a ese
+directorio verificado y segmentable por juego, país, plataforma y tamaño. Es una
+infraestructura B2B de descubrimiento y verificación, disfrazada de perfil gratis.</p>
+<p><strong>Por qué ahora.</strong> Creator economy ~US$253B; influencer marketing ~US$32.5B
+(2025), gaming la vertical que más crece; no-endémicas ya son 47% del sponsorship
+gaming. LATAM: ~335M jugadores, ~US$25B, y <strong>ninguna capa de identidad profesional
+consolidada</strong>. La verificación por OAuth recién ahora es barata y accesible.</p>
+<p><strong>Por qué nosotros.</strong> El "LinkedIn para gamers" social fracasó (eFuse, Zengaming):
+el gamer no paga y el cold-start es brutal. LOBBY evita ambos: <strong>B2B desde el
+diseño</strong> (el pagador ya gasta) y <strong>secuencia oferta→demanda</strong> (primero densidad de
+creadores gratis, después se le cobra a la marca). El producto —perfiles
+verificados, discovery, analytics— <strong>ya está construido</strong>.</p>
+<p><strong>Modelo (secuenciado).</strong> (1) Directorio B2B verificado → primer revenue. (2)
+Reclutamiento/jobs (modelo Hitmarker, probado rentable). (3) Freemium creador.
+(4) Take-rate en deals. El creador nunca paga en el núcleo: su gratuidad construye
+el foso de datos que se vende a la marca.</p>
+<p><strong>Foso.</strong> Dataset propietario de verificación cross-plataforma + posición de
+categoría en LATAM + red de dos lados encendida en el orden correcto + costo de
+cambio para la marca.</p>
+<p><strong>Tracción / estado.</strong> Pre-lanzamiento. MVP funcional: perfiles con audiencia
+verificada (4 plataformas), discovery para marcas, analytics, refresh automático.</p>
+<p><strong>Números (base, ilustrativo).</strong> Y3 ~US$1.4M ARR · Y5 ~US$11M ARR. Unit economics
+B2B: LTV/CAC ~16x, payback ~3.6 meses.</p>
+<p><strong>El ask.</strong> US$500K pre-seed (SAFE), 18 meses de runway. Uso: densidad de oferta
+en 3 mercados + primeros pilotos B2B pagos. <strong>Hito para Seed:</strong> US$250-500K de ARR
+B2B contratado + densidad verificada en 3 mercados.</p>
+<hr />
+<p><em>Contacto: [nombre] · [email] · [web] — LOBBY, LATAM.</em></p>
+<h1 id="anexo-pitch-deck-12-slides">Anexo · Pitch Deck (12 slides)</h1>
+<blockquote>
+<p>Guion slide por slide para Silicon Valley / demo day. Formato: título +
+mensaje central (una idea por slide) + soporte. Diseñar visual aparte (el deck
+v1 en <code>pau/LOBBY-presentacion.pdf</code> sirve de base gráfica).</p>
+<p><strong>Pendiente: versión en inglés para presentar en SV/Harvard.</strong></p>
+</blockquote>
+<hr />
+<h2 id="slide-1-portada">Slide 1 — Portada</h2>
+<p><strong>LOBBY</strong>
+<em>La capa profesional de la economía del entretenimiento.</em>
+Pre-seed · LATAM · [logo] · [contacto]</p>
+<hr />
+<h2 id="slide-2-el-problema">Slide 2 — El problema</h2>
+<p><strong>Las marcas gastan miles de millones en creadores de gaming y no pueden saber si
+la audiencia es real.</strong>
+- Influencer marketing ~US$32.5B (2025), gaming la vertical que más crece.
+- Pregunta #1 de toda marca: <em>"¿audiencia real o inflada?"</em> — sin respuesta a
+  escala.
+- Hoy lo resuelven pagando agencias: manual, caro, opaco.
+- Y el creador LATAM no tiene identidad profesional portable.</p>
+<hr />
+<h2 id="slide-3-la-solucion">Slide 3 — La solución</h2>
+<p><strong>Perfil verificado gratis para el creador · directorio verificado pago para la
+marca.</strong>
+- Audiencia verificada por OAuth (Twitch, YouTube, TikTok, Instagram) = media kit
+  vivo.
+- La marca busca y segmenta creadores LATAM verificados por juego, país,
+  plataforma, tamaño.
+- <em>(Screenshot del perfil verificado + del discovery.)</em></p>
+<hr />
+<h2 id="slide-4-por-que-ahora">Slide 4 — Por qué ahora</h2>
+<p><strong>El dinero se corre a gaming, LATAM es enorme y no hay capa profesional.</strong>
+- Creator economy ~US$253B · esports sólo ~US$2.9B → la torta es contenido.
+- No-endémicas ya 47% del sponsorship gaming, y suben.
+- LATAM: ~335M jugadores, ~US$25B, cero capa de identidad consolidada.
+- Verificación por OAuth recién ahora es barata.</p>
+<hr />
+<h2 id="slide-5-el-mercado-tamsamsom">Slide 5 — El mercado (TAM/SAM/SOM)</h2>
+<ul>
+<li><strong>TAM:</strong> influencer marketing global ~US$32.5B.</li>
+<li><strong>SAM:</strong> gaming/creadores LATAM ~US$0.8-1.5B/año <em>(est.)</em>.</li>
+<li><strong>SOM:</strong> ~US$10-15M ARR a 5 años vía suscripción + reclutamiento + take-rate.</li>
+</ul>
+<hr />
+<h2 id="slide-6-producto-ya-construido">Slide 6 — Producto (ya construido)</h2>
+<p><strong>No pedimos plata para construir un MVP — ya existe.</strong>
+- Perfiles verificados, discovery, analytics, refresh automático, 4 plataformas.
+- Demo en vivo / screenshots.</p>
+<hr />
+<h2 id="slide-7-modelo-de-negocio">Slide 7 — Modelo de negocio</h2>
+<p><strong>Portafolio secuenciado — el creador nunca paga; la marca sí.</strong>
+1. Directorio B2B verificado (primer revenue).
+2. Reclutamiento/jobs (modelo Hitmarker, probado rentable).
+3. Freemium creador.
+4. Take-rate en deals.</p>
+<hr />
+<h2 id="slide-8-go-to-market">Slide 8 — Go-to-market</h2>
+<p><strong>Primero densidad de oferta, después se le cobra a la demanda.</strong>
+- Oferta: BD por juego/mercado denso + alianzas con ligas → adquisición orgánica.
+- Demanda: venta directa a endémicas y bebidas/QSR que ya invierten en LATAM.
+- El pitch a la marca: <em>"lo que hoy te cuesta meses y una agencia, acá en minutos
+  con datos verificados."</em></p>
+<hr />
+<h2 id="slide-9-por-que-ganamos-foso-fracasos-ajenos">Slide 9 — Por qué ganamos (foso + fracasos ajenos)</h2>
+<ul>
+<li>eFuse/Zengaming murieron: social de consumo no monetiza. <strong>LOBBY es B2B.</strong></li>
+<li>Foso: dataset propietario de verificación + categoría LATAM + red de dos lados
+  en el orden correcto + costo de cambio.</li>
+</ul>
+<hr />
+<h2 id="slide-10-numeros">Slide 10 — Números</h2>
+<ul>
+<li>Base: Y3 ~US$1.4M ARR · Y5 ~US$11M ARR.</li>
+<li>Unit economics B2B: LTV/CAC ~16x · payback ~3.6 meses.</li>
+<li><em>(Gráfico de ARR por motor.)</em></li>
+</ul>
+<hr />
+<h2 id="slide-11-equipo">Slide 11 — Equipo</h2>
+<ul>
+<li>Fundador/es + founder-market fit + asesores del ecosistema.</li>
+<li><em>(Completar con bios reales — crítico.)</em></li>
+</ul>
+<hr />
+<h2 id="slide-12-el-ask">Slide 12 — El ask</h2>
+<p><strong>US$500K pre-seed. 18 meses. Densidad en 3 mercados + US$250-500K ARR B2B → Serie
+Seed.</strong>
+- Uso: 55% producto/datos · 30% BD+ventas · 15% ops.
+- [contacto]</p></div>
+</body></html>
