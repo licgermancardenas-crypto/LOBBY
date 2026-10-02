@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server"
 import { cookies } from "next/headers"
 import { createClient } from "@/lib/supabase/server"
-import { createServiceClient } from "@/lib/supabase/admin"
+import { createServiceClient, tryServiceClient } from "@/lib/supabase/admin"
 import { exchangeCode, getUser } from "@/lib/tiktok"
 
 // Callback OAuth de TikTok: intercambia el code, lee followers y lo guarda
@@ -32,7 +32,10 @@ export async function GET(request: Request) {
     const tokens = await exchangeCode(code)
     const tiktokUser = await getUser(tokens.accessToken)
 
-    const { error } = await supabase.from("channel_stats").upsert(
+    // verified = true solo lo puede escribir el service role (trigger
+    // channel_stats_guard_verified); sin la key, cae al cliente del usuario.
+    const writer = tryServiceClient() ?? supabase
+    const { error } = await writer.from("channel_stats").upsert(
       {
         profile_id: user.id,
         platform: "tiktok",

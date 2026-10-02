@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server"
 import { cookies } from "next/headers"
 import { createClient } from "@/lib/supabase/server"
-import { createServiceClient } from "@/lib/supabase/admin"
+import { createServiceClient, tryServiceClient } from "@/lib/supabase/admin"
 import { exchangeCode, getUser, getFollowerCount } from "@/lib/twitch"
 
 // Callback OAuth de Twitch: intercambia el code, lee el total de followers
@@ -34,8 +34,10 @@ export async function GET(request: Request) {
     const twitchUser = await getUser(tokens.accessToken)
     const followers = await getFollowerCount(tokens.accessToken, twitchUser.id)
 
-    // Upsert por (profile_id, platform); RLS deja escribir solo al dueño.
-    const { error } = await supabase.from("channel_stats").upsert(
+    // verified = true solo lo puede escribir el service role (trigger
+    // channel_stats_guard_verified); sin la key, cae al cliente del usuario.
+    const writer = tryServiceClient() ?? supabase
+    const { error } = await writer.from("channel_stats").upsert(
       {
         profile_id: user.id,
         platform: "twitch",

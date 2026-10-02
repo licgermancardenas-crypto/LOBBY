@@ -15,3 +15,16 @@ export function createServiceClient() {
     auth: { autoRefreshToken: false, persistSession: false },
   })
 }
+
+/**
+ * Igual que createServiceClient, pero devuelve null si falta la key en vez de
+ * tirar. Para escrituras que preferimos hacer como Lobby (stats verificados)
+ * pero que no deben romper el flujo si el entorno no tiene el service role.
+ */
+export function tryServiceClient() {
+  try {
+    return createServiceClient()
+  } catch {
+    return null
+  }
+}

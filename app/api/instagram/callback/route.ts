@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server"
 import { cookies } from "next/headers"
 import { createClient } from "@/lib/supabase/server"
-import { createServiceClient } from "@/lib/supabase/admin"
+import { createServiceClient, tryServiceClient } from "@/lib/supabase/admin"
 import { exchangeCode, getProfile } from "@/lib/instagram"
 
 // Callback OAuth de Instagram: intercambia el code por un token de larga
@@ -32,7 +32,10 @@ export async function GET(request: Request) {
     const tokens = await exchangeCode(code)
     const profile = await getProfile(tokens.accessToken)
 
-    const { error } = await supabase.from("channel_stats").upsert(
+    // verified = true solo lo puede escribir el service role (trigger
+    // channel_stats_guard_verified); sin la key, cae al cliente del usuario.
+    const writer = tryServiceClient() ?? supabase
+    const { error } = await writer.from("channel_stats").upsert(
       {
         profile_id: user.id,
         platform: "instagram",
